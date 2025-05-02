@@ -1,0 +1,9 @@
+# Terraform artefacts
+*.tfstate
+*.tfstate.*
+.terraform/
+# Variables / secrets
+*.tfvars
+.secrets/
+# General cruft
+.DS_Store
