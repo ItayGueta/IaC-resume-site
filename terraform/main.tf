@@ -3,9 +3,9 @@ terraform {
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "~> 4.0"
-      }
+    }
     digitalocean = {
-      source = "digitalocean/digitalocean"
+      source  = "digitalocean/digitalocean"
       version = "~> 2.37"
 
     }
@@ -55,16 +55,16 @@ resource "digitalocean_ssh_key" "resume_key" {
 # digitalocean droplet config (hoping this is really 6$/m)
 ###############################################
 resource "digitalocean_droplet" "web" {
-  name               = "resume-site"
-  region             = "fra1"
-  size               = "s-1vcpu-1gb"
-  image              = "ubuntu-24-10-x64"
+  name   = "resume-site"
+  region = "fra1"
+  size   = "s-1vcpu-1gb"
+  image  = "ubuntu-24-10-x64"
 
-  ssh_keys           = [digitalocean_ssh_key.resume_key.id]
-  tags               = ["resume", "terraform"]
+  ssh_keys = [digitalocean_ssh_key.resume_key.id]
+  tags     = ["resume", "terraform"]
 
-  monitoring         = true
-  backups            = false
+  monitoring = true
+  backups    = false
 }
 
 ###############################################
@@ -78,7 +78,8 @@ resource "digitalocean_firewall" "resume_fw" {
   inbound_rule {
     protocol         = "tcp"
     port_range       = "22"
-    source_addresses = ["${var.home_ip}/32"]  }
+    source_addresses = ["${var.home_ip}/32"]
+  }
 
   # HTTP
   inbound_rule {
@@ -106,7 +107,7 @@ resource "digitalocean_firewall" "resume_fw" {
 ###############################################
 
 resource "cloudflare_record" "root_a" {
-  zone_id = data.cloudflare_zone.site.id
+  zone_id = "1ee96a7ca4f9c0adefa6fcf412af8252" # move to a variable later...maybe
   name    = "@"
   type    = "A"
   value   = digitalocean_droplet.web.ipv4_address
