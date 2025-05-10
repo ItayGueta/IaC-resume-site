@@ -1,0 +1,59 @@
+- name: Harden droplet and deploy nginx
+  hosts: resume_site
+  become: yes
+  vars:
+    deploy_user: deploy
+    ssh_pubkey: "{{ lookup('file', '~/.ssh/digitalocean_ssh_key.pub') }}"
+
+  tasks:
+
+  - name: Create deploy user with sudo rights
+    user:
+      name: "{{ deploy_user }}"
+      groups: sudo
+      shell: /bin/bash
+      create_home: yes
+
+  - name: Authorize SSH key for deploy user
+    authorized_key:
+      user: "{{ deploy_user }}"
+      key: "{{ ssh_pubkey }}"
+
+  - name: Disable root SSH and password auth
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+      state: present
+    loop:
+      - { regexp: '^PermitRootLogin',      line: 'PermitRootLogin no' }
+      - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
+    notify: restart sshd
+
+  - name: Install nginx & ufw
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    loop:
+      - nginx
+      - ufw
+
+  - name: Allow SSH HTTP HTTPS via ufw
+    ufw:
+      rule: allow
+      port: "{{ item }}"
+    loop: [22, 80, 443]
+  - name: Allow deploy to sudo without password
+    copy:
+     dest: /etc/sudoers.d/deploy
+     content: "deploy ALL=(ALL) NOPASSWD:ALL\n"
+     owner: root
+     group: root
+     mode: '0440'
+
+  handlers:
+    - name: restart sshd
+      service:
+        name: ssh
+        state: restarted
