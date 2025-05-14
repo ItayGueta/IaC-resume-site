@@ -2,7 +2,7 @@
 title: "Welcome!"
 ---
 
-# Hi, I’m Itay!
+# I am Itay
 
 And this very site was built using terraform, ansible playbooks and sheer determination
 
@@ -10,13 +10,16 @@ And this very site was built using terraform, ansible playbooks and sheer determ
 
 ## Résumé
 
-You can download it right here:
+[▶ See my résumé in fullscreen (PDF)](/Itay_Gueta_CV_2025.pdf)
 
-[▶ View my résumé (PDF)](/Itay_Gueta_CV_2025.pdf){:target="_blank" rel="noopener"}
+Or take a peek here:
 
-Or just scroll down to see it:
-
-<embed src="/Itay_Gueta_CV_2025.pdf"
-       type="application/pdf"
-       width="100%" height="800px" />
+<div>
+<embed
+  src="/Itay_Gueta_CV_2025.pdf"
+  type="application/pdf"
+  width="170%"
+  height="800px"
+/>
+</div>
 

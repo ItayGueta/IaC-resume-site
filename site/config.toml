@@ -1,4 +1,10 @@
 baseURL       = "https://itaygueta.com/"
 languageCode  = "en-us"
-title         = "Itay says hi!"
+title         = "Itay Gueta"
 theme        = "ananke"
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      attribute = true
+    [markup.goldmark.renderer]
+      unsafe = true
