@@ -11,6 +11,16 @@ terraform {
     }
   }
 }
+# ---------------- Fetch github actions workers' ip addresses ----------------
+data "http" "github_meta" {
+  url = "https://api.github.com/meta"
+}
+
+locals {
+  all_actions   = jsondecode(data.http.github_meta.response_body).actions
+  raw_ipv4      = [ for cidr in local.all_actions : cidr if length(regexall(":", cidr)) == 0 ]
+  ipv4_chunks   = chunklist(local.raw_ipv4, 1000)
+}
 
 # ---------------- Allowed IP to SSH ----------------
 
@@ -67,6 +77,10 @@ resource "digitalocean_droplet" "web" {
   backups    = false
 }
 
+output "ipv4_count" {
+  value = length(local.raw_ipv4)
+}
+
 ###############################################
 # Cloud Firewall – only 22 / 80 / 443
 ###############################################
@@ -74,12 +88,22 @@ resource "digitalocean_firewall" "resume_fw" {
   name        = "resume-fw"
   droplet_ids = [digitalocean_droplet.web.id]
 
-  # SSH – ideally restricted to your IP
+  # SSH – Restricted to my IP
   inbound_rule {
     protocol         = "tcp"
     port_range       = "22"
     source_addresses = ["${var.home_ip}/32"]
   }
+  # SSH - Restricted to Github actions workers
+  dynamic "inbound_rule" {
+    for_each = local.ipv4_chunks
+    content {
+      protocol         = "tcp"
+      port_range       = "22"
+      source_addresses = inbound_rule.value
+    }
+    }
+
 
   # HTTP
   inbound_rule {
@@ -88,14 +112,14 @@ resource "digitalocean_firewall" "resume_fw" {
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
-  # HTTPS (we’ll add TLS soon)
+  # HTTPS
   inbound_rule {
     protocol         = "tcp"
     port_range       = "443"
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
-  # Everything out is fine
+
   outbound_rule {
     protocol              = "tcp"
     port_range            = "all"
