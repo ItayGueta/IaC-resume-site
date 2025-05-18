@@ -8,9 +8,9 @@ And this very site was built using terraform, ansible playbooks and sheer determ
 
 ---
 
-## Résumé
+## Resume
 
-[▶ See my résumé in fullscreen (PDF)](/Itay_Gueta_CV_2025.pdf)
+[▶ See my resume in fullscreen (PDF)](/Itay_Gueta_CV_2025.pdf)
 
 Or take a peek here:
 
