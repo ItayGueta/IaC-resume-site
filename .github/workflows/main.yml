@@ -29,4 +29,4 @@ jobs:
           remote_user: deploy
           remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
           remote_path: /var/www/resume-site/
-          rsh: "sudo rsync"
+          rsh: "ssh -o StrictHostKeyChecking=no"
