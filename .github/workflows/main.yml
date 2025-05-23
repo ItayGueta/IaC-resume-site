@@ -23,10 +23,12 @@ jobs:
       - name: Rsync to server
         uses: burnett01/rsync-deployments@7.0.2
         with:
-          switches: -avz --delete
+          switches: -avz --delete --rsync-path="sudo rsync"
+
+
           path: site/public/
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_user: deploy
           remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
           remote_path: /var/www/resume-site/
-          rsh: "ssh -o StrictHostKeyChecking=no"
+        
