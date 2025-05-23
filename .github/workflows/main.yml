@@ -24,8 +24,6 @@ jobs:
         uses: burnett01/rsync-deployments@7.0.2
         with:
           switches: -avz --delete --rsync-path="sudo rsync"
-
-
           path: site/public/
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_user: deploy
