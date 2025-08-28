@@ -3,7 +3,16 @@
 <ul class="{{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pr0 ml3" "pl0 mr3" }}">
     {{ range .Translations }}
     <li class="list f5 f4-ns fw4 dib {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "pl3" "pr3" }}">
-        <a class="hover-white white-90 no-underline" href="{{ .RelPermalink }}">{{ .Lang }}</a>
+                    <!-- Language toggle with SVG flags -->
+                    <a class="hover-white white-90 no-underline" href="{{ .RelPermalink }}">
+                        {{ if eq .Lang "de" }}
+                            <img src="/images/flag-de.svg" alt="Deutsch" style="height:1.5em;vertical-align:middle;" />
+                        {{ else if eq .Lang "en" }}
+                            <img src="/images/flag-en.svg" alt="English" style="height:1.5em;vertical-align:middle;" />
+                        {{ else }}
+                            {{ .Lang }}
+                        {{ end }}
+                    </a>
     </li>
     {{ end}}
 </ul>

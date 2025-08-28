@@ -1,0 +1,117 @@
+/* Custom visual polish for resume site */
+body {
+  font-family: 'Avenir', 'Segoe UI', 'Arial', sans-serif;
+}
+.header {
+  background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+  color: #fff;
+}
+.site-title {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.read-more {
+  color: #2563eb;
+  text-decoration: underline;
+}
+/* Add dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #18181b;
+    color: #e5e7eb;
+  }
+  .header {
+    background: linear-gradient(90deg, #2563eb 0%, #1e3a8a 100%);
+  }
+  .read-more {
+    color: #60a5fa;
+  }
+}
+/* Center PDF viewer and add card styling */
+.pdf-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255,255,255,0.85);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(30,58,138,0.18);
+  max-width: 900px;
+  animation: fadeInUp 1s cubic-bezier(.39,.575,.565,1) both;
+}
+.pdf-card embed {
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(30,58,138,0.12);
+  width: 100%;
+  max-width: 800px;
+  height: 800px;
+  background: #f8fafc;
+}
+/* Animate.css fadeInUp keyframes */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Glassmorphism for hero/card */
+.glass {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 0.75em 1.5em;
+  border-radius: 2em;
+  background: linear-gradient(90deg, #2563eb 0%, #1e3a8a 100%);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(30,58,138,0.12);
+  transition: background 0.3s, transform 0.2s;
+  text-decoration: none;
+}
+.btn:hover {
+  background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+  transform: scale(1.05);
+}
+/* Social icon polish */
+.ananke-socials a {
+  transition: transform 0.2s;
+}
+.ananke-socials a:hover {
+  transform: scale(1.2);
+}
+/* Dark/light theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 1000;
+  background: #fff;
+  color: #2563eb;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 2px 8px rgba(30,58,138,0.12);
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
+}
+.theme-toggle.dark {
+  background: #18181b;
+  color: #fff;
+}
