@@ -1,6 +1,7 @@
 name: Deploy CV Update
 
 on:
+  workflow_dispatch: {}
   push:
     paths:
       - 'site/static/Itay_Gueta_CV_2025.pdf'
