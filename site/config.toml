@@ -7,7 +7,7 @@ theme        = "ananke"
     [markup.goldmark.parser]
       attribute = true
     [markup.goldmark.renderer]
-      unsafe = true
+  unsafe = false
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 [languages]
