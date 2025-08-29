@@ -7,3 +7,7 @@
 .secrets/
 # General cruft
 .DS_Store
+# Hugo build output and generated files (except CV PDF)
+public/
+static/index.html
+static/images/

@@ -7,4 +7,19 @@ theme        = "ananke"
     [markup.goldmark.parser]
       attribute = true
     [markup.goldmark.renderer]
-      unsafe = true
+  unsafe = false
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    contentDir = "content"
+    title = "Itay Gueta"
+    languageCode = "en-us"
+  [languages.de]
+    languageName = "Deutsch"
+    weight = 2
+    contentDir = "content/de"
+    title = "Itay Gueta"
+    languageCode = "de"
