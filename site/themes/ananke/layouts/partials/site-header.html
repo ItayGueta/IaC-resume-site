@@ -7,11 +7,14 @@
     <div class="{{ $cover_dimming_class }}">
       {{ partials.Include "site-navigation.html" .}}
       <!-- Language Toggle Button -->
-      <div style="position:fixed;top:1.5rem;left:2rem;z-index:1000;">
-        <a href="{{ if eq .Site.Language.Lang "en" }}{{ .RelPermalink | replaceRE "^/en" "/de" }}{{ else }}{{ .RelPermalink | replaceRE "^/de" "/en" }}{{ end }}" class="theme-toggle btn" title="Switch language">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4 12h16"/><path d="M12 2a15.3 15.3 0 0 1 0 20"/></svg>
-          <span style="margin-left:0.5em;font-size:1rem;">{{ if eq .Site.Language.Lang "en" }}DE{{ else }}EN{{ end }}</span>
-        </a>
+  <div style="position:fixed;top:1.5rem;right:2rem;z-index:1000;">
+          <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}" class="theme-toggle btn" title="Switch language" aria-label="Switch language">
+            {{ if eq .Site.Language.Lang "en" }}
+              <img src="/images/flag-de.svg" alt="Deutsch" style="height:1.5em;vertical-align:middle;" />
+            {{ else }}
+              <img src="/images/flag-en.svg" alt="English" style="height:1.5em;vertical-align:middle;" />
+            {{ end }}
+          </a>
       </div>
       <div class="tc-l pv4 pv6-l ph3 ph4-ns">
         <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
@@ -30,11 +33,14 @@
     <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
       {{ partials.Include "site-navigation.html" . }}
       <!-- Language Toggle Button -->
-      <div style="position:fixed;top:1.5rem;left:2rem;z-index:1000;">
-        <a href="{{ if eq .Site.Language.Lang "en" }}{{ .RelPermalink | replaceRE "^/en" "/de" }}{{ else }}{{ .RelPermalink | replaceRE "^/de" "/en" }}{{ end }}" class="theme-toggle btn" title="Switch language">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4 12h16"/><path d="M12 2a15.3 15.3 0 0 1 0 20"/></svg>
-          <span style="margin-left:0.5em;font-size:1rem;">{{ if eq .Site.Language.Lang "en" }}DE{{ else }}EN{{ end }}</span>
-        </a>
+  <div style="position:fixed;top:1.5rem;right:2rem;z-index:1000;">
+          <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}" class="theme-toggle btn" title="Switch language" aria-label="Switch language">
+            {{ if eq .Site.Language.Lang "en" }}
+              <img src="/images/flag-de.svg" alt="Deutsch" style="height:1.5em;vertical-align:middle;" />
+            {{ else }}
+              <img src="/images/flag-en.svg" alt="English" style="height:1.5em;vertical-align:middle;" />
+            {{ end }}
+          </a>
       </div>
       <div class="tc-l pv3 ph3 ph4-ns">
         <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
