@@ -2,32 +2,33 @@ name: Deploy CV Update
 
 on:
   workflow_dispatch: {}
-  push:
-    paths:
-      - 'site/static/Itay_Gueta_CV_2025.pdf'
+  push:
+    paths:
+      - 'site/static/Itay_Gueta_CV_2025.pdf'
 
 jobs:
-  deploy_cv:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  deploy_cv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: 'latest'
-          extended: true
-          
-      - name: Build site
-        run: hugo --minify -s site
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+          
+      - name: Build site
+        run: hugo --minify -s site
 
-      - name: Rsync to server
-        uses: burnett01/rsync-deployments@7.0.2
-        with:
-          switches: -avz --delete --rsync-path="sudo rsync"
-          path: site/public/
-          remote_host: ${{ secrets.DEPLOY_HOST }}
-          remote_user: deploy
-          remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
-          remote_path: /var/www/resume-site/
-        
+      - name: Rsync to server
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avz --delete --rsync-path="sudo rsync"
+          path: site/public/
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_user: deploy
+          remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
+          remote_path: /var/www/resume-site/
+        
+
