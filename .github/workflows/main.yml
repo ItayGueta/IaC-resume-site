@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
   push:
     paths:
-      - 'site/static/Itay_Gueta_CV_2025.pdf'
+      - 'site/static/Itay_Gueta_CV_2026.pdf'
 
 jobs:
   deploy_cv:
