@@ -10,7 +10,7 @@ Diese Website wurde mit Terraform, Ansible-Playbooks und viel Entschlossenheit e
 
 ## Lebenslauf
 
-[▶ Lebenslauf im Vollbild ansehen (PDF)](/Itay_Gueta_CV_2025.pdf)
+[▶ Lebenslauf im Vollbild ansehen (PDF)](/Itay_Gueta_CV_2026.pdf)
 
 Oder hier anschauen:
-{{< pdf src="/Itay_Gueta_CV_2025.pdf" >}}
+{{< pdf src="/Itay_Gueta_CV_2026.pdf" >}}

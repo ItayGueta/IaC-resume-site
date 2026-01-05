@@ -10,9 +10,9 @@ And this very site was built using terraform, ansible playbooks and sheer determ
 
 ## Resume
 
-[▶ See my resume in fullscreen (PDF)](/Itay_Gueta_CV_2025.pdf)
+[▶ See my resume in fullscreen (PDF)](/Itay_Gueta_CV_2026.pdf)
 
 Or take a peek here:
 
-{{< pdf src="/Itay_Gueta_CV_2025.pdf" >}}
+{{< pdf src="/Itay_Gueta_CV_2026.pdf" >}}
 
