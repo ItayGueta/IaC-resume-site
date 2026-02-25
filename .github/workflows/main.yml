@@ -1,25 +1,69 @@
-name: Deploy CV Update
+name: Build and Deploy Resume Site
 
 on:
   workflow_dispatch: {}
   push:
     paths:
-      - 'site/static/Itay_Gueta_CV_2026.pdf'
+      - "site/config.toml"
+      - "site/content/**"
+      - "site/layouts/**"
+      - "site/static/**"
+      - ".github/workflows/main.yml"
+  pull_request:
+    paths:
+      - "site/config.toml"
+      - "site/content/**"
+      - "site/layouts/**"
+      - "site/static/**"
+      - ".github/workflows/main.yml"
+
+concurrency:
+  group: resume-site-deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy_cv:
+  validate_site:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: "0.148.2"
           extended: true
-          
+
       - name: Build site
         run: hugo --minify -s site
+
+  deploy_site:
+    if: github.event_name == 'push'
+    needs: validate_site
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'master' && 'production' || 'beta' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.148.2"
+          extended: true
+
+      - name: Set deploy target
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "master" ]; then
+            echo "DEPLOY_PATH=/var/www/resume-site/" >> "$GITHUB_ENV"
+            echo "HUGO_BASE_URL=https://itaygueta.com/" >> "$GITHUB_ENV"
+          else
+            echo "DEPLOY_PATH=/var/www/resume-site-beta/" >> "$GITHUB_ENV"
+            echo "HUGO_BASE_URL=https://beta.itaygueta.com/" >> "$GITHUB_ENV"
+          fi
+
+      - name: Build site
+        run: hugo --minify -s site --baseURL "$HUGO_BASE_URL"
 
       - name: Rsync to server
         uses: burnett01/rsync-deployments@7.0.2
@@ -29,4 +73,4 @@ jobs:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_user: deploy
           remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
-          remote_path: /var/www/resume-site/
+          remote_path: ${{ env.DEPLOY_PATH }}
