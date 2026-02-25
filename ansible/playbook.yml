@@ -1,59 +1,126 @@
-- name: Harden droplet and deploy nginx
+- name: Harden droplet and configure resume site
   hosts: resume_site
-  become: yes
+  become: true
   vars:
     deploy_user: deploy
-    ssh_pubkey: "{{ lookup('file', '~/.ssh/digitalocean_ssh_key.pub') }}"
+    ssh_pubkey_path: "~/.ssh/digitalocean_ssh_key.pub"
+    ssh_pubkey: "{{ lookup('file', ssh_pubkey_path) }}"
+    web_root: /var/www/resume-site
+    nginx_site_name: resume-site
+    certbot_email: "{{ lookup('env', 'CERTBOT_EMAIL') | default('admin@itaygueta.com', true) }}"
+    domain_name: "{{ ansible_host }}"
 
   tasks:
+    - name: Install base packages
+      apt:
+        name:
+          - nginx
+          - ufw
+          - certbot
+          - python3-certbot-nginx
+        state: present
+        update_cache: true
 
-  - name: Create deploy user with sudo rights
-    user:
-      name: "{{ deploy_user }}"
-      groups: sudo
-      shell: /bin/bash
-      create_home: yes
+    - name: Create deploy user with sudo rights
+      user:
+        name: "{{ deploy_user }}"
+        groups: sudo
+        shell: /bin/bash
+        create_home: true
 
-  - name: Authorize SSH key for deploy user
-    authorized_key:
-      user: "{{ deploy_user }}"
-      key: "{{ ssh_pubkey }}"
+    - name: Authorize SSH key for deploy user
+      authorized_key:
+        user: "{{ deploy_user }}"
+        key: "{{ ssh_pubkey }}"
 
-  - name: Disable root SSH and password auth
-    lineinfile:
-      path: /etc/ssh/sshd_config
-      regexp: "{{ item.regexp }}"
-      line: "{{ item.line }}"
-      state: present
-    loop:
-      - { regexp: '^PermitRootLogin',      line: 'PermitRootLogin no' }
-      - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
-    notify: restart sshd
+    - name: Disable root SSH and password auth
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        state: present
+      loop:
+        - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }
+        - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
+      notify: restart sshd
 
-  - name: Install nginx & ufw
-    apt:
-      name: "{{ item }}"
-      state: present
-      update_cache: yes
-    loop:
-      - nginx
-      - ufw
+    - name: Allow deploy user to sudo without password
+      copy:
+        dest: /etc/sudoers.d/deploy
+        content: "deploy ALL=(ALL) NOPASSWD:ALL\n"
+        owner: root
+        group: root
+        mode: "0440"
 
-  - name: Allow SSH HTTP HTTPS via ufw
-    ufw:
-      rule: allow
-      port: "{{ item }}"
-    loop: [22, 80, 443]
-  - name: Allow deploy to sudo without password
-    copy:
-     dest: /etc/sudoers.d/deploy
-     content: "deploy ALL=(ALL) NOPASSWD:ALL\n"
-     owner: root
-     group: root
-     mode: '0440'
+    - name: Allow SSH/HTTP/HTTPS through UFW
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+      loop: [22, 80, 443]
+
+    - name: Enable UFW
+      ufw:
+        state: enabled
+
+    - name: Ensure resume web root exists
+      file:
+        path: "{{ web_root }}"
+        state: directory
+        owner: "{{ deploy_user }}"
+        group: "{{ deploy_user }}"
+        mode: "0755"
+
+    - name: Deploy nginx server block
+      template:
+        src: templates/resume-site.conf.j2
+        dest: "/etc/nginx/sites-available/{{ nginx_site_name }}"
+        owner: root
+        group: root
+        mode: "0644"
+      notify: reload nginx
+
+    - name: Enable nginx server block
+      file:
+        src: "/etc/nginx/sites-available/{{ nginx_site_name }}"
+        dest: "/etc/nginx/sites-enabled/{{ nginx_site_name }}"
+        state: link
+      notify: reload nginx
+
+    - name: Disable default nginx server block
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+      notify: reload nginx
+
+    - name: Validate nginx configuration
+      command: nginx -t
+      changed_when: false
+
+    - name: Flush handlers before certbot
+      meta: flush_handlers
+
+    - name: Obtain and install Let's Encrypt certificate
+      command: >
+        certbot --nginx --non-interactive --agree-tos --redirect
+        --hsts --staple-ocsp
+        --email {{ certbot_email }}
+        -d {{ domain_name }}
+      args:
+        creates: "/etc/letsencrypt/live/{{ domain_name }}/fullchain.pem"
+
+    - name: Ensure certbot renewal timer is enabled
+      service:
+        name: certbot.timer
+        enabled: true
+        state: started
 
   handlers:
     - name: restart sshd
       service:
         name: ssh
         state: restarted
+
+    - name: reload nginx
+      service:
+        name: nginx
+        state: reloaded
