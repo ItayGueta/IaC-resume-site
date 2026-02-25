@@ -1,9 +1,9 @@
 server {
   listen 80;
   listen [::]:80;
-  server_name {{ domain_name }};
+  server_name {{ site_domain }};
 
-  root {{ web_root }};
+  root {{ site_root }};
   index index.html;
 
   location / {

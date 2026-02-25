@@ -87,6 +87,12 @@ variable "cloudflare_record_name" {
   default     = "@"
 }
 
+variable "cloudflare_beta_record_name" {
+  description = "Cloudflare DNS name for the beta resume site"
+  type        = string
+  default     = "beta"
+}
+
 locals {
   ssh_base_cidrs      = concat(["${var.home_ip}/32"], var.ssh_additional_cidrs)
   github_actions_ipv4 = var.allow_github_actions_ssh ? [for cidr in jsondecode(data.http.github_meta[0].response_body).actions : cidr if length(regexall(":", cidr)) == 0] : []
@@ -164,6 +170,15 @@ resource "digitalocean_firewall" "resume_fw" {
 resource "cloudflare_record" "root_a" {
   zone_id = var.cloudflare_zone_id
   name    = var.cloudflare_record_name
+  type    = "A"
+  value   = digitalocean_droplet.web.ipv4_address
+  ttl     = 300
+  proxied = false
+}
+
+resource "cloudflare_record" "beta_a" {
+  zone_id = var.cloudflare_zone_id
+  name    = var.cloudflare_beta_record_name
   type    = "A"
   value   = digitalocean_droplet.web.ipv4_address
   ttl     = 300
