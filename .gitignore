@@ -2,12 +2,27 @@
 *.tfstate
 *.tfstate.*
 .terraform/
+
 # Variables / secrets
 *.tfvars
 .secrets/
+
 # General cruft
 .DS_Store
+
+# Python local environments
+.venv/
+__pycache__/
+
+# Local tool state
+.opencode/
+.opencode/node_modules/
+
+# Agent docs
+AGENTS.md
+design-log/
+
 # Hugo build output and generated files (except CV PDF)
-public/
-static/index.html
-static/images/
+site/public/
+site/resources/_gen/
+site/.hugo_build.lock

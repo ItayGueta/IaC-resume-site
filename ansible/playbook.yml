@@ -3,7 +3,7 @@
   become: true
   vars:
     deploy_user: deploy
-    ssh_pubkey_path: "~/.ssh/digitalocean_ssh_key.pub"
+    ssh_pubkey_path: "~/.ssh/digitalocean_terraform_key.pub"
     ssh_pubkey: "{{ lookup('file', ssh_pubkey_path) }}"
     web_root: /var/www/resume-site
     beta_web_root: /var/www/resume-site-beta

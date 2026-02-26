@@ -1,10 +1,12 @@
 ---
-title: "Willkommen!"
+title: "Allein Infrastruktur Gemanagt. Jetzt Automatisiere Ich Alles."
 ---
 
 # Ich bin Itay
 
-Diese Website wurde mit Terraform, Ansible-Playbooks und viel Entschlossenheit erstellt.
+Ich habe Infrastruktur und Geraete an einer Schule allein betreut. Deshalb automatisiere und optimiere ich heute alles, was sinnvoll ist.
+
+Die Infrastruktur habe ich selbst mit Terraform und Ansible aufgebaut und abgesichert.
 
 ---
 
@@ -12,5 +14,5 @@ Diese Website wurde mit Terraform, Ansible-Playbooks und viel Entschlossenheit e
 
 [▶ Lebenslauf im Vollbild ansehen (PDF)](/Itay_Gueta_CV_2026.pdf)
 
-Oder hier anschauen:
+Oder direkt hier ansehen:
 {{< pdf src="/Itay_Gueta_CV_2026.pdf" >}}

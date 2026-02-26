@@ -56,7 +56,7 @@ variable "droplet_size" {
 variable "droplet_image" {
   description = "DigitalOcean droplet image slug"
   type        = string
-  default     = "ubuntu-24-10-x64"
+  default     = "ubuntu-24-04-x64"
 }
 
 variable "do_ssh_public_key_path" {

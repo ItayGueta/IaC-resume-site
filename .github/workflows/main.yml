@@ -1,13 +1,25 @@
 name: Build and Deploy Resume Site
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: "Deploy destination override"
+        required: true
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - beta
+          - production
   push:
     paths:
       - "site/config.toml"
       - "site/content/**"
       - "site/layouts/**"
       - "site/static/**"
+      - "ansible/**"
+      - "terraform/**"
       - ".github/workflows/main.yml"
   pull_request:
     paths:
@@ -15,6 +27,8 @@ on:
       - "site/content/**"
       - "site/layouts/**"
       - "site/static/**"
+      - "ansible/**"
+      - "terraform/**"
       - ".github/workflows/main.yml"
 
 concurrency:
@@ -38,10 +52,10 @@ jobs:
         run: hugo --minify -s site
 
   deploy_site:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     needs: validate_site
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'master' && 'production' || 'beta' }}
+    environment: ${{ (github.event_name == 'workflow_dispatch' && inputs.deploy_target == 'production') && 'production' || (github.event_name == 'workflow_dispatch' && inputs.deploy_target == 'beta') && 'beta' || github.ref_name == 'master' && 'production' || 'beta' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -54,7 +68,12 @@ jobs:
 
       - name: Set deploy target
         run: |
-          if [ "${GITHUB_REF_NAME}" = "master" ]; then
+          target="auto"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            target="${{ inputs.deploy_target }}"
+          fi
+
+          if [ "$target" = "production" ] || { [ "$target" = "auto" ] && [ "${GITHUB_REF_NAME}" = "master" ]; }; then
             echo "DEPLOY_PATH=/var/www/resume-site/" >> "$GITHUB_ENV"
             echo "HUGO_BASE_URL=https://itaygueta.com/" >> "$GITHUB_ENV"
           else
@@ -74,3 +93,6 @@ jobs:
           remote_user: deploy
           remote_key: ${{ secrets.DEPLOY_SSH_KEY }}
           remote_path: ${{ env.DEPLOY_PATH }}
+
+      - name: Smoke check deployed site
+        run: curl --retry 5 --retry-delay 2 --retry-connrefused -fI "$HUGO_BASE_URL"
