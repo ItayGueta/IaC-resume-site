@@ -1,0 +1,44 @@
+{{ define "header" }}
+<header class="home-nav" role="banner">
+  <nav class="home-nav__bar" role="navigation">
+    <a href="{{ .Site.Home.RelPermalink }}" class="home-nav__logo">
+      {{ .Site.Title }}
+    </a>
+    <div class="home-nav__actions">
+      <button class="home-nav__buzz-toggle" id="buzz-toggle"
+              aria-label="Toggle buzzword mode"
+              aria-pressed="false"
+              title="🥤 Buzzword Mode">
+        <span class="buzz-toggle__icon" aria-hidden="true">🥤</span>
+        <span class="buzz-toggle__label">Buzzwords</span>
+      </button>
+      {{ partials.IncludeCached "social/follow.html" . }}
+      <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}"
+         class="home-nav__lang"
+         title="Switch language"
+         aria-label="Switch language">
+        {{ if eq .Site.Language.Lang "en" }}
+          <img src="/images/flag-de.svg" alt="Deutsch" />
+          <span>DE</span>
+        {{ else }}
+          <img src="/images/flag-en.svg" alt="English" />
+          <span>EN</span>
+        {{ end }}
+      </a>
+    </div>
+  </nav>
+</header>
+{{ end }}
+
+{{ define "main" }}
+  {{ partial "home-hero.html" . }}
+  {{ partial "home-cards.html" . }}
+  {{ partial "home-pipeline.html" . }}
+  <section class="home-cv" id="resume">
+    <div class="home-cv__container">
+      <h2 class="section-eyebrow reveal" data-buzz="Human Capital Artifact">The Formal Bit</h2>
+      <p class="section-sub reveal" data-buzz="The value proposition has been articulated. Below: the standardized credentials matrix.">The page already made the case. Here's the document.</p>
+      {{ .Content }}
+    </div>
+  </section>
+{{ end }}
