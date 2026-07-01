@@ -3,20 +3,22 @@
    ======================================================================== */
 
 :root {
-  --bg-deep: #0a0a0f;
-  --bg-card: rgba(15, 15, 30, 0.75);
-  --bg-card-hover: rgba(20, 20, 40, 0.85);
-  --border-card: rgba(255, 255, 255, 0.06);
-  --border-card-hover: rgba(255, 255, 255, 0.12);
-  --text-primary: #e5e7eb;
-  --text-secondary: #9ca3af;
-  --text-dim: #6b7280;
-  --accent-blue: #3b82f6;
-  --accent-purple: #8b5cf6;
-  --accent-cyan: #06b6d4;
-  --accent-indigo: #6366f1;
+  --bg-deep: #0d1117;
+  --bg-card: rgba(22, 22, 35, 0.80);
+  --bg-card-hover: rgba(28, 28, 48, 0.90);
+  --border-card: rgba(255, 255, 255, 0.08);
+  --border-card-hover: rgba(255, 255, 255, 0.14);
+  --text-primary: #e8eaed;
+  --text-secondary: #a8adb4;
+  --text-dim: #7a7f85;
+  --accent: #06b6d4;
+  --accent-glow: rgba(6, 182, 212, 0.3);
+  --accent-surface: rgba(6, 182, 212, 0.12);
+  --accent-strong: #22d3ee;
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
+  /* semantic */
+  --focus-ring: 0 0 0 3px rgba(6, 182, 212, 0.5);
 }
 
 /* ========================================================================
@@ -137,10 +139,10 @@ body.avenir.bg-near-white {
 }
 
 .home-nav__buzz-toggle.buzz--active {
-  background: rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.4);
-  color: #c4b5fd;
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.15);
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
 }
 
 .buzz-toggle__icon {
@@ -150,24 +152,6 @@ body.avenir.bg-near-white {
 
 .buzz-toggle__label {
   letter-spacing: 0.02em;
-}
-
-/* Buzzword mode card shimmer goes purple */
-.buzzword-mode .card-3d__shimmer {
-  animation-duration: 2s;
-}
-
-.buzzword-mode .card-3d__shimmer {
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    transparent 40%,
-    rgba(139, 92, 246, 0.5),
-    rgba(236, 72, 153, 0.6),
-    rgba(139, 92, 246, 0.5),
-    transparent 60%,
-    transparent
-  );
 }
 
 /* ========================================================================
@@ -209,7 +193,7 @@ body.avenir.bg-near-white {
 .hero__pretitle {
   font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
   font-size: 0.95rem;
-  color: var(--accent-cyan);
+  color: var(--accent);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin: 0 0 1rem;
@@ -231,14 +215,14 @@ body.avenir.bg-near-white {
   color: #fff;
   margin: 0 0 1.5rem;
   min-height: 1.2em;
-  text-shadow: 0 0 80px rgba(59, 130, 246, 0.3);
+  text-shadow: 0 0 80px rgba(6, 182, 212, 0.3);
 }
 
 .hero__title::after {
   content: '▊';
   display: inline-block;
   animation: cursor-blink 1s step-end infinite;
-  color: var(--accent-blue);
+  color: var(--accent);
   margin-left: 0.05em;
 }
 
@@ -286,7 +270,7 @@ body.avenir.bg-near-white {
 }
 
 .hero__scroll-hint:hover {
-  color: var(--accent-blue);
+  color: var(--accent);
 }
 
 @keyframes float-hint {
@@ -301,7 +285,7 @@ body.avenir.bg-near-white {
 .section-eyebrow {
   font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
   font-size: 0.8rem;
-  color: var(--accent-purple);
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin: 0 0 0.75rem;
@@ -369,7 +353,6 @@ body.avenir.bg-near-white {
   overflow: hidden;
   transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
   transform-style: preserve-3d;
-  will-change: transform;
   cursor: default;
 }
 
@@ -383,8 +366,8 @@ body.avenir.bg-near-white {
     from 0deg,
     transparent,
     transparent 40%,
-    rgba(59, 130, 246, 0.4),
-    rgba(139, 92, 246, 0.6),
+    rgba(6, 182, 212, 0.4),
+    rgba(6, 182, 212, 0.6),
     rgba(6, 182, 212, 0.4),
     transparent 60%,
     transparent
@@ -392,8 +375,31 @@ body.avenir.bg-near-white {
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: shimmer-rotate 4s linear infinite;
+  animation: none;
   pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.card-3d-wrapper:hover .card-3d__shimmer {
+  animation: shimmer-rotate 4s linear infinite;
+  opacity: 1;
+}
+
+/* Buzzword mode: always-on gold/pink shimmer (the joke is it's excessive) */
+.buzzword-mode .card-3d__shimmer {
+  animation: shimmer-rotate 2s linear infinite;
+  opacity: 1;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    transparent 40%,
+    rgba(245, 158, 11, 0.5),
+    rgba(236, 72, 153, 0.6),
+    rgba(245, 158, 11, 0.5),
+    transparent 60%,
+    transparent
+  );
 }
 
 @keyframes shimmer-rotate {
@@ -410,12 +416,12 @@ body.avenir.bg-near-white {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.15));
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.15));
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.25rem;
-  color: var(--accent-blue);
+  color: var(--accent);
   transition: color 0.3s, background 0.3s;
 }
 
@@ -426,7 +432,7 @@ body.avenir.bg-near-white {
 
 .card-3d-wrapper:hover .card-3d__icon {
   color: #60a5fa;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.25));
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(6, 182, 212, 0.25));
 }
 
 .card-3d__title {
@@ -447,7 +453,7 @@ body.avenir.bg-near-white {
 /* Card hover glow */
 .card-3d-wrapper:hover .card-3d {
   border-color: var(--border-card-hover);
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.08), 0 0 80px rgba(139, 92, 246, 0.04);
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.08), 0 0 80px rgba(6, 182, 212, 0.04);
 }
 
 /* ========================================================================
@@ -510,12 +516,28 @@ body.avenir.bg-near-white {
 }
 
 /* ========================================================================
+   Global Link Style
+   ======================================================================== */
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
+/* ========================================================================
    CV Section
    ======================================================================== */
 
 .home-cv {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #08081a 0%, #0a0a14 100%);
+  background: var(--bg-deep);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .home-cv__container {
@@ -533,17 +555,38 @@ body.avenir.bg-near-white {
   margin-bottom: 2.5rem;
 }
 
+/* CV link styled as CTA pill */
+.home-cv__cta {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: var(--accent);
+  color: #000 !important;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 2rem;
+}
+
+.home-cv__cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 24px var(--accent-glow);
+  text-decoration: none !important;
+}
+
 /* Override old PDF card styles for the new dark theme */
 .home-cv .pdf-card {
   background: var(--bg-card);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   border: 1px solid var(--border-card);
+  border-radius: 1.25rem;
   animation: none;
+  overflow: hidden;
 }
 
-.home-cv .pdf-card embed {
-  border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+.home-cv .pdf-card object {
+  border-radius: 1.25rem;
   background: #111;
 }
 
@@ -575,18 +618,18 @@ body.avenir.bg-near-white {
   display: inline-block;
   padding: 0.75em 1.75em;
   border-radius: 2em;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #06b6d4 0%, #06b6d4 100%);
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 2px 16px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 2px 16px rgba(6, 182, 212, 0.25);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
   text-decoration: none;
 }
 
 .btn:hover {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);
   transform: scale(1.03);
-  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 24px rgba(6, 182, 212, 0.35);
 }
 
 /* Language toggle — keep exactly as it was */
@@ -596,7 +639,7 @@ body.avenir.bg-near-white {
   right: 2rem;
   z-index: 1000;
   background: #fff;
-  color: #2563eb;
+  color: #06b6d4;
   border: none;
   border-radius: 50%;
   width: 48px;
@@ -632,7 +675,7 @@ body.avenir.bg-near-white {
 
 .theme-toggle.btn:hover, .theme-toggle.btn:focus {
   background: rgba(30, 30, 50, 0.9);
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
   outline: none;
 }
 
@@ -687,7 +730,7 @@ body.avenir.bg-near-white {
 
   .hero__title {
     color: #0f172a;
-    text-shadow: 0 0 80px rgba(37, 99, 235, 0.15);
+    text-shadow: 0 0 80px rgba(6, 182, 212, 0.15);
   }
 
   .hero__subtitle {
@@ -712,7 +755,7 @@ body.avenir.bg-near-white {
     border: 1px solid rgba(0, 0, 0, 0.06);
   }
 
-  .home-cv .pdf-card embed {
+  .home-cv .pdf-card object {
     background: #fff;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
@@ -726,18 +769,18 @@ body.avenir.bg-near-white {
   }
 
   .home-cv {
-    background: linear-gradient(180deg, #f0f4ff 0%, #f8fafc 100%);
+    background: #f8fafc;
   }
 
   .theme-toggle.btn {
     background: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #2563eb;
+    color: #06b6d4;
     box-shadow: 0 2px 8px rgba(30, 58, 138, 0.08);
   }
 
   .theme-toggle.btn span {
-    color: #2563eb;
+    color: #06b6d4;
   }
 
   .home-nav__logo {
@@ -755,7 +798,7 @@ body.avenir.bg-near-white {
   .home-nav__lang {
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #2563eb;
+    color: #06b6d4;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
 
@@ -775,10 +818,10 @@ body.avenir.bg-near-white {
   }
 
   .home-nav__buzz-toggle.buzz--active {
-    background: rgba(139, 92, 246, 0.12);
-    border-color: rgba(139, 92, 246, 0.3);
-    color: #7c3aed;
-    box-shadow: 0 0 16px rgba(139, 92, 246, 0.1);
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #d97706;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.1);
   }
 }
 
@@ -855,7 +898,55 @@ body.avenir.bg-near-white {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--accent-blue);
+    background: var(--accent);
     flex-shrink: 0;
   }
+}
+
+/* ========================================================================
+   Accessibility: prefers-reduced-motion
+   ======================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Keep the canvas but stop the animation loop — handled in JS */
+  .hero__canvas {
+    opacity: 0.3;
+  }
+
+  /* Keep reveals visible — don't make users wait for animations that won't play */
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* Static scroll hint */
+  .hero__scroll-hint {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ========================================================================
+   Accessibility: focus indicators
+   ======================================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reset for elements that handle focus internally */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
 }

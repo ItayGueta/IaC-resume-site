@@ -5,6 +5,8 @@
 (function () {
   'use strict';
 
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
 
@@ -13,6 +15,19 @@
   let mouse = { x: -9999, y: -9999 };
   let nodes = [];
   let particles = [];
+  let animFrame;
+  let isVisible = true;
+  // Pause canvas when hero scrolls off-screen
+  var heroSection = document.getElementById('hero');
+  if (heroSection) {
+    var visObserver = new IntersectionObserver(function (entries) {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible && !animFrame && !prefersReduced) {
+        draw();
+      }
+    }, { threshold: 0 });
+    visObserver.observe(heroSection);
+  }
   const NODE_COUNT = 24;
   const CONNECTION_DIST = 180;
   const MOUSE_RADIUS = 150;
@@ -68,6 +83,7 @@
   }
 
   function draw() {
+    if (!isVisible) { animFrame = null; return; }
     ctx.clearRect(0, 0, width, height);
 
     // Update and draw connections
@@ -156,7 +172,36 @@
       if (p) particles.push(p);
     }
 
-    requestAnimationFrame(draw);
+    animFrame = requestAnimationFrame(draw);
+  }
+
+  function drawStatic() {
+    // Single-frame render for reduced-motion users
+    ctx.clearRect(0, 0, width, height);
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var dx = nodes[i].x - nodes[j].x;
+        var dy = nodes[i].y - nodes[j].y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECTION_DIST) {
+          var alpha = 1 - dist / CONNECTION_DIST;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = 'rgba(100, 140, 255, ' + (alpha * 0.15) + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(nodes[i].x, nodes[i].y, nodes[i].radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'hsla(' + nodes[i].hue + ', 70%, 65%, 0.8)';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(nodes[i].x, nodes[i].y, nodes[i].radius * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'hsla(' + nodes[i].hue + ', 70%, 65%, 0.12)';
+      ctx.fill();
+    }
   }
 
   canvas.addEventListener('mousemove', function (e) {
@@ -190,8 +235,12 @@
 
   resize();
   createNodes();
-  createParticles();
-  draw();
+  if (prefersReduced) {
+    drawStatic();
+  } else {
+    createParticles();
+    draw();
+  }
 })();
 
 /* ========================================================================
@@ -204,12 +253,19 @@
   var el = document.getElementById('hero-typewriter');
   if (!el) return;
 
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   var defaultPhrases = [
     'I Orchestrate.',
     'I Compose.',
     'I Automate.',
     'I Ship.',
   ];
+
+  if (prefersReduced) {
+    el.textContent = defaultPhrases[0];
+    return;
+  }
 
   var phraseIndex = 0;
   var charIndex = 0;
@@ -302,17 +358,25 @@
 (function () {
   'use strict';
 
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return;
+
   document.querySelectorAll('.card-3d-wrapper').forEach(function (wrapper) {
-    const card = wrapper.querySelector('.card-3d');
+    var card = wrapper.querySelector('.card-3d');
+
+    wrapper.addEventListener('mouseenter', function () {
+      card.style.transition = 'transform 0.1s ease-out';
+      card.style.willChange = 'transform';
+    });
 
     wrapper.addEventListener('mousemove', function (e) {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const rx = ((y - cy) / cy) * -8;
-      const ry = ((x - cx) / cx) * 8;
+      var rect = wrapper.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var cx = rect.width / 2;
+      var cy = rect.height / 2;
+      var rx = ((y - cy) / cy) * -8;
+      var ry = ((x - cx) / cx) * 8;
       card.style.transform =
         'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) scale3d(1.02, 1.02, 1.02)';
     });
@@ -323,8 +387,8 @@
       card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
     });
 
-    wrapper.addEventListener('mouseenter', function () {
-      card.style.transition = 'transform 0.1s ease-out';
+    card.addEventListener('transitionend', function () {
+      card.style.willChange = 'auto';
     });
   });
 })();
@@ -355,7 +419,7 @@
           const nodes = document.querySelectorAll('.pipeline__node');
           nodes.forEach(function (node, i) {
             setTimeout(function () {
-              node.style.fill = '#2563eb';
+              node.style.fill = '#06b6d4';
               node.style.transition = 'fill 0.4s ease, r 0.4s ease';
               node.setAttribute('r', '10');
               setTimeout(function () {

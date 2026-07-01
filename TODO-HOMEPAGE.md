@@ -1,5 +1,11 @@
 # Homepage Refinement TODO
 
+## Positioning & Content
+
+- [ ] Drop achievement list for scrutiny — software dev + devops + AI cost optimization angle
+- [ ] Define 3-5 project case studies (Problem → Constraints → Approach → Outcome → Tradeoffs)
+- [ ] Extract impact metrics (numbers that prove results)
+
 ## Copy
 
 - [ ] Rewrite hero pretitle (`I don't just prompt.`) — less cringe
@@ -41,6 +47,27 @@ translated. Need proper bilingual support:
 - [ ] Translate all strings: hero, 5 card titles/bodies, pipeline labels, section headers, CV labels
 - [ ] German buzzword mode copy (or just share the English absurdity as "international business German")
 - [ ] Test both languages with buzzword mode toggled on/off
+
+## Visual Bugs
+
+- [x] CV section: blue "See my resume" link → cyan CTA pill button
+- [x] CV section: random blue background gradient → site bg (`--bg-deep`)
+- [x] CV section: PDF card embed selector bug (`embed` → `object`)
+- [x] Global link style added (was browser-default blue everywhere)
+- [ ] Audit remaining hardcoded blues/purples across the stylesheet
+- [ ] Mobile: test buzzword toggle label visibility on small screens
+- [ ] Mobile: pipeline SVG fallback on narrow viewports
+
+## Copy Discussion
+
+User to own all copy. Points to cover when we discuss:
+- [ ] Hero: pre-title, typewriter phrases, subtitle — currently placeholder
+- [ ] Card titles/bodies — 5 cards need real copy hitting the AI+devops+software angle
+- [ ] Pipeline stage labels — currently generic CI/CD
+- [ ] Section eyebrows and subs — need personality
+- [ ] German translations — after English copy is final
+- [ ] Buzzword mode expansions — silly graphs, whitepaper button
+- [ ] Review the "I Orchestrate." / "Ich Orchestriere." titles — works but worth discussing
 
 ## Tech
 
