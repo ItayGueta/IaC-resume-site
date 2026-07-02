@@ -28,6 +28,17 @@
 body {
   background: var(--bg-deep);
   color: var(--text-primary);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* Headings use the display face */
+h1, h2, h3, h4, h5, h6,
+.hero__title,
+.card-3d__title,
+.home-nav__logo {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
 }
 
 /* Override Ananke's body classes for the homepage */
@@ -208,10 +219,9 @@ body.avenir.bg-near-white {
 }
 
 .hero__title {
-  font-family: 'SF Pro Display', 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: clamp(2.8rem, 7vw, 5.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: #fff;
   margin: 0 0 1.5rem;
   min-height: 1.2em;
@@ -283,8 +293,8 @@ body.avenir.bg-near-white {
    ======================================================================== */
 
 .section-eyebrow {
-  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
   font-size: 0.8rem;
+  font-weight: 600;
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.2em;

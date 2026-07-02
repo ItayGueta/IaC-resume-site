@@ -27,14 +27,14 @@
   - Could be SVG/CSS-only, toggled by `.buzzword-mode` on body
 - [ ] Maybe a "Download Whitepaper" button that only appears in buzzword mode (does nothing or rickrolls)
 
-## Visual Polish
+## Layout Restructure (→ Design Log #006)
 
-- [ ] Particle colors/style tweaks
-- [ ] Card icon refinements (current SVGs are placeholder)
-- [ ] Pipeline SVG could be more elaborate (branching paths for prod/beta?)
-- [ ] Mobile responsiveness testing
-- [ ] Scroll hint animation polish
-- [ ] Card shimmer speed/vibrancy tuning
+Replace the Hero → Cards → Pipeline → CV stack with project case studies that demonstrate real work across software dev, DevOps, and AI. Cards get absorbed into a compact methodology grid. Pipeline becomes a case study rather than a standalone diagram.
+
+- [ ] Phase 1: Case study partial + infrastructure case study (content from #001/#002)
+- [ ] Phase 2: Compact methodology grid (replace 5 full-height cards)
+- [ ] Phase 3: Placeholder case studies 2 & 3 (user to provide project content)
+- [ ] Phase 4: Reveal variety — left/right/scale directions instead of uniform fade-up
 
 ## i18n — German page is fake German
 
@@ -54,7 +54,8 @@ translated. Need proper bilingual support:
 - [x] CV section: random blue background gradient → site bg (`--bg-deep`)
 - [x] CV section: PDF card embed selector bug (`embed` → `object`)
 - [x] Global link style added (was browser-default blue everywhere)
-- [ ] Audit remaining hardcoded blues/purples across the stylesheet
+- [x] Pipeline node pulse: #2563eb → #06b6d4
+- [x] CV section: light mode background de-blued
 - [ ] Mobile: test buzzword toggle label visibility on small screens
 - [ ] Mobile: pipeline SVG fallback on narrow viewports
 
