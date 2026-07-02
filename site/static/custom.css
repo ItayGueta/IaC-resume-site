@@ -3,20 +3,20 @@
    ======================================================================== */
 
 :root {
-  --bg-deep: #0d1117;
-  --bg-card: rgba(22, 22, 35, 0.80);
-  --bg-card-hover: rgba(28, 28, 48, 0.90);
-  --border-card: rgba(255, 255, 255, 0.08);
-  --border-card-hover: rgba(255, 255, 255, 0.14);
-  --text-primary: #e8eaed;
+  --bg-deep: #161b22;
+  --bg-card: rgba(28, 34, 48, 0.85);
+  --bg-card-hover: rgba(36, 42, 58, 0.90);
+  --border-card: rgba(255, 255, 255, 0.06);
+  --border-card-hover: rgba(255, 255, 255, 0.10);
+  --text-primary: #e8e4dd;
   --text-secondary: #a8adb4;
   --text-dim: #7a7f85;
   --accent: #06b6d4;
   --accent-glow: rgba(6, 182, 212, 0.3);
   --accent-surface: rgba(6, 182, 212, 0.12);
   --accent-strong: #22d3ee;
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.06);
   /* semantic */
   --focus-ring: 0 0 0 3px rgba(6, 182, 212, 0.5);
 }
@@ -36,7 +36,8 @@ body {
 /* Headings use the display face */
 h1, h2, h3, h4, h5, h6,
 .hero__title,
-.card-3d__title,
+.methodology-card__title,
+.case-study__title,
 .home-nav__logo {
   font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
 }
@@ -72,7 +73,7 @@ body.avenir.bg-near-white {
 .home-nav__logo {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #fff;
+  color: #f5f2eb;
   text-decoration: none;
   letter-spacing: -0.01em;
   pointer-events: auto;
@@ -96,7 +97,7 @@ body.avenir.bg-near-white {
 }
 
 .home-nav__actions .ananke-socials a:hover {
-  color: #fff;
+  color: #f5f2eb;
 }
 
 .home-nav__lang {
@@ -222,7 +223,7 @@ body.avenir.bg-near-white {
   font-size: clamp(2.8rem, 7vw, 5.5rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: #f5f2eb;
   margin: 0 0 1.5rem;
   min-height: 1.2em;
   text-shadow: 0 0 80px rgba(6, 182, 212, 0.3);
@@ -326,162 +327,195 @@ body.avenir.bg-near-white {
 }
 
 /* ========================================================================
-   Cards Section
+   Methodology Section — compact grid, no 3D tilt
    ======================================================================== */
 
-.cards-section {
+.methodology-section {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #0a0a14 0%, #0d0d1f 50%, #0a0a14 100%);
+  background: var(--bg-deep);
 }
 
-.cards-section__header {
+.methodology-section__header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
-.cards-grid {
+.methodology-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.75rem;
-  max-width: 1300px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
-/* 3D Card wrapper */
-.card-3d-wrapper {
-  perspective: 800px;
+.methodology-card--featured {
+  grid-column: span 2;
 }
 
-/* Card itself */
-.card-3d {
-  position: relative;
+.methodology-card--featured .methodology-card__body {
+  font-size: 0.9rem;
+  max-width: 55ch;
+}
+
+/* Methodology cards — compact, no 3D, no shimmer */
+
+.methodology-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 1.25rem;
-  padding: 2rem;
-  height: 100%;
-  overflow: hidden;
-  transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
-  transform-style: preserve-3d;
-  cursor: default;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Shimmer border */
-.card-3d__shimmer {
-  position: absolute;
-  inset: -1px;
-  border-radius: 1.25rem;
-  padding: 1px;
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    transparent 40%,
-    rgba(6, 182, 212, 0.4),
-    rgba(6, 182, 212, 0.6),
-    rgba(6, 182, 212, 0.4),
-    transparent 60%,
-    transparent
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: none;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  opacity: 0;
+.methodology-card:hover {
+  border-color: var(--border-card-hover);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.06);
 }
 
-.card-3d-wrapper:hover .card-3d__shimmer {
-  animation: shimmer-rotate 4s linear infinite;
-  opacity: 1;
+.methodology-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(6, 182, 212, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--accent);
 }
 
-/* Buzzword mode: always-on gold/pink shimmer (the joke is it's excessive) */
-.buzzword-mode .card-3d__shimmer {
-  animation: shimmer-rotate 2s linear infinite;
-  opacity: 1;
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    transparent 40%,
-    rgba(245, 158, 11, 0.5),
-    rgba(236, 72, 153, 0.6),
-    rgba(245, 158, 11, 0.5),
-    transparent 60%,
-    transparent
-  );
+.methodology-card__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.methodology-card__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.methodology-card__body {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Buzzword mode shimmer — repurposed to body background glow */
+.buzzword-mode .methodology-card {
+  border-color: rgba(245, 158, 11, 0.25);
 }
 
 @keyframes shimmer-rotate {
   to { transform: rotate(360deg); }
 }
 
-/* Card inner */
-.card-3d__inner {
-  position: relative;
-  z-index: 1;
-}
-
-.card-3d__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.15));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.25rem;
-  color: var(--accent);
-  transition: color 0.3s, background 0.3s;
-}
-
-.card-3d__icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.card-3d-wrapper:hover .card-3d__icon {
-  color: #60a5fa;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(6, 182, 212, 0.25));
-}
-
-.card-3d__title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 0.75rem;
-  letter-spacing: -0.01em;
-}
-
-.card-3d__body {
-  font-size: 0.925rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Card hover glow */
-.card-3d-wrapper:hover .card-3d {
-  border-color: var(--border-card-hover);
-  box-shadow: 0 0 40px rgba(6, 182, 212, 0.08), 0 0 80px rgba(6, 182, 212, 0.04);
-}
-
 /* ========================================================================
-   Pipeline Section
+   Case Study Sections — alternating visual + body layout
    ======================================================================== */
 
-.pipeline-section {
+.case-study {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #0a0a14 0%, #08081a 100%);
+  background: var(--bg-deep);
 }
 
-.pipeline-section__header {
-  text-align: center;
-  margin-bottom: 3rem;
+.case-study:nth-child(even) {
+  background: rgba(255, 255, 255, 0.015);
 }
 
+.case-study__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.case-study__visual {
+  flex: 1;
+  min-width: 0;
+}
+
+.case-study__body {
+  flex: 1;
+  max-width: 550px;
+}
+
+.case-study__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f5f2eb;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.case-study__problem {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.case-study__decisions {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.case-study__decision {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+  line-height: 1.5;
+}
+
+.case-study__decision:last-child {
+  border-bottom: none;
+}
+
+.case-study__decision strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.case-study__challenges {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}
+
+.case-study__link {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: var(--accent-surface);
+  color: var(--accent);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.case-study__link:hover {
+  background: rgba(6, 182, 212, 0.2);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* Alternating layout — right variant flips visual/body order */
+.case-study--right .case-study__container {
+  flex-direction: row-reverse;
+}
+
+/* Pipeline inside case study visual */
 .pipeline {
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -515,7 +549,7 @@ body.avenir.bg-near-white {
   display: block;
   font-weight: 700;
   font-size: 0.95rem;
-  color: #fff;
+  color: #f5f2eb;
   margin-bottom: 0.25rem;
 }
 
@@ -523,6 +557,11 @@ body.avenir.bg-near-white {
   display: block;
   font-size: 0.8rem;
   color: var(--text-dim);
+}
+
+/* Legacy — remove standalone pipeline section styles, superseded by case study */
+.pipeline-section {
+  display: none;
 }
 
 /* ========================================================================
@@ -747,11 +786,11 @@ a:hover {
     color: #475569;
   }
 
-  .card-3d__title {
+  .methodology-card__title {
     color: #0f172a;
   }
 
-  .card-3d__body {
+  .methodology-card__body {
     color: #475569;
   }
 
@@ -770,12 +809,20 @@ a:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
 
-  .cards-section {
-    background: linear-gradient(180deg, #f8fafc 0%, #f0f4ff 50%, #f8fafc 100%);
+  .methodology-section {
+    background: #f8fafc;
   }
 
-  .pipeline-section {
-    background: linear-gradient(180deg, #f8fafc 0%, #f0f4ff 100%);
+  .case-study {
+    background: #f8fafc;
+  }
+
+  .case-study:nth-child(even) {
+    background: rgba(0, 0, 0, 0.015);
+  }
+
+  .case-study__title {
+    color: #0f172a;
   }
 
   .home-cv {
@@ -840,17 +887,30 @@ a:hover {
    ======================================================================== */
 
 @media (max-width: 768px) {
-  .cards-grid {
-    grid-template-columns: 1fr;
-    max-width: 450px;
+  .methodology-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
-  .cards-section {
+  .methodology-card--featured {
+    grid-column: span 2;
+  }
+
+  .methodology-section {
     padding: 4rem 1.25rem;
   }
 
-  .pipeline-section {
+  .case-study {
     padding: 4rem 1.25rem;
+  }
+
+  .case-study__container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .case-study--right .case-study__container {
+    flex-direction: column;
   }
 
   .pipeline__labels {
@@ -910,6 +970,15 @@ a:hover {
     border-radius: 50%;
     background: var(--accent);
     flex-shrink: 0;
+  }
+
+  .methodology-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .methodology-card--featured {
+    grid-column: span 1;
   }
 }
 

@@ -1,0 +1,31 @@
+<section class="case-study case-study--{{ .layout | compare.Default "left" }}" id="{{ .id }}">
+  <div class="case-study__container">
+    <div class="case-study__visual reveal reveal--scale">
+      {{ .visual | safeHTML }}
+    </div>
+    <div class="case-study__body">
+      <h2 class="section-eyebrow reveal reveal--left" data-buzz="{{ .buzz_eyebrow }}">{{ .eyebrow }}</h2>
+      <h3 class="case-study__title reveal reveal--left" data-buzz="{{ .buzz_title }}">{{ .title }}</h3>
+      <div class="case-study__problem reveal reveal--left" data-buzz="{{ .buzz_problem }}">
+        <p>{{ .problem }}</p>
+      </div>
+      {{ with .decisions }}
+      <ul class="case-study__decisions reveal reveal--left">
+        {{ range . }}
+        <li class="case-study__decision">
+          <strong>{{ .label }}</strong> &mdash; {{ .body }}
+        </li>
+        {{ end }}
+      </ul>
+      {{ end }}
+      <div class="case-study__challenges reveal reveal--left" data-buzz="{{ .buzz_challenges }}">
+        <p>{{ .challenges }}</p>
+      </div>
+      {{ with .repo_url }}
+      <a href="{{ . }}" class="case-study__link reveal reveal--left" target="_blank" rel="noopener">
+        {{ $.repo_label | compare.Default "View source →" }}
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>

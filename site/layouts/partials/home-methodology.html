@@ -1,0 +1,66 @@
+<section class="methodology-section" id="expertise">
+  <div class="methodology-section__header reveal">
+    <h2 class="section-eyebrow" data-buzz="Paradigm-Shifting. Industry-Disrupting.">How I Work</h2>
+    <p class="section-sub" data-buzz="Six pillars of next-gen AI value creation I leverage to empower digital transformation journeys.">Five principles. No checklists.</p>
+  </div>
+
+  <div class="methodology-grid">
+    {{ $items := collections.Slice
+      (dict
+        "icon" "agent"
+        "title" "Agentic Architecture"
+        "body" "Skills compose into tools. Tools register on MCP servers. Subagents fan out. Workflows orchestrate."
+        "buzz_title" "Synergistic Intelligence Fabric"
+        "buzz_body" "Our proprietary agentic mesh leverages best-of-breed LLM backends with autonomous tool-augmented retrieval to deliver enterprise-grade cognitive orchestration at planet scale."
+      )
+      (dict
+        "icon" "token"
+        "title" "Token Economics"
+        "body" "Right model for the right task. Cache hits over fresh calls. Cost-per-invocation tracked. I treat tokens like money because they are."
+        "buzz_title" "Cognitive Resource Optimization"
+        "buzz_body" "Revolutionizing AI spend through deep learning-powered inference routing, dynamic context pruning, and predictive cost-aware model selection. 10x ROI."
+      )
+      (dict
+        "icon" "workflow"
+        "title" "Workflow Design"
+        "body" "Pipeline vs. barrier. Find → verify → fix → review. Adversarial checking. Loop-until-dry. No hallucination cascades."
+        "buzz_title" "Autonomous Pipeline Orchestration"
+        "buzz_body" "AI-native decision engines autonomously composing modular micro-skills into end-to-end value streams. Self-healing. Hallucination-resilient by design."
+      )
+      (dict
+        "icon" "tool"
+        "title" "Tool Craft"
+        "body" "Narrow enough to never misfire. Broad enough to earn its schema real estate. Agents use my tools correctly."
+        "buzz_title" "Capability Interface Engineering"
+        "buzz_body" "Designing the building blocks of the AI economy. Our proprietary tooling SDK empowers LLMs to seamlessly interface with your existing digital ecosystem."
+      )
+      (dict
+        "icon" "prompt"
+        "title" "Prompt Engineering"
+        "body" "Structured output schemas. Few-shot that earns its token cost. Real constraints that produce real results — not 'be helpful.'"
+        "buzz_title" "Intent Alignment Architecture"
+        "buzz_body" "Pioneering the next frontier of human-AI collaboration through advanced context engineering and enterprise prompt governance. We don't prompt — we architect outcomes."
+      )
+    }}
+    {{ range $i, $item := $items }}
+    {{ $isFeatured := compare.Eq $i 0 }}
+    <div class="methodology-card{{ if $isFeatured }} methodology-card--featured{{ end }} reveal" style="transition-delay: {{ mul $i 80 }}ms">
+      <div class="methodology-card__icon">
+        {{ if compare.Eq $item.icon "agent" }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="12" y1="8" x2="6" y2="16"/><line x1="12" y1="8" x2="18" y2="16"/><line x1="6" y1="16" x2="18" y2="16"/></svg>
+        {{ else if compare.Eq $item.icon "token" }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/><circle cx="8" cy="10" r="1" fill="currentColor"/><circle cx="14" cy="7" r="1" fill="currentColor"/><circle cx="16" cy="14" r="1" fill="currentColor"/></svg>
+        {{ else if compare.Eq $item.icon "workflow" }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="9" y="16" width="6" height="6" rx="1"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="5" x2="12" y2="16"/><line x1="16" y1="5" x2="12" y2="16"/></svg>
+        {{ else if compare.Eq $item.icon "tool" }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        {{ else if compare.Eq $item.icon "prompt" }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        {{ end }}
+      </div>
+      <h3 class="methodology-card__title" data-buzz="{{ $item.buzz_title }}">{{ $item.title }}</h3>
+      <p class="methodology-card__body" data-buzz="{{ $item.buzz_body }}">{{ $item.body }}</p>
+    </div>
+    {{ end }}
+  </div>
+</section>
