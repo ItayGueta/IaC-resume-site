@@ -1,10 +1,10 @@
 <div class="pipeline" aria-label="Deployment pipeline">
   {{ $stages := collections.Slice
-    (dict "label" "Git Push"        "desc" "Code lands on GitHub")
-    (dict "label" "CI Triggers"     "desc" "Actions picks it up")
-    (dict "label" "Hugo Builds"     "desc" "Static site compiles")
-    (dict "label" "rsync Ships"     "desc" "Deploy user SCPs it")
-    (dict "label" "Nginx Serves"    "desc" "TLS, HTTP/2, live")
+    (dict "label" "Terraform"      "desc" "Droplet, DNS, firewall. One apply.")
+    (dict "label" "Ansible"        "desc" "nginx, certbot, SSH. Locked myself out previously.")
+    (dict "label" "Hugo"           "desc" "Markdown in, HTML out. simple as.")
+    (dict "label" "rsync"          "desc" "Files land on a $6 droplet.")
+    (dict "label" "nginx"          "desc" "If you can read this, it works.")
   }}
   <div class="pipeline__track">
     <svg class="pipeline__svg" viewBox="0 0 1000 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">

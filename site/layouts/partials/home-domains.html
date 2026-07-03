@@ -1,0 +1,47 @@
+<section class="domains-section" id="expertise">
+  <div class="domains-grid">
+    {{ $cards := collections.Slice
+      (dict
+        "title"    "Development"
+        "buzz_title" "Full-Stack Digital Craftsmanship"
+        "tagline"  "I ship software."
+        "buzz_tagline" "Delivering enterprise-grade software solutions at velocity."
+        "stack"    (collections.Slice "Go" "Python" "TypeScript" "React" "Hugo" "Git")
+      )
+      (dict
+        "title"    "Infrastructure"
+        "buzz_title" "Cloud-Native Platform Engineering"
+        "tagline"  "This site runs itself."
+        "buzz_tagline" "Zero-touch, self-healing infrastructure powered by IaC best practices."
+        "stack"    (collections.Slice "Terraform" "Ansible" "GitHub Actions" "nginx" "Cloudflare" "DigitalOcean")
+      )
+      (dict
+        "title"    "AI Engineering"
+        "buzz_title" "Next-Gen Cognitive Orchestration"
+        "tagline"  "I know what things cost."
+        "buzz_tagline" "Maximizing ROI across the AI value chain through token-aware architecture."
+        "stack"    (collections.Slice "Claude API" "MCP" "Subagents" "Workflows" "Structured Output" "Token Budgets")
+      )
+      (dict
+        "title"    "Design"
+        "buzz_title" "Human-Centered Experience Architecture"
+        "tagline"  "You're looking at it."
+        "buzz_tagline" "Intentional, accessible, and on-brand digital experiences."
+        "stack"    (collections.Slice "Custom CSS" "Responsive" "Accessibility" "Typography" "Figma" "No Templates")
+      )
+    }}
+    {{ range $i, $card := $cards }}
+    <div class="domain-card reveal">
+      <h3 class="domain-card__title" data-buzz="{{ $card.buzz_title }}">{{ $card.title }}</h3>
+      <div class="domain-card__reveal">
+        <p class="domain-card__tagline" data-buzz="{{ $card.buzz_tagline }}">{{ $card.tagline }}</p>
+        <div class="domain-card__stack">
+          {{ range $card.stack }}
+          <span class="domain-card__chip">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>

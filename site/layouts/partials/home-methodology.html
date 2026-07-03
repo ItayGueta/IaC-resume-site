@@ -37,14 +37,19 @@
       (dict
         "icon" "prompt"
         "title" "Prompt Engineering"
-        "body" "Structured output schemas. Few-shot that earns its token cost. Real constraints that produce real results — not 'be helpful.'"
+        "body" "Structured output schemas. Few-shot that earns its token cost. Real constraints that produce real results. Not 'be helpful.'"
         "buzz_title" "Intent Alignment Architecture"
-        "buzz_body" "Pioneering the next frontier of human-AI collaboration through advanced context engineering and enterprise prompt governance. We don't prompt — we architect outcomes."
+        "buzz_body" "Pioneering the next frontier of human-AI collaboration through advanced context engineering and enterprise prompt governance. We don't prompt, we architect outcomes."
       )
     }}
     {{ range $i, $item := $items }}
     {{ $isFeatured := compare.Eq $i 0 }}
     <div class="methodology-card{{ if $isFeatured }} methodology-card--featured{{ end }} reveal" style="transition-delay: {{ mul $i 80 }}ms">
+      {{ if $isFeatured }}
+      <div class="methodology-card__accent" aria-hidden="true">
+        {{ partial "home-shapes-accent-neural.html" . }}
+      </div>
+      {{ end }}
       <div class="methodology-card__icon">
         {{ if compare.Eq $item.icon "agent" }}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="12" y1="8" x2="6" y2="16"/><line x1="12" y1="8" x2="18" y2="16"/><line x1="6" y1="16" x2="18" y2="16"/></svg>

@@ -15,6 +15,9 @@
   --accent-glow: rgba(6, 182, 212, 0.3);
   --accent-surface: rgba(6, 182, 212, 0.12);
   --accent-strong: #22d3ee;
+  --accent-warm: #d4993d;
+  --accent-warm-glow: rgba(212, 153, 61, 0.25);
+  --accent-warm-surface: rgba(212, 153, 61, 0.10);
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.06);
   /* semantic */
@@ -36,7 +39,7 @@ body {
 /* Headings use the display face */
 h1, h2, h3, h4, h5, h6,
 .hero__title,
-.methodology-card__title,
+.domain-card__title,
 .case-study__title,
 .home-nav__logo {
   font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
@@ -176,14 +179,20 @@ body.avenir.bg-near-white {
   height: 100vh;
   min-height: 600px;
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 40%, #0f1535 0%, #0a0a14 50%, #06060e 100%);
+  background: radial-gradient(ellipse at 50% 40%, #1e2a3a 0%, #161b22 50%, #0f1419 100%);
 }
 
-.hero__canvas {
+.hero__shapes {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+}
+
+.hero__shapes svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero__overlay {
@@ -327,90 +336,129 @@ body.avenir.bg-near-white {
 }
 
 /* ========================================================================
-   Methodology Section — compact grid, no 3D tilt
+   Domains Section — 4-card hover reveal
    ======================================================================== */
 
-.methodology-section {
+.domains-section {
   padding: 6rem 2rem;
   background: var(--bg-deep);
 }
 
-.methodology-section__header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.methodology-grid {
+.domains-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.methodology-card--featured {
-  grid-column: span 2;
-}
-
-.methodology-card--featured .methodology-card__body {
-  font-size: 0.9rem;
-  max-width: 55ch;
-}
-
-/* Methodology cards — compact, no 3D, no shimmer */
-
-.methodology-card {
+.domain-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: 1rem;
   padding: 1.5rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.methodology-card:hover {
-  border-color: var(--border-card-hover);
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.06);
-}
-
-.methodology-card__icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: rgba(6, 182, 212, 0.12);
+  min-height: 210px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-  color: var(--accent);
+  flex-direction: column;
 }
 
-.methodology-card__icon svg {
-  width: 20px;
-  height: 20px;
+.domain-card:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 4px 24px rgba(6, 182, 212, 0.08);
 }
 
-.methodology-card__title {
-  font-size: 0.95rem;
-  font-weight: 700;
+.domain-card__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
   color: var(--text-primary);
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
   letter-spacing: -0.01em;
 }
 
-.methodology-card__body {
-  font-size: 0.85rem;
+.domain-card__reveal {
+  position: relative;
+  flex: 1;
+  min-height: 90px;
+}
+
+.domain-card__tagline {
+  font-size: 0.875rem;
   color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Buzzword mode shimmer — repurposed to body background glow */
-.buzzword-mode .methodology-card {
-  border-color: rgba(245, 158, 11, 0.25);
+.domain-card__stack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
 }
 
-@keyframes shimmer-rotate {
-  to { transform: rotate(360deg); }
+.domain-card:hover .domain-card__tagline {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.domain-card:hover .domain-card__stack {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.domain-card__chip {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.2em 0.6em;
+  border-radius: 1em;
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--accent);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* Touch devices: always show both, no hover dependency */
+@media (hover: none) {
+  .domain-card .domain-card__tagline {
+    opacity: 1;
+    transform: none;
+  }
+  .domain-card .domain-card__stack {
+    position: static;
+    opacity: 1;
+    transform: none;
+    margin-top: 0.6rem;
+    pointer-events: auto;
+  }
+}
+
+/* Buzzword mode */
+.buzzword-mode .domain-card {
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.buzzword-mode .domain-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 4px 24px rgba(245, 158, 11, 0.12);
+}
+
+.buzzword-mode .domain-card__chip {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
 }
 
 /* ========================================================================
@@ -437,6 +485,18 @@ body.avenir.bg-near-white {
 .case-study__visual {
   flex: 1;
   min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study__visual-accent {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .case-study__body {
@@ -774,7 +834,7 @@ a:hover {
   }
 
   .hero {
-    background: radial-gradient(ellipse at 50% 40%, #e0e7ff 0%, #f0f4ff 50%, #f8fafc 100%);
+    background: radial-gradient(ellipse at 50% 40%, #e8e4dd 0%, #f5f2eb 50%, #faf7f2 100%);
   }
 
   .hero__title {
@@ -786,11 +846,11 @@ a:hover {
     color: #475569;
   }
 
-  .methodology-card__title {
+  .domain-card__title {
     color: #0f172a;
   }
 
-  .methodology-card__body {
+  .domain-card__tagline {
     color: #475569;
   }
 
@@ -809,7 +869,7 @@ a:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
 
-  .methodology-section {
+  .domains-section {
     background: #f8fafc;
   }
 
@@ -887,16 +947,12 @@ a:hover {
    ======================================================================== */
 
 @media (max-width: 768px) {
-  .methodology-grid {
+  .domains-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
-  .methodology-card--featured {
-    grid-column: span 2;
-  }
-
-  .methodology-section {
+  .domains-section {
     padding: 4rem 1.25rem;
   }
 
@@ -972,13 +1028,9 @@ a:hover {
     flex-shrink: 0;
   }
 
-  .methodology-grid {
+  .domains-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
-  }
-
-  .methodology-card--featured {
-    grid-column: span 1;
   }
 }
 
@@ -995,9 +1047,8 @@ a:hover {
     transition-duration: 0.01ms !important;
   }
 
-  /* Keep the canvas but stop the animation loop — handled in JS */
-  .hero__canvas {
-    opacity: 0.3;
+  .hero__shapes {
+    opacity: 0.5;
   }
 
   /* Keep reveals visible — don't make users wait for animations that won't play */

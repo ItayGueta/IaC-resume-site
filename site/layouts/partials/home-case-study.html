@@ -1,6 +1,11 @@
 <section class="case-study case-study--{{ .layout | compare.Default "left" }}" id="{{ .id }}">
   <div class="case-study__container">
     <div class="case-study__visual reveal reveal--scale">
+      {{ with .accent }}
+      <div class="case-study__visual-accent" aria-hidden="true">
+        {{ . | safeHTML }}
+      </div>
+      {{ end }}
       {{ .visual | safeHTML }}
     </div>
     <div class="case-study__body">
@@ -13,7 +18,7 @@
       <ul class="case-study__decisions reveal reveal--left">
         {{ range . }}
         <li class="case-study__decision">
-          <strong>{{ .label }}</strong> &mdash; {{ .body }}
+          <strong>{{ .label }}</strong>: {{ .body }}
         </li>
         {{ end }}
       </ul>

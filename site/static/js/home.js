@@ -1,249 +1,4 @@
 /* ========================================================================
-   Particle Network — canvas background for hero
-   ======================================================================== */
-
-(function () {
-  'use strict';
-
-  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  let width, height;
-  let mouse = { x: -9999, y: -9999 };
-  let nodes = [];
-  let particles = [];
-  let animFrame;
-  let isVisible = true;
-  // Pause canvas when hero scrolls off-screen
-  var heroSection = document.getElementById('hero');
-  if (heroSection) {
-    var visObserver = new IntersectionObserver(function (entries) {
-      isVisible = entries[0].isIntersecting;
-      if (isVisible && !animFrame && !prefersReduced) {
-        draw();
-      }
-    }, { threshold: 0 });
-    visObserver.observe(heroSection);
-  }
-  const NODE_COUNT = 24;
-  const CONNECTION_DIST = 180;
-  const MOUSE_RADIUS = 150;
-  const MOUSE_FORCE = 0.6;
-
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    width = canvas.width = rect.width;
-    height = canvas.height = rect.height;
-  }
-
-  function createNodes() {
-    nodes = [];
-    for (let i = 0; i < NODE_COUNT; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2.5 + 1.5,
-        hue: [220, 245, 260, 270, 190][Math.floor(Math.random() * 5)],
-      });
-    }
-  }
-
-  function createParticles() {
-    particles = [];
-    for (let i = 0; i < 40; i++) {
-      particles.push(createParticle());
-    }
-  }
-
-  function createParticle(onEdge) {
-    if (nodes.length < 2) return null;
-    // Pick two distinct nodes
-    let a, b;
-    do {
-      a = nodes[Math.floor(Math.random() * nodes.length)];
-      b = nodes[Math.floor(Math.random() * nodes.length)];
-    } while (a === b && nodes.length > 1);
-    if (a === b) return null;
-    const t = onEdge ? Math.random() : 0;
-    return {
-      x: a.x + (b.x - a.x) * t,
-      y: a.y + (b.y - a.y) * t,
-      from: a,
-      to: b,
-      t: t,
-      speed: 0.002 + Math.random() * 0.006,
-      radius: 1 + Math.random() * 1.5,
-      hue: a.hue,
-    };
-  }
-
-  function draw() {
-    if (!isVisible) { animFrame = null; return; }
-    ctx.clearRect(0, 0, width, height);
-
-    // Update and draw connections
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CONNECTION_DIST) {
-          const alpha = 1 - dist / CONNECTION_DIST;
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(100, 140, 255, ${alpha * 0.15})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Update and draw nodes
-    for (const n of nodes) {
-      // Mouse repulsion
-      const dx = n.x - mouse.x;
-      const dy = n.y - mouse.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < MOUSE_RADIUS && dist > 0) {
-        const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * MOUSE_FORCE;
-        n.vx += (dx / dist) * force;
-        n.vy += (dy / dist) * force;
-      }
-
-      // Damping
-      n.vx *= 0.98;
-      n.vy *= 0.98;
-
-      // Add tiny random drift
-      n.vx += (Math.random() - 0.5) * 0.02;
-      n.vy += (Math.random() - 0.5) * 0.02;
-
-      n.x += n.vx;
-      n.y += n.vy;
-
-      // Wrap edges
-      if (n.x < -20) n.x = width + 20;
-      if (n.x > width + 20) n.x = -20;
-      if (n.y < -20) n.y = height + 20;
-      if (n.y > height + 20) n.y = -20;
-
-      // Draw node
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${n.hue}, 70%, 65%, 0.8)`;
-      ctx.fill();
-
-      // Glow
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.radius * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${n.hue}, 70%, 65%, 0.12)`;
-      ctx.fill();
-    }
-
-    // Update and draw traveling particles
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      if (!p) { particles.splice(i, 1); continue; }
-      p.t += p.speed;
-      if (p.t >= 1) {
-        const fresh = createParticle(true);
-        if (fresh) particles[i] = fresh;
-        else particles.splice(i, 1);
-        continue;
-      }
-      p.x = p.from.x + (p.to.x - p.from.x) * p.t;
-      p.y = p.from.y + (p.to.y - p.from.y) * p.t;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${p.hue}, 80%, 75%, 0.9)`;
-      ctx.fill();
-    }
-
-    // Ensure we always have enough particles
-    while (particles.length < 40) {
-      const p = createParticle(true);
-      if (p) particles.push(p);
-    }
-
-    animFrame = requestAnimationFrame(draw);
-  }
-
-  function drawStatic() {
-    // Single-frame render for reduced-motion users
-    ctx.clearRect(0, 0, width, height);
-    for (var i = 0; i < nodes.length; i++) {
-      for (var j = i + 1; j < nodes.length; j++) {
-        var dx = nodes[i].x - nodes[j].x;
-        var dy = nodes[i].y - nodes[j].y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CONNECTION_DIST) {
-          var alpha = 1 - dist / CONNECTION_DIST;
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = 'rgba(100, 140, 255, ' + (alpha * 0.15) + ')';
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-      ctx.beginPath();
-      ctx.arc(nodes[i].x, nodes[i].y, nodes[i].radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'hsla(' + nodes[i].hue + ', 70%, 65%, 0.8)';
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(nodes[i].x, nodes[i].y, nodes[i].radius * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = 'hsla(' + nodes[i].hue + ', 70%, 65%, 0.12)';
-      ctx.fill();
-    }
-  }
-
-  canvas.addEventListener('mousemove', function (e) {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-
-  canvas.addEventListener('mouseleave', function () {
-    mouse.x = -9999;
-    mouse.y = -9999;
-  });
-
-  // Touch support
-  canvas.addEventListener('touchmove', function (e) {
-    e.preventDefault();
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.touches[0].clientX - rect.left;
-    mouse.y = e.touches[0].clientY - rect.top;
-  }, { passive: false });
-
-  canvas.addEventListener('touchend', function () {
-    mouse.x = -9999;
-    mouse.y = -9999;
-  });
-
-  window.addEventListener('resize', function () {
-    resize();
-    createNodes();
-  });
-
-  resize();
-  createNodes();
-  if (prefersReduced) {
-    drawStatic();
-  } else {
-    createParticles();
-    draw();
-  }
-})();
-
-/* ========================================================================
    Typewriter — hero headline
    ======================================================================== */
 
@@ -256,10 +11,12 @@
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var defaultPhrases = [
-    'I Orchestrate.',
-    'I Compose.',
-    'I Automate.',
-    'I Ship.',
+    'Orchestration.',
+    'Cost Optimization.',
+    'Development.',
+    'Design.',
+    'Automation.',
+    'Bar Mitzvahs.',
   ];
 
   if (prefersReduced) {
@@ -411,12 +168,20 @@
     function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          // Animate the line drawing
+          // Reset before each entry so it re-draws
+          path.style.transition = 'none';
+          path.style.strokeDashoffset = length;
+          // Force layout so reset applies before the animate frame
+          path.getBoundingClientRect();
+
           path.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
           path.style.strokeDashoffset = '0';
 
-          // Pulse the nodes sequentially
+          // Reset + pulse the nodes sequentially
           const nodes = document.querySelectorAll('.pipeline__node');
+          nodes.forEach(function (node) {
+            node.style.fill = '#0d1117';
+          });
           nodes.forEach(function (node, i) {
             setTimeout(function () {
               node.style.fill = '#06b6d4';
@@ -427,8 +192,13 @@
               }, 400);
             }, i * 360);
           });
-
-          observer.unobserve(entry.target);
+        } else {
+          // Reset when leaving viewport so it can re-draw on return
+          path.style.transition = 'none';
+          path.style.strokeDashoffset = length;
+          document.querySelectorAll('.pipeline__node').forEach(function (node) {
+            node.style.fill = '#0d1117';
+          });
         }
       });
     },
@@ -467,8 +237,8 @@
   var buzzActive = localStorage.getItem(BUZZ_KEY) === 'true';
 
   // Buzzword typewriter phrases
-  var realPhrases = ['I Orchestrate.', 'I Compose.', 'I Automate.', 'I Ship.'];
-  var buzzPhrases = ['I Synergize.', 'I Disrupt.', 'I Innovate.', 'I Scale.'];
+  var realPhrases = ['Orchestration.', 'Cost Optimization.', 'Development.', 'Design.', 'Automation.', 'Engineering.'];
+  var buzzPhrases = ['Synergy.', 'Right-Sizing.', 'Digital Transformation.', 'Ideation.', 'Disruption.', 'Bar Mitzvahs.'];
 
   // All elements with data-buzz — store originals before any swap
   var buzzEls = document.querySelectorAll('[data-buzz]');

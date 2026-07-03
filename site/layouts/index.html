@@ -6,11 +6,10 @@
     </a>
     <div class="home-nav__actions">
       <button class="home-nav__buzz-toggle" id="buzz-toggle"
-              aria-label="Toggle buzzword mode"
+              aria-label="Toggle Buzzword mode!"
               aria-pressed="false"
-              title="🥤 Buzzword Mode">
-        <span class="buzz-toggle__icon" aria-hidden="true">🥤</span>
-        <span class="buzz-toggle__label">Buzzwords</span>
+              title="Toggle Buzzword mode!">
+        <span class="buzz-toggle__label">Toggle Buzzword mode!</span>
       </button>
       {{ partials.IncludeCached "social/follow.html" . }}
       <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}"
@@ -33,32 +32,33 @@
 {{ define "main" }}
   {{ partial "home-hero.html" . }}
 
-  {{/* Case Study 1 — This site's infrastructure (replaces standalone pipeline section) */}}
+  {{/* Case Study 1: This site's infrastructure (replaces standalone pipeline section) */}}
   {{ $cs1_visual := partial "home-case-study-visual-infra.html" . }}
   {{ partial "home-case-study.html" (dict
     "layout" "left"
     "id" "infrastructure"
     "eyebrow" "Infrastructure as Code"
     "buzz_eyebrow" "Full-Stack DevOps Synergy in Motion"
-    "title" "This Site Deploys Itself"
-    "buzz_title" "A Cloud-Native, Zero-Trust, CI/CD-Driven Deployment Pipeline"
-    "problem" "A personal site needs to be cheap, fast, and secure. But the real goal was proving I can provision and harden real infrastructure — not click buttons in a dashboard. Every piece from DNS to TLS is code."
+    "title" "I built the site to deploy the site."
+    "buzz_title" "I leveraged the site to synergize the site."
+    "problem" "A personal site needs to be cheap, fast, and secure. Also: a great excuse to secure the domain name. But the real goal was proving I can provision and harden infrastructure without clicking a dashboard. Every piece from DNS to TLS is code."
     "buzz_problem" "In an era of digital transformation, organizations require cloud-native, zero-trust deployment pipelines that leverage best-of-breed infrastructure-as-code methodologies to achieve scalable, self-healing web presence."
     "decisions" (collections.Slice
       (dict "label" "Terraform over ClickOps" "body" "Reproducible, auditable, one command to recreate the entire stack.")
       (dict "label" "Ansible over shell scripts" "body" "Idempotent, readable, and the industry standard for configuration management.")
       (dict "label" "Single droplet over managed hosting" "body" "USD 6/month proves the point harder than any platform service ever could.")
-      (dict "label" "Dual web roots, one cert" "body" "Production and beta on the same server, sharing a Let's Encrypt certificate — cost optimization that actually matters.")
+      (dict "label" "Dual web roots, one cert" "body" "Production and beta on the same server, sharing a Let's Encrypt certificate. Cost optimization that actually matters.")
       (dict "label" "GitHub Actions over managed CI" "body" "Branch-aware deploys: master → production, any other branch → beta. Manual override available.")
     )
-    "challenges" "The beta domain once returned 403 Forbidden for days because the web root was empty after rsync — a silent failure. Fixed with pre-flight checks and expanded manual deploy triggers so a stuck beta can be recovered without waiting for a code push. Real ops means handling the failures, not just the happy path."
+    "challenges" "The beta domain once returned 403 Forbidden for days because the web root was empty after rsync, a silent failure. Fixed with pre-flight checks and expanded manual deploy triggers so a stuck beta can be recovered without waiting for a code push. Real ops means handling the failures, not just the happy path."
     "buzz_challenges" "Through rigorous root-cause analysis and lean continuous improvement methodologies, we transformed a 403 incident into a robust, self-healing deployment architecture with zero-touch recovery capabilities."
     "repo_url" "https://github.com/ItayGueta/resume-site"
     "repo_label" "View the repo →"
     "visual" $cs1_visual
+    "accent" (partial "home-shapes-accent-k8s.html" .)
   ) }}
 
-  {{ partial "home-methodology.html" . }}
+  {{ partial "home-domains.html" . }}
   <section class="home-cv" id="resume">
     <div class="home-cv__container">
       <h2 class="section-eyebrow reveal" data-buzz="Human Capital Artifact">The Formal Bit</h2>
