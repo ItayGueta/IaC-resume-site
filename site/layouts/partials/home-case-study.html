@@ -23,9 +23,6 @@
         {{ end }}
       </ul>
       {{ end }}
-      <div class="case-study__challenges reveal reveal--left" data-buzz="{{ .buzz_challenges }}">
-        <p>{{ .challenges }}</p>
-      </div>
       {{ with .repo_url }}
       <a href="{{ . }}" class="case-study__link reveal reveal--left" target="_blank" rel="noopener">
         {{ $.repo_label | compare.Default "View source →" }}

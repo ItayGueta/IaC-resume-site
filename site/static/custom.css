@@ -821,21 +821,23 @@ body.avenir.bg-near-white {
 }
 
 .case-study__link {
-  display: inline-block;
-  padding: 0.6rem 1.5rem;
-  background: var(--accent-surface);
-  color: var(--accent);
-  border: 1px solid rgba(37, 86, 216, 0.2);
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.85rem;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .case-study__link:hover {
-  background: rgba(37, 86, 216, 0.12);
-  transform: translateY(-1px);
+  border-color: rgba(0, 0, 0, 0.22);
+  background: rgba(0, 0, 0, 0.03);
   text-decoration: none;
 }
 
@@ -938,19 +940,21 @@ a:hover {
 /* CV link styled as CTA pill */
 .home-cv__cta {
   display: inline-block;
-  padding: 0.75rem 2rem;
-  background: var(--accent);
-  color: #000 !important;
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  padding: 0.65rem 1.75rem;
+  background: transparent;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
   text-decoration: none !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
   margin-bottom: 2rem;
 }
 
 .home-cv__cta:hover {
-  transform: scale(1.03);
+  border-color: rgba(0, 0, 0, 0.22);
+  background: rgba(0, 0, 0, 0.03);
   text-decoration: none !important;
 }
 
