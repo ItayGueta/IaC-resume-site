@@ -2,6 +2,7 @@
   <div class="domains-grid">
     {{ $cards := collections.Slice
       (dict
+        "scheme"   "default"
         "title"    "Development"
         "buzz_title" "Full-Stack Digital Craftsmanship"
         "tagline"  "I ship software."
@@ -9,6 +10,7 @@
         "stack"    (collections.Slice "Go" "Python" "TypeScript" "React" "Hugo" "Git")
       )
       (dict
+        "scheme"   "muted"
         "title"    "Infrastructure"
         "buzz_title" "Cloud-Native Platform Engineering"
         "tagline"  "This site runs itself."
@@ -16,6 +18,7 @@
         "stack"    (collections.Slice "Terraform" "Ansible" "GitHub Actions" "nginx" "Cloudflare" "DigitalOcean")
       )
       (dict
+        "scheme"   "dark"
         "title"    "AI Engineering"
         "buzz_title" "Next-Gen Cognitive Orchestration"
         "tagline"  "I know what things cost."
@@ -23,6 +26,7 @@
         "stack"    (collections.Slice "Claude API" "MCP" "Subagents" "Workflows" "Structured Output" "Token Budgets")
       )
       (dict
+        "scheme"   "accent"
         "title"    "Design"
         "buzz_title" "Human-Centered Experience Architecture"
         "tagline"  "You're looking at it."
@@ -31,7 +35,7 @@
       )
     }}
     {{ range $i, $card := $cards }}
-    <div class="domain-card reveal">
+    <div class="domain-card reveal domain-card--{{ $card.scheme }}">
       <h3 class="domain-card__title" data-buzz="{{ $card.buzz_title }}">{{ $card.title }}</h3>
       <div class="domain-card__reveal">
         <p class="domain-card__tagline" data-buzz="{{ $card.buzz_tagline }}">{{ $card.tagline }}</p>

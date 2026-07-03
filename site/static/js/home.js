@@ -180,11 +180,11 @@
           // Reset + pulse the nodes sequentially
           const nodes = document.querySelectorAll('.pipeline__node');
           nodes.forEach(function (node) {
-            node.style.fill = '#0d1117';
+            node.style.fill = '#edf1ee';
           });
           nodes.forEach(function (node, i) {
             setTimeout(function () {
-              node.style.fill = '#06b6d4';
+              node.style.fill = '#2556d8';
               node.style.transition = 'fill 0.4s ease, r 0.4s ease';
               node.setAttribute('r', '10');
               setTimeout(function () {
@@ -197,7 +197,7 @@
           path.style.transition = 'none';
           path.style.strokeDashoffset = length;
           document.querySelectorAll('.pipeline__node').forEach(function (node) {
-            node.style.fill = '#0d1117';
+            node.style.fill = '#edf1ee';
           });
         }
       });

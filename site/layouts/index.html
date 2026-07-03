@@ -32,6 +32,8 @@
 {{ define "main" }}
   {{ partial "home-hero.html" . }}
 
+  {{ partial "home-domains.html" . }}
+
   {{/* Case Study 1: This site's infrastructure (replaces standalone pipeline section) */}}
   {{ $cs1_visual := partial "home-case-study-visual-infra.html" . }}
   {{ partial "home-case-study.html" (dict
@@ -57,8 +59,6 @@
     "visual" $cs1_visual
     "accent" (partial "home-shapes-accent-k8s.html" .)
   ) }}
-
-  {{ partial "home-domains.html" . }}
   <section class="home-cv" id="resume">
     <div class="home-cv__container">
       <h2 class="section-eyebrow reveal" data-buzz="Human Capital Artifact">The Formal Bit</h2>

@@ -3,25 +3,27 @@
    ======================================================================== */
 
 :root {
-  --bg-deep: #161b22;
-  --bg-card: rgba(28, 34, 48, 0.85);
-  --bg-card-hover: rgba(36, 42, 58, 0.90);
-  --border-card: rgba(255, 255, 255, 0.06);
-  --border-card-hover: rgba(255, 255, 255, 0.10);
-  --text-primary: #e8e4dd;
-  --text-secondary: #a8adb4;
-  --text-dim: #7a7f85;
-  --accent: #06b6d4;
-  --accent-glow: rgba(6, 182, 212, 0.3);
-  --accent-surface: rgba(6, 182, 212, 0.12);
-  --accent-strong: #22d3ee;
-  --accent-warm: #d4993d;
-  --accent-warm-glow: rgba(212, 153, 61, 0.25);
-  --accent-warm-surface: rgba(212, 153, 61, 0.10);
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.06);
+  --bg-deep: #f4f5f1;
+  --bg-card: #fdfdfc;
+  --bg-card-hover: #ffffff;
+  --border-card: rgba(0, 0, 0, 0.06);
+  --border-card-hover: rgba(0, 0, 0, 0.12);
+  --text-primary: #121918;
+  --text-secondary: #53605d;
+  --text-dim: #7a8a85;
+  --accent: #2556d8;
+  --accent-glow: rgba(37, 86, 216, 0.15);
+  --accent-surface: rgba(37, 86, 216, 0.08);
+  --accent-strong: #173a9b;
+  --accent-warm: #f04b2f;
+  --accent-warm-glow: rgba(240, 75, 47, 0.18);
+  --accent-warm-surface: rgba(240, 75, 47, 0.08);
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.05);
   /* semantic */
-  --focus-ring: 0 0 0 3px rgba(6, 182, 212, 0.5);
+  --focus-ring: 0 0 0 3px rgba(37, 86, 216, 0.4);
+  /* font */
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
 }
 
 /* ========================================================================
@@ -76,7 +78,7 @@ body.avenir.bg-near-white {
 .home-nav__logo {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #f5f2eb;
+  color: #121918;
   text-decoration: none;
   letter-spacing: -0.01em;
   pointer-events: auto;
@@ -100,7 +102,7 @@ body.avenir.bg-near-white {
 }
 
 .home-nav__actions .ananke-socials a:hover {
-  color: #f5f2eb;
+  color: #121918;
 }
 
 .home-nav__lang {
@@ -154,10 +156,9 @@ body.avenir.bg-near-white {
 }
 
 .home-nav__buzz-toggle.buzz--active {
-  background: rgba(245, 158, 11, 0.18);
-  border-color: rgba(245, 158, 11, 0.35);
-  color: #fbbf24;
-  box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
+  background: rgba(240, 75, 47, 0.12);
+  border-color: rgba(240, 75, 47, 0.3);
+  color: #f04b2f;
 }
 
 .buzz-toggle__icon {
@@ -179,7 +180,7 @@ body.avenir.bg-near-white {
   height: 100vh;
   min-height: 600px;
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 40%, #1e2a3a 0%, #161b22 50%, #0f1419 100%);
+  background: radial-gradient(ellipse at 50% 40%, #ffffff 0%, #f4f5f1 60%, #e8ebe5 100%);
 }
 
 .hero__shapes {
@@ -232,10 +233,8 @@ body.avenir.bg-near-white {
   font-size: clamp(2.8rem, 7vw, 5.5rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #f5f2eb;
-  margin: 0 0 1.5rem;
+  color: #121918;
   min-height: 1.2em;
-  text-shadow: 0 0 80px rgba(6, 182, 212, 0.3);
 }
 
 .hero__title::after {
@@ -282,6 +281,24 @@ body.avenir.bg-near-white {
   transform: translateY(16px);
   transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s, color 0.3s;
   animation: float-hint 2.5s ease-in-out infinite;
+}
+
+.hero__stack {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+
+.hero__stack.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
 }
 
 .hero__scroll-hint.revealed {
@@ -358,15 +375,14 @@ body.avenir.bg-near-white {
   border-radius: 1rem;
   padding: 1.5rem;
   min-height: 210px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease;
   cursor: default;
   display: flex;
   flex-direction: column;
 }
 
 .domain-card:hover {
-  border-color: rgba(6, 182, 212, 0.3);
-  box-shadow: 0 4px 24px rgba(6, 182, 212, 0.08);
+  border-color: rgba(37, 86, 216, 0.25);
 }
 
 .domain-card__title {
@@ -425,7 +441,7 @@ body.avenir.bg-near-white {
   font-weight: 500;
   padding: 0.2em 0.6em;
   border-radius: 1em;
-  background: rgba(6, 182, 212, 0.1);
+  background: rgba(37, 86, 216, 0.08);
   color: var(--accent);
   white-space: nowrap;
   letter-spacing: 0.01em;
@@ -448,18 +464,78 @@ body.avenir.bg-near-white {
 
 /* Buzzword mode */
 .buzzword-mode .domain-card {
-  border-color: rgba(245, 158, 11, 0.2);
+  border-color: rgba(240, 75, 47, 0.25);
 }
 
 .buzzword-mode .domain-card:hover {
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 4px 24px rgba(245, 158, 11, 0.12);
+  border-color: rgba(240, 75, 47, 0.5);
 }
 
 .buzzword-mode .domain-card__chip {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
+  background: rgba(240, 75, 47, 0.12);
+  color: #f04b2f;
 }
+
+/* ---- Scheme: muted (Infrastructure) ---- */
+.domain-card--muted {
+  background: var(--bg-deep);
+}
+.domain-card--muted:hover {
+  border-color: rgba(37, 86, 216, 0.3);
+}
+
+/* ---- Scheme: dark (AI Engineering) ---- */
+.domain-card--dark {
+  background: #121918;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.domain-card--dark .domain-card__title {
+  color: #f5f2eb;
+}
+.domain-card--dark .domain-card__tagline {
+  color: #9ca3af;
+}
+.domain-card--dark .domain-card__chip {
+  background: rgba(240, 75, 47, 0.15);
+  color: #f2705c;
+}
+.domain-card--dark:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ---- Scheme: accent (Design) ---- */
+.domain-card--accent {
+  background: #f04b2f;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+.domain-card--accent .domain-card__title {
+  color: #121918;
+}
+.domain-card--accent .domain-card__tagline {
+  color: rgba(18, 25, 24, 0.75);
+}
+.domain-card--accent .domain-card__chip {
+  background: rgba(18, 25, 24, 0.12);
+  color: #121918;
+}
+.domain-card--accent:hover {
+  border-color: rgba(18, 25, 24, 0.2);
+}
+
+/* Buzzword overrides for scheme cards */
+.buzzword-mode .domain-card--dark {
+  border-color: rgba(240, 75, 47, 0.3);
+}
+.buzzword-mode .domain-card--dark:hover {
+  border-color: rgba(240, 75, 47, 0.55);
+}
+.buzzword-mode .domain-card--accent {
+  border-color: rgba(240, 75, 47, 0.4);
+}
+.buzzword-mode .domain-card--accent .domain-card__chip {
+  background: rgba(18, 25, 24, 0.2);
+}
+
 
 /* ========================================================================
    Case Study Sections — alternating visual + body layout
@@ -471,7 +547,7 @@ body.avenir.bg-near-white {
 }
 
 .case-study:nth-child(even) {
-  background: rgba(255, 255, 255, 0.015);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .case-study__container {
@@ -507,7 +583,7 @@ body.avenir.bg-near-white {
 .case-study__title {
   font-size: 2rem;
   font-weight: 700;
-  color: #f5f2eb;
+  color: #121918;
   margin: 0 0 1.25rem;
   letter-spacing: -0.02em;
 }
@@ -554,7 +630,7 @@ body.avenir.bg-near-white {
   padding: 0.6rem 1.5rem;
   background: var(--accent-surface);
   color: var(--accent);
-  border: 1px solid rgba(6, 182, 212, 0.25);
+  border: 1px solid rgba(37, 86, 216, 0.2);
   border-radius: 9999px;
   font-weight: 600;
   font-size: 0.9rem;
@@ -563,7 +639,7 @@ body.avenir.bg-near-white {
 }
 
 .case-study__link:hover {
-  background: rgba(6, 182, 212, 0.2);
+  background: rgba(37, 86, 216, 0.12);
   transform: translateY(-1px);
   text-decoration: none;
 }
@@ -609,7 +685,7 @@ body.avenir.bg-near-white {
   display: block;
   font-weight: 700;
   font-size: 0.95rem;
-  color: #f5f2eb;
+  color: #121918;
   margin-bottom: 0.25rem;
 }
 
@@ -679,15 +755,13 @@ a:hover {
 }
 
 .home-cv__cta:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 24px var(--accent-glow);
+  transform: scale(1.03);
   text-decoration: none !important;
 }
 
 /* Override old PDF card styles for the new dark theme */
 .home-cv .pdf-card {
   background: var(--bg-card);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   border: 1px solid var(--border-card);
   border-radius: 1.25rem;
   animation: none;
@@ -727,18 +801,16 @@ a:hover {
   display: inline-block;
   padding: 0.75em 1.75em;
   border-radius: 2em;
-  background: linear-gradient(135deg, #06b6d4 0%, #06b6d4 100%);
+  background: #2556d8;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 2px 16px rgba(6, 182, 212, 0.25);
-  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  transition: background 0.3s, transform 0.2s;
   text-decoration: none;
 }
 
 .btn:hover {
-  background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);
+  background: #173a9b;
   transform: scale(1.03);
-  box-shadow: 0 4px 24px rgba(6, 182, 212, 0.35);
 }
 
 /* Language toggle — keep exactly as it was */
@@ -748,7 +820,7 @@ a:hover {
   right: 2rem;
   z-index: 1000;
   background: #fff;
-  color: #06b6d4;
+  color: #2556d8;
   border: none;
   border-radius: 50%;
   width: 48px;
@@ -784,7 +856,7 @@ a:hover {
 
 .theme-toggle.btn:hover, .theme-toggle.btn:focus {
   background: rgba(30, 30, 50, 0.9);
-  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
+  outline: 2px solid var(--accent);
   outline: none;
 }
 
@@ -811,135 +883,6 @@ a:hover {
 
 .ananke-socials a:hover {
   transform: scale(1.2);
-}
-
-/* ========================================================================
-   Light mode overrides — when user prefers light
-   ======================================================================== */
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg-deep: #f8fafc;
-    --bg-card: rgba(255, 255, 255, 0.85);
-    --bg-card-hover: rgba(255, 255, 255, 0.95);
-    --border-card: rgba(0, 0, 0, 0.06);
-    --border-card-hover: rgba(0, 0, 0, 0.1);
-    --text-primary: #1e293b;
-    --text-secondary: #475569;
-    --text-dim: #94a3b8;
-  }
-
-  body.avenir.bg-near-white {
-    background: #f8fafc;
-  }
-
-  .hero {
-    background: radial-gradient(ellipse at 50% 40%, #e8e4dd 0%, #f5f2eb 50%, #faf7f2 100%);
-  }
-
-  .hero__title {
-    color: #0f172a;
-    text-shadow: 0 0 80px rgba(6, 182, 212, 0.15);
-  }
-
-  .hero__subtitle {
-    color: #475569;
-  }
-
-  .domain-card__title {
-    color: #0f172a;
-  }
-
-  .domain-card__tagline {
-    color: #475569;
-  }
-
-  .pipeline__stage-label {
-    color: #0f172a;
-  }
-
-  .home-cv .pdf-card {
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-  }
-
-  .home-cv .pdf-card object {
-    background: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  }
-
-  .domains-section {
-    background: #f8fafc;
-  }
-
-  .case-study {
-    background: #f8fafc;
-  }
-
-  .case-study:nth-child(even) {
-    background: rgba(0, 0, 0, 0.015);
-  }
-
-  .case-study__title {
-    color: #0f172a;
-  }
-
-  .home-cv {
-    background: #f8fafc;
-  }
-
-  .theme-toggle.btn {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #06b6d4;
-    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.08);
-  }
-
-  .theme-toggle.btn span {
-    color: #06b6d4;
-  }
-
-  .home-nav__logo {
-    color: #0f172a;
-  }
-
-  .home-nav__actions .ananke-socials a {
-    color: rgba(15, 23, 42, 0.6);
-  }
-
-  .home-nav__actions .ananke-socials a:hover {
-    color: #0f172a;
-  }
-
-  .home-nav__lang {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #06b6d4;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-
-  .home-nav__lang:hover {
-    background: rgba(255, 255, 255, 0.95);
-  }
-
-  .home-nav__buzz-toggle {
-    background: rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #94a3b8;
-  }
-
-  .home-nav__buzz-toggle:hover {
-    background: rgba(0, 0, 0, 0.06);
-    color: #64748b;
-  }
-
-  .home-nav__buzz-toggle.buzz--active {
-    background: rgba(245, 158, 11, 0.12);
-    border-color: rgba(245, 158, 11, 0.3);
-    color: #d97706;
-    box-shadow: 0 0 16px rgba(245, 158, 11, 0.1);
-  }
 }
 
 /* ========================================================================
