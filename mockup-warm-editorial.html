@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warm Editorial — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #faf7f2;
+    color: #1e293b;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .serif { font-family: 'Newsreader', Georgia, serif; }
+
+  /* Nav */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+  .nav-logo { font-family: 'Newsreader', serif; font-size: 1.1rem; font-weight: 600; color: #1e293b; }
+  .nav-actions { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-btn {
+    padding: 0.35em 0.85em; border-radius: 2em; font-size: 0.8rem; font-weight: 600;
+    border: 1px solid rgba(0,0,0,0.12); background: transparent; color: #64748b; cursor: pointer;
+    font-family: inherit;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero__shapes {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.06;
+  }
+  .hero__shapes svg { width: 100%; height: 100%; }
+  .hero__pretitle {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #c2410c; margin-bottom: 0.75rem;
+  }
+  .hero__title {
+    font-size: 4rem; font-weight: 600; letter-spacing: -0.02em;
+    color: #0f172a; margin-bottom: 1rem;
+  }
+  .hero__subtitle {
+    font-size: 1.05rem; color: #475569; max-width: 540px; margin: 0 auto 2rem;
+  }
+
+  /* Domain cards */
+  .cards {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem;
+  }
+  .card {
+    background: #fff; border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 0.75rem; padding: 1.5rem; min-height: 180px;
+    transition: border-color 0.25s;
+  }
+  .card:hover { border-color: rgba(194, 65, 12, 0.25); }
+  .card__title { font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 0.35rem; }
+  .card__tagline { font-size: 0.85rem; color: #64748b; margin-bottom: 0.75rem; }
+  .card__chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .chip {
+    font-size: 0.72rem; font-weight: 500; padding: 0.15em 0.55em;
+    border-radius: 1em; background: rgba(194, 65, 12, 0.08); color: #c2410c;
+    white-space: nowrap;
+  }
+
+  /* Case study block */
+  .case-study {
+    max-width: 1100px; margin: 0 auto; padding: 4rem 2rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    align-items: center;
+  }
+  .case-study__visual {
+    background: rgba(0,0,0,0.02); border-radius: 1rem;
+    padding: 2rem; text-align: center; min-height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: monospace; font-size: 0.8rem; color: #94a3b8;
+  }
+  .cs-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #c2410c; margin-bottom: 0.5rem; }
+  .cs-title { font-size: 1.75rem; font-weight: 600; color: #0f172a; margin-bottom: 1rem; letter-spacing: -0.01em; }
+  .cs-text { font-size: 0.9rem; color: #475569; line-height: 1.65; margin-bottom: 1rem; }
+  .cs-link { color: #c2410c; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+  /* Pipeline labels */
+  .pipeline-labels {
+    display: flex; gap: 1.5rem; max-width: 1100px; margin: 0 auto 3rem; padding: 0 2rem;
+    justify-content: center;
+  }
+  .pipeline-stage { text-align: center; }
+  .pipeline-stage__label { font-weight: 700; font-size: 0.85rem; color: #0f172a; margin-bottom: 0.2rem; }
+  .pipeline-stage__desc { font-size: 0.78rem; color: #64748b; }
+  .pipeline-arrow { color: #cbd5e1; font-size: 1.2rem; padding-top: 0.1rem; }
+
+  hr { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 0 2rem; max-width: 1100px; }
+
+  @media (max-width: 768px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .case-study { grid-template-columns: 1fr; gap: 1.5rem; }
+    .hero__title { font-size: 2.5rem; }
+    .pipeline-labels { flex-wrap: wrap; gap: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Itay Gueta</span>
+  <div class="nav-actions">
+    <button class="nav-btn">Toggle Buzzword mode!</button>
+    <span>EN</span>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero__shapes" aria-hidden="true">
+    <!-- Abstract geometric line art — faint, structural -->
+    <svg viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#c2410c" stroke-width="0.3" stroke-opacity="0.12"/>
+        </pattern>
+      </defs>
+      <rect width="1200" height="400" fill="url(#grid)"/>
+      <!-- Pipeline DAG nodes -->
+      <circle cx="200" cy="280" r="6" fill="none" stroke="#c2410c" stroke-width="1" stroke-opacity="0.25"/>
+      <circle cx="400" cy="280" r="6" fill="none" stroke="#c2410c" stroke-width="1" stroke-opacity="0.3"/>
+      <circle cx="600" cy="280" r="6" fill="none" stroke="#c2410c" stroke-width="1" stroke-opacity="0.35"/>
+      <circle cx="800" cy="280" r="6" fill="none" stroke="#c2410c" stroke-width="1" stroke-opacity="0.3"/>
+      <circle cx="1000" cy="280" r="7" fill="rgba(194,65,12,0.15)" stroke="none"/>
+      <line x1="206" y1="280" x2="394" y2="280" stroke="#c2410c" stroke-width="0.8" stroke-opacity="0.1"/>
+      <line x1="406" y1="280" x2="594" y2="280" stroke="#c2410c" stroke-width="0.8" stroke-opacity="0.12"/>
+      <line x1="606" y1="280" x2="794" y2="280" stroke="#c2410c" stroke-width="0.8" stroke-opacity="0.14"/>
+      <line x1="806" y1="280" x2="993" y2="280" stroke="#c2410c" stroke-width="0.8" stroke-opacity="0.12"/>
+      <!-- Scattered open rings -->
+      <circle cx="150" cy="120" r="12" fill="none" stroke="#c2410c" stroke-width="0.6" stroke-opacity="0.15"/>
+      <circle cx="950" cy="100" r="10" fill="none" stroke="#c2410c" stroke-width="0.6" stroke-opacity="0.12"/>
+      <circle cx="500" cy="60" r="8" fill="none" stroke="#c2410c" stroke-width="0.6" stroke-opacity="0.1"/>
+    </svg>
+  </div>
+  <p class="hero__pretitle">I DO</p>
+  <h1 class="hero__title">Orchestration.</h1>
+  <p class="hero__subtitle">Skills. Tools. Subagents. Pipelines. MCP. I know how they compose, and what they cost.</p>
+</section>
+
+<div class="cards">
+  <div class="card">
+    <h3 class="card__title">Development</h3>
+    <p class="card__tagline">I ship software.</p>
+    <div class="card__chips">
+      <span class="chip">Go</span><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Hugo</span><span class="chip">Git</span>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card__title">Infrastructure</h3>
+    <p class="card__tagline">This site runs itself.</p>
+    <div class="card__chips">
+      <span class="chip">Terraform</span><span class="chip">Ansible</span><span class="chip">GitHub Actions</span><span class="chip">nginx</span><span class="chip">Cloudflare</span><span class="chip">DO</span>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card__title">AI Engineering</h3>
+    <p class="card__tagline">I know what things cost.</p>
+    <div class="card__chips">
+      <span class="chip">Claude API</span><span class="chip">MCP</span><span class="chip">Subagents</span><span class="chip">Workflows</span><span class="chip">Tokens</span>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card__title">Design</h3>
+    <p class="card__tagline">You're looking at it.</p>
+    <div class="card__chips">
+      <span class="chip">Custom CSS</span><span class="chip">Responsive</span><span class="chip">Accessibility</span><span class="chip">Typography</span><span class="chip">No Templates</span>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="case-study">
+  <div class="case-study__visual">
+    [ pipeline visual — terraform → ansible → hugo → rsync → nginx ]
+  </div>
+  <div>
+    <p class="cs-eyebrow">Infrastructure as Code</p>
+    <h2 class="cs-title">I built the site to deploy the site.</h2>
+    <p class="cs-text">A personal site needs to be cheap, fast, and secure. Also: a great excuse to secure the domain name. But the real goal was proving I can provision and harden infrastructure without clicking a dashboard. Every piece from DNS to TLS is code.</p>
+    <a href="#" class="cs-link">View the repo →</a>
+  </div>
+</div>
+
+<div class="pipeline-labels">
+  <div class="pipeline-stage">
+    <div class="pipeline-stage__label">Terraform</div>
+    <div class="pipeline-stage__desc">Droplet, DNS, firewall. One apply.</div>
+  </div>
+  <span class="pipeline-arrow">→</span>
+  <div class="pipeline-stage">
+    <div class="pipeline-stage__label">Ansible</div>
+    <div class="pipeline-stage__desc">nginx, certbot, SSH. Locked myself out once.</div>
+  </div>
+  <span class="pipeline-arrow">→</span>
+  <div class="pipeline-stage">
+    <div class="pipeline-stage__label">Hugo</div>
+    <div class="pipeline-stage__desc">Markdown in, HTML out. Simple as.</div>
+  </div>
+  <span class="pipeline-arrow">→</span>
+  <div class="pipeline-stage">
+    <div class="pipeline-stage__label">rsync</div>
+    <div class="pipeline-stage__desc">Files land on a $6 droplet.</div>
+  </div>
+  <span class="pipeline-arrow">→</span>
+  <div class="pipeline-stage">
+    <div class="pipeline-stage__label">nginx</div>
+    <div class="pipeline-stage__desc">If you can read this, it works.</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -97,12 +97,12 @@ body.avenir.bg-near-white {
 }
 
 .home-nav__actions .ananke-socials a {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-dim);
   transition: color 0.3s;
 }
 
 .home-nav__actions .ananke-socials a:hover {
-  color: #121918;
+  color: var(--text-primary);
 }
 
 .home-nav__lang {
@@ -111,10 +111,10 @@ body.avenir.bg-near-white {
   gap: 0.4em;
   padding: 0.35em 0.75em;
   border-radius: 2em;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.04);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e5e7eb;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 600;
@@ -122,7 +122,7 @@ body.avenir.bg-near-white {
 }
 
 .home-nav__lang:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.07);
 }
 
 .home-nav__lang img {
@@ -138,9 +138,9 @@ body.avenir.bg-near-white {
   gap: 0.35em;
   padding: 0.35em 0.75em;
   border-radius: 2em;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.03);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   color: var(--text-dim);
   cursor: pointer;
   font-size: 0.8rem;
@@ -151,7 +151,7 @@ body.avenir.bg-near-white {
 }
 
 .home-nav__buzz-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.06);
   color: var(--text-secondary);
 }
 
@@ -177,8 +177,8 @@ body.avenir.bg-near-white {
 .hero {
   position: relative;
   width: 100%;
-  height: 85vh;
-  min-height: 550px;
+  height: 70vh;
+  min-height: 480px;
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 40%, #ffffff 0%, #f4f5f1 60%, #e8ebe5 100%);
 }
@@ -299,7 +299,6 @@ body.avenir.bg-near-white {
   opacity: 1;
   transform: translateY(0);
 }
-}
 
 .hero__scroll-hint.revealed {
   opacity: 1;
@@ -353,36 +352,71 @@ body.avenir.bg-near-white {
 }
 
 /* ========================================================================
-   Domains Section — 4-card hover reveal
+   Domains Section — expanding card row
    ======================================================================== */
 
 .domains-section {
-  padding: 6rem 2rem;
+  padding: 4rem 2rem 5rem;
   background: var(--bg-deep);
-}
-
-.domains-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
+.domains-section__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.75rem;
+}
+
+/* ---- The flex row: 4 equal cards by default, expands on click ---- */
+.domains-row {
+  display: flex;
+  gap: 0.75rem;
+  height: 340px;
+  transition: gap 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.domains-row.expanded {
+  gap: 0.5rem;
+}
+
+/* ---- Individual card ---- */
 .domain-card {
+  flex: 1 1 0%;
+  min-width: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: 1rem;
-  padding: 1.5rem;
-  min-height: 210px;
-  transition: border-color 0.25s ease;
-  cursor: default;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
+  -webkit-user-select: none;
+  user-select: none;
+  animation: none;
+  transition: flex 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-radius 0.4s ease,
+              border-color 0.25s ease;
 }
-
 .domain-card:hover {
   border-color: rgba(37, 86, 216, 0.25);
+}
+
+/* ---- Compact view (cross-fades with detail on expand) ---- */
+.domain-card__compact {
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+  opacity: 1;
+  transition: opacity 0.35s ease;
 }
 
 .domain-card__title {
@@ -390,95 +424,188 @@ body.avenir.bg-near-white {
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin: 0 0 0.4rem;
   letter-spacing: -0.01em;
-}
-
-.domain-card__reveal {
-  position: relative;
-  flex: 1;
-  min-height: 90px;
+  margin: 0 0 0.35rem;
+  white-space: nowrap;
 }
 
 .domain-card__tagline {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  max-width: 180px;
+  margin: 0;
+}
+
+/* ---- Expanded detail (cross-fades in, absolutely positioned) ---- */
+.domain-card__detail {
+  position: absolute;
+  inset: 0;
+  padding: 2rem 2.5rem;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease 0.1s; /* slight delay so card starts stretching first */
+}
+
+.domain-card__detail-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.domain-card__detail-summary {
+  font-size: 1.05rem;
   color: var(--text-secondary);
   line-height: 1.5;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  margin: 0 0 0.75rem;
 }
 
-.domain-card__stack {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+.domain-card__detail-body {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+}
+
+/* ---- Chips: plain mono text, no pills — intentionally not a tag cloud ---- */
+.domain-card__chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  pointer-events: none;
-}
-
-.domain-card:hover .domain-card__tagline {
-  opacity: 0;
-  transform: translateY(-4px);
-}
-
-.domain-card:hover .domain-card__stack {
-  opacity: 1;
-  transform: translateY(0);
+  gap: 0.6rem 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .domain-card__chip {
-  font-size: 0.72rem;
-  font-weight: 500;
-  padding: 0.2em 0.6em;
-  border-radius: 1em;
-  background: rgba(37, 86, 216, 0.08);
-  color: var(--accent);
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
   white-space: nowrap;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
-/* Touch devices: always show both, no hover dependency */
+/* ---- Close button (inside expanded card) ---- */
+.domain-card__close {
+  display: none;
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--text-secondary);
+  transition: background 0.2s;
+}
+.domain-card__close:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+.domain-card__close svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---- Expanded card state ---- */
+.domain-card.expanded {
+  flex: 0 0 calc(100% - 186px); /* leaves room for 3 × 52px strips + gaps */
+  cursor: default;
+  border-radius: 1rem;
+  animation: none;
+}
+.domain-card.expanded .domain-card__compact {
+  opacity: 0;
+  pointer-events: none;
+}
+.domain-card.expanded .domain-card__detail {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+.domain-card.expanded .domain-card__close {
+  display: flex;
+}
+
+/* Disable hover border animation once expanded */
+.domain-card.expanded:hover {
+  border-color: var(--border-card);
+}
+
+/* ---- Collapsed card state: narrow colored strip ---- */
+.domain-card.collapsed {
+  flex: 0 0 52px;
+  border-radius: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  animation: none;
+}
+.domain-card.collapsed .domain-card__compact {
+  padding: 0.5rem;
+}
+.domain-card.collapsed .domain-card__title {
+  writing-mode: vertical-rl;
+  font-size: 0.75rem;
+  margin: 0;
+}
+.domain-card.collapsed .domain-card__tagline {
+  display: none;
+}
+
+/* ---- "Show all" reset button (below the row) ---- */
+.domains-reset {
+  display: none;
+  margin: 1rem auto 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 2em;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  align-items: center;
+  gap: 0.35rem;
+}
+.domains-reset svg {
+  width: 14px;
+  height: 14px;
+}
+.domains-reset:hover {
+  border-color: rgba(240, 75, 47, 0.3);
+  color: var(--accent-warm);
+}
+.domains-row.expanded ~ .domains-reset {
+  display: inline-flex;
+}
+
+/* ---- Touch devices: tagline always visible, no hover dependency ---- */
 @media (hover: none) {
-  .domain-card .domain-card__tagline {
+  .domain-card__tagline {
     opacity: 1;
-    transform: none;
-  }
-  .domain-card .domain-card__stack {
-    position: static;
-    opacity: 1;
-    transform: none;
-    margin-top: 0.6rem;
-    pointer-events: auto;
   }
 }
 
-/* Buzzword mode */
-.buzzword-mode .domain-card {
-  border-color: rgba(240, 75, 47, 0.25);
-}
-
-.buzzword-mode .domain-card:hover {
-  border-color: rgba(240, 75, 47, 0.5);
-}
-
-.buzzword-mode .domain-card__chip {
-  background: rgba(240, 75, 47, 0.12);
-  color: #f04b2f;
-}
+/* ========================================================================
+   Domain card scheme variants
+   ======================================================================== */
 
 /* ---- Scheme: muted (Infrastructure) ---- */
 .domain-card--muted {
   background: var(--bg-deep);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 .domain-card--muted:hover {
   border-color: rgba(37, 86, 216, 0.3);
@@ -495,12 +622,27 @@ body.avenir.bg-near-white {
 .domain-card--dark .domain-card__tagline {
   color: #9ca3af;
 }
-.domain-card--dark .domain-card__chip {
-  background: rgba(240, 75, 47, 0.15);
-  color: #f2705c;
-}
 .domain-card--dark:hover {
   border-color: rgba(255, 255, 255, 0.18);
+}
+/* Dark card expanded detail */
+.domain-card--dark .domain-card__detail-title { color: #f5f2eb; }
+.domain-card--dark .domain-card__detail-summary { color: #9ca3af; }
+.domain-card--dark .domain-card__detail-body { color: #7a8a85; }
+.domain-card--dark .domain-card__chips { border-top-color: rgba(255, 255, 255, 0.08); }
+.domain-card--dark .domain-card__chip { color: #7a8a85; }
+/* Dark card close button */
+.domain-card--dark .domain-card__close {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(18, 25, 24, 0.6);
+  color: #9ca3af;
+}
+.domain-card--dark .domain-card__close:hover {
+  background: rgba(18, 25, 24, 0.9);
+}
+/* Dark card expanded — keep border subtle */
+.domain-card--dark.expanded:hover {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ---- Scheme: accent (Design) ---- */
@@ -514,15 +656,39 @@ body.avenir.bg-near-white {
 .domain-card--accent .domain-card__tagline {
   color: rgba(18, 25, 24, 0.75);
 }
-.domain-card--accent .domain-card__chip {
-  background: rgba(18, 25, 24, 0.12);
-  color: #121918;
-}
 .domain-card--accent:hover {
   border-color: rgba(18, 25, 24, 0.2);
 }
+/* Accent card expanded detail */
+.domain-card--accent .domain-card__detail-title { color: #121918; }
+.domain-card--accent .domain-card__detail-summary { color: rgba(18, 25, 24, 0.8); }
+.domain-card--accent .domain-card__detail-body { color: rgba(18, 25, 24, 0.65); }
+.domain-card--accent .domain-card__chips { border-top-color: rgba(18, 25, 24, 0.15); }
+.domain-card--accent .domain-card__chip { color: rgba(18, 25, 24, 0.65); }
+/* Accent card close button */
+.domain-card--accent .domain-card__close {
+  border-color: rgba(18, 25, 24, 0.15);
+  background: rgba(255, 255, 255, 0.4);
+  color: rgba(18, 25, 24, 0.7);
+}
+.domain-card--accent .domain-card__close:hover {
+  background: rgba(255, 255, 255, 0.65);
+}
+/* Accent card expanded — keep border subtle */
+.domain-card--accent.expanded:hover {
+  border-color: rgba(18, 25, 24, 0.15);
+}
 
-/* Buzzword overrides for scheme cards */
+/* ---- Buzzword mode overrides ---- */
+.buzzword-mode .domain-card {
+  border-color: rgba(240, 75, 47, 0.25);
+}
+.buzzword-mode .domain-card:hover {
+  border-color: rgba(240, 75, 47, 0.5);
+}
+.buzzword-mode .domain-card__chip {
+  color: var(--accent-warm);
+}
 .buzzword-mode .domain-card--dark {
   border-color: rgba(240, 75, 47, 0.3);
 }
@@ -532,209 +698,36 @@ body.avenir.bg-near-white {
 .buzzword-mode .domain-card--accent {
   border-color: rgba(240, 75, 47, 0.4);
 }
-.buzzword-mode .domain-card--accent .domain-card__chip {
-  background: rgba(18, 25, 24, 0.2);
-}
-
-
-/* ========================================================================
-   Domains: expanded panels + tab bar + Star Wars wipe
-   ======================================================================== */
-
-/* ---- Card as button ---- */
-.domain-card {
-  text-align: inherit;
-  font-family: inherit;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-}
-
-/* Subtle card pulse to signal clickability */
-@keyframes card-hint {
-  0%, 100% { border-color: var(--border-card); }
-  50% { border-color: rgba(37, 86, 216, 0.18); }
-}
-.domain-card {
-  animation: card-hint 3s ease-in-out infinite;
-}
-.domain-card:hover {
-  animation: none;
-}
-
-/* ---- Tab bar ---- */
-.domains-tabs {
-  display: none;
-  max-width: 1200px;
-  margin: 0 auto 2rem;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.domains-section--expanded .domains-tabs {
-  display: flex;
-}
-
-.domains-tab {
-  padding: 0.5rem 1.25rem;
-  border: 1px solid var(--border-card);
-  border-radius: 2em;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-}
-
-.domains-tab:hover {
-  border-color: rgba(37, 86, 216, 0.3);
-  color: var(--text-primary);
-}
-
-.domains-tab--active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-}
-
-.domains-tab--active:hover {
-  background: var(--accent-strong);
-  color: #fff;
-}
-
-/* ---- Panels container ---- */
-.domains-panels {
-  display: none;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.domains-section--expanded .domains-panels {
-  display: block;
-}
-
-/* ---- Individual panel ---- */
-.domains-panel {
-  display: none;
-  padding: 2.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: 1rem;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.domains-panel--active {
-  display: block;
-  clip-path: inset(0 0 0 0);
-}
-
-.domains-panel--wiping {
-  display: block;
-  clip-path: inset(0 100% 0 0);
-}
-
-.domains-panel__body {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.domains-panel__title {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 1rem;
-  letter-spacing: -0.02em;
-}
-
-.domains-panel__summary {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  line-height: 1.55;
-  margin: 0 0 1rem;
-}
-
-.domains-panel__detail {
-  font-size: 0.95rem;
-  color: var(--text-dim);
-  line-height: 1.6;
-  margin: 0 0 1.5rem;
-}
-
-.domains-panel__stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border-card);
-}
-
-/* ---- Close button ---- */
-.domains-close {
-  display: none;
-  margin: 1.5rem auto 0;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-card);
-  border-radius: 2em;
-  background: transparent;
-  color: var(--text-dim);
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.domains-close svg {
-  width: 14px;
-  height: 14px;
-}
-
-.domains-close:hover {
-  border-color: rgba(240, 75, 47, 0.3);
-  color: var(--accent-warm);
-}
-
-.domains-section--expanded .domains-close {
-  display: inline-flex;
-}
-
-/* ---- Grid: hidden when expanded ---- */
-.domains-section--expanded .domains-grid {
-  display: none;
-}
-
-/* ---- Buzzword mode overrides ---- */
-.buzzword-mode .domains-tab--active {
-  background: #f04b2f;
-  border-color: #f04b2f;
-}
-.buzzword-mode .domains-panel {
-  border-color: rgba(240, 75, 47, 0.25);
-}
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
-  .domains-tabs {
-    gap: 0.35rem;
+  .domains-section {
+    padding: 3rem 1.25rem 4rem;
   }
-  .domains-tab {
-    padding: 0.4rem 0.85rem;
-    font-size: 0.75rem;
+  .domains-row {
+    height: auto;
+    flex-direction: column;
+    gap: 0.5rem;
   }
-  .domains-panel {
-    padding: 1.5rem;
+  .domain-card {
+    min-height: 80px;
+    flex: 1 1 auto;
   }
-  .domains-panel__title {
-    font-size: 1.5rem;
+  .domain-card.expanded {
+    flex: 1 1 auto;
+    min-height: 380px;
+  }
+  .domain-card.collapsed {
+    flex: 1 1 calc(33% - 0.5rem);
+    min-width: 60px;
+    min-height: 52px;
+  }
+  .domain-card.collapsed .domain-card__title {
+    writing-mode: horizontal-tb;
+  }
+  .domains-row.expanded {
+    flex-wrap: wrap;
+    flex-direction: row;
   }
 }
 
@@ -805,7 +798,7 @@ body.avenir.bg-near-white {
 
 .case-study__decision {
   padding: 0.6rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   color: var(--text-secondary);
   font-size: 0.925rem;
   line-height: 1.5;
@@ -924,7 +917,7 @@ a:hover {
 .home-cv {
   padding: 6rem 2rem;
   background: var(--bg-deep);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .home-cv__container {
@@ -992,7 +985,7 @@ a:hover {
 /* Footer */
 .site-footer {
   background: var(--bg-deep) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* ========================================================================
@@ -1092,13 +1085,8 @@ a:hover {
    ======================================================================== */
 
 @media (max-width: 768px) {
-  .domains-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
   .domains-section {
-    padding: 4rem 1.25rem;
+    padding: 3rem 1.25rem 4rem;
   }
 
   .case-study {
@@ -1173,10 +1161,7 @@ a:hover {
     flex-shrink: 0;
   }
 
-  .domains-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
+  /* domain cards stack naturally in flex column on mobile */
 }
 
 /* ========================================================================

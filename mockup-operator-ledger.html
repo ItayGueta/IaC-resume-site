@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Operator's Ledger visual mockup for Itay Gueta's resume site.">
+  <title>Operator's Ledger — Itay Gueta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #edf1ee;
+      --stock: #fbfcf8;
+      --ink: #121918;
+      --ink-muted: #53605d;
+      --rule: #b9c3be;
+      --signal: #f04b2f;
+      --utility: #2556d8;
+      --utility-dark: #173a9b;
+      --white: #ffffff;
+      --focus: #7b2cff;
+      --font-display: "Archivo Black", "Arial Black", sans-serif;
+      --font-body: "IBM Plex Sans", sans-serif;
+      --font-data: "IBM Plex Mono", monospace;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, transparent calc(50% - 1px), rgba(18, 25, 24, 0.035) 50%, transparent calc(50% + 1px)),
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: fixed;
+      inset-block-start: 0.75rem;
+      inset-inline-start: 0.75rem;
+      z-index: 20;
+      padding: 0.75rem 1rem;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-data);
+      transform: translateY(-180%);
+      transition: transform 160ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .page {
+      width: min(1440px, 100%);
+      margin-inline: auto;
+      background: rgba(251, 252, 248, 0.38);
+      border-inline: 1px solid var(--rule);
+      overflow: clip;
+    }
+
+    .topbar {
+      min-height: 78px;
+      padding: 0.9rem clamp(1rem, 3vw, 2.75rem);
+      display: grid;
+      grid-template-columns: minmax(210px, 1fr) auto auto;
+      align-items: center;
+      gap: clamp(1rem, 3vw, 2.75rem);
+      border-block-end: 1px solid var(--ink);
+      background: var(--stock);
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      text-decoration: none;
+    }
+
+    .brand__name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .brand__role {
+      color: var(--ink-muted);
+      font-family: var(--font-data);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .topbar__links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .topbar__links a {
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .mode-toggle {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid var(--ink);
+      border-radius: 0;
+      background: var(--stock);
+      color: var(--ink);
+      cursor: pointer;
+      font-family: var(--font-data);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    .mode-toggle:hover {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .mode-toggle__lamp {
+      width: 10px;
+      height: 10px;
+      flex: 0 0 auto;
+      border: 1px solid currentColor;
+      background: transparent;
+    }
+
+    .buzz-mode .mode-toggle {
+      background: var(--signal);
+      color: var(--ink);
+    }
+
+    .buzz-mode .mode-toggle__lamp {
+      background: var(--ink);
+    }
+
+    .hero {
+      min-height: 720px;
+      padding: clamp(4.5rem, 9vw, 8.5rem) clamp(1.25rem, 5vw, 5rem);
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      align-items: center;
+      gap: clamp(2rem, 4vw, 4.5rem);
+      border-block-end: 1px solid var(--ink);
+    }
+
+    .hero__copy {
+      grid-column: 1 / span 7;
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--utility);
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 8px;
+      background: var(--utility);
+    }
+
+    .hero__title {
+      max-width: 900px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 7.2vw, 7.4rem);
+      line-height: 0.89;
+      letter-spacing: -0.065em;
+      text-transform: uppercase;
+    }
+
+    .hero__title span {
+      display: block;
+    }
+
+    .hero__title .hero__title-mark {
+      color: var(--signal);
+    }
+
+    .hero__lede {
+      max-width: 620px;
+      margin: 2.25rem 0 0;
+      font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+      line-height: 1.45;
+    }
+
+    .hero__note {
+      max-width: 600px;
+      margin: 2rem 0 0;
+      padding-block-start: 1rem;
+      border-block-start: 1px solid var(--rule);
+      color: var(--ink-muted);
+      font-family: var(--font-data);
+      font-size: 0.75rem;
+    }
+
+    .receipt-wrap {
+      grid-column: 8 / -1;
+      min-width: 0;
+      position: relative;
+      transform: rotate(1.1deg);
+      transform-origin: center;
+      transition: transform 200ms ease;
+    }
+
+    .receipt-wrap:hover {
+      transform: rotate(0deg) translateY(-4px);
+    }
+
+    .receipt {
+      position: relative;
+      padding: 2.2rem clamp(1.25rem, 3vw, 2.5rem) 2.6rem;
+      background:
+        linear-gradient(rgba(18, 25, 24, 0.035) 1px, transparent 1px) 0 0 / 100% 28px,
+        var(--stock);
+      border: 1px solid var(--ink);
+      box-shadow: 12px 12px 0 var(--ink);
+    }
+
+    .receipt::before,
+    .receipt::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      height: 10px;
+      background: radial-gradient(circle at 5px 0, transparent 5px, var(--stock) 5.5px) 0 0 / 20px 10px repeat-x;
+    }
+
+    .receipt::before {
+      inset-block-start: -1px;
+      transform: rotate(180deg);
+    }
+
+    .receipt::after {
+      inset-block-end: -1px;
+    }
+
+    .receipt__head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-block-end: 1.2rem;
+      border-block-end: 2px solid var(--ink);
+    }
+
+    .receipt__kicker,
+    .receipt__id {
+      margin: 0;
+      font-family: var(--font-data);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .receipt__id {
+      color: var(--ink-muted);
+      text-align: end;
+    }
+
+    .receipt__title {
+      margin: 1.4rem 0 1.25rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.6vw, 2.8rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .receipt__facts {
+      margin: 0;
+    }
+
+    .receipt__facts > div {
+      padding-block: 0.7rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      border-block-start: 1px dashed var(--rule);
+    }
+
+    .receipt__facts dt {
+      color: var(--ink-muted);
+      font-family: var(--font-data);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+    }
+
+    .receipt__facts dd {
+      margin: 0;
+      font-family: var(--font-data);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .receipt__pipeline {
+      margin: 1.4rem 0 0;
+      padding: 1rem 0 0;
+      display: grid;
+      grid-template-columns: repeat(5, auto);
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem;
+      border-block-start: 2px solid var(--ink);
+      font-family: var(--font-data);
+      font-size: 0.61rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .receipt__pipeline b {
+      color: var(--signal);
+      font-size: 0.9rem;
+    }
+
+    .receipt__footer {
+      margin: 1.4rem 0 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--ink-muted);
+      font-family: var(--font-data);
+      font-size: 0.64rem;
+    }
+
+    .receipt__stamp {
+      position: absolute;
+      inset-block-start: 38%;
+      inset-inline-start: 9%;
+      z-index: 2;
+      width: 82%;
+      padding: 0.4rem;
+      border: 6px double var(--signal);
+      color: var(--signal);
+      font-family: var(--font-display);
+      font-size: clamp(1.45rem, 3.2vw, 3.1rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-align: center;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transform: rotate(-12deg) scale(1.12);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .buzz-mode .receipt__stamp {
+      opacity: 0.88;
+      transform: rotate(-12deg) scale(1);
+    }
+
+    .section {
+      padding: clamp(4.5rem, 8vw, 8rem) clamp(1.25rem, 5vw, 5rem);
+      border-block-end: 1px solid var(--ink);
+    }
+
+    .section__header {
+      margin-block-end: clamp(2.5rem, 5vw, 5rem);
+      display: grid;
+      grid-template-columns: minmax(160px, 3fr) 9fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .section__index {
+      margin: 0;
+      color: var(--utility);
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .section__title {
+      max-width: 850px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 5.3rem);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+      text-transform: uppercase;
+    }
+
+    .section__intro {
+      max-width: 730px;
+      margin: 1.5rem 0 0;
+      color: var(--ink-muted);
+      font-size: 1.05rem;
+    }
+
+    .evidence-board {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      border: 1px solid var(--ink);
+      background: var(--stock);
+    }
+
+    .flow {
+      min-height: 500px;
+      padding: clamp(1.5rem, 4vw, 3.5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--utility);
+      color: var(--white);
+      border-inline-end: 1px solid var(--ink);
+    }
+
+    .flow__label {
+      margin: 0;
+      font-family: var(--font-data);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .flow__track {
+      position: relative;
+      margin-block: 3rem;
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .flow__track::before {
+      content: "";
+      position: absolute;
+      inset-block: 1rem;
+      inset-inline-start: 15px;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .flow__stage {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .flow__node {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      background: var(--utility);
+      border: 2px solid var(--white);
+      font-family: var(--font-data);
+      font-size: 0.62rem;
+      font-weight: 600;
+    }
+
+    .flow__stage:last-child .flow__node {
+      background: var(--signal);
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    .flow__stage strong {
+      display: block;
+      font-family: var(--font-data);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    .flow__stage span {
+      display: block;
+      margin-block-start: 0.15rem;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.82rem;
+    }
+
+    .flow__foot {
+      margin: 0;
+      padding-block-start: 1rem;
+      border-block-start: 1px solid rgba(255, 255, 255, 0.35);
+      font-family: var(--font-data);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .decision-log {
+      padding: clamp(1.5rem, 4vw, 3.5rem);
+    }
+
+    .decision-log__head {
+      margin: 0 0 1.4rem;
+      color: var(--ink-muted);
+      font-family: var(--font-data);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .decision {
+      padding-block: 1.25rem;
+      display: grid;
+      grid-template-columns: minmax(130px, 0.8fr) 1.4fr;
+      gap: clamp(1rem, 3vw, 2.5rem);
+      border-block-start: 1px solid var(--rule);
+    }
+
+    .decision__choice {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .decision__reason {
+      margin: 0;
+      color: var(--ink-muted);
+    }
+
+    .incident {
+      margin-block-start: 1px;
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 5vw, 5rem);
+      display: grid;
+      grid-template-columns: 2fr 3fr 4fr;
+      gap: 2rem;
+      background: var(--signal);
+      color: var(--ink);
+      border-block-end: 1px solid var(--ink);
+    }
+
+    .incident__label {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .incident__meta,
+    .incident__result {
+      margin: 0;
+    }
+
+    .incident strong {
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .capabilities {
+      background: var(--stock);
+    }
+
+    .ledger {
+      border-block-start: 2px solid var(--ink);
+    }
+
+    .ledger__row {
+      min-height: 132px;
+      padding-block: 1.25rem;
+      display: grid;
+      grid-template-columns: 0.65fr 2fr 4fr 1.2fr;
+      gap: clamp(1rem, 3vw, 2.5rem);
+      align-items: center;
+      border-block-end: 1px solid var(--rule);
+    }
+
+    .ledger__code {
+      color: var(--utility);
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .ledger__title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2vw, 2rem);
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+
+    .ledger__description {
+      margin: 0;
+      color: var(--ink-muted);
+    }
+
+    .ledger__proof {
+      justify-self: end;
+      font-family: var(--font-data);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-align: end;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-transform: uppercase;
+    }
+
+    .cta {
+      padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 5vw, 5rem);
+      display: grid;
+      grid-template-columns: 8fr 4fr;
+      gap: 3rem;
+      align-items: end;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .cta__title {
+      max-width: 900px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 7.2rem);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .cta__title span {
+      color: var(--signal);
+    }
+
+    .cta__actions {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .cta__link {
+      min-height: 52px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border: 1px solid var(--white);
+      color: var(--white);
+      font-family: var(--font-data);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    .cta__link:hover {
+      background: var(--white);
+      color: var(--ink);
+    }
+
+    .cta__link--primary {
+      border-color: var(--signal);
+      background: var(--signal);
+      color: var(--ink);
+    }
+
+    .cta__link--primary:hover {
+      background: var(--white);
+      border-color: var(--white);
+    }
+
+    .footer-note {
+      margin: 0;
+      padding: 1rem clamp(1.25rem, 5vw, 5rem);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--ink);
+      color: #aab3b0;
+      border-block-start: 1px solid #39423f;
+      font-family: var(--font-data);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        grid-template-columns: 1fr auto;
+      }
+
+      .topbar__links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero__copy,
+      .receipt-wrap {
+        grid-column: 1;
+      }
+
+      .hero__copy {
+        max-width: 850px;
+      }
+
+      .receipt-wrap {
+        width: min(620px, 100%);
+        margin-inline: auto;
+      }
+
+      .evidence-board {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        min-height: 460px;
+        border-inline-end: 0;
+        border-block-end: 1px solid var(--ink);
+      }
+
+      .cta {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .cta__actions {
+        width: min(520px, 100%);
+      }
+    }
+
+    @media (max-width: 700px) {
+      body {
+        background: var(--paper);
+      }
+
+      .page {
+        border-inline: 0;
+      }
+
+      .topbar {
+        padding: 0.75rem 1rem;
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+      }
+
+      .brand {
+        justify-content: space-between;
+      }
+
+      .brand__role {
+        text-align: end;
+      }
+
+      .mode-toggle {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-block: 4.5rem;
+      }
+
+      .hero__title {
+        font-size: clamp(2.75rem, 12.5vw, 4rem);
+        line-height: 0.92;
+      }
+
+      .receipt-wrap,
+      .receipt-wrap:hover {
+        transform: none;
+      }
+
+      .receipt {
+        box-shadow: 7px 7px 0 var(--ink);
+      }
+
+      .section__header {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .section__intro {
+        font-size: 1rem;
+      }
+
+      .decision {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+      }
+
+      .incident {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .ledger__row {
+        padding-block: 1.5rem;
+        grid-template-columns: 48px 1fr;
+        gap: 0.75rem 1rem;
+      }
+
+      .ledger__description,
+      .ledger__proof {
+        grid-column: 2;
+      }
+
+      .ledger__proof {
+        justify-self: start;
+        text-align: start;
+      }
+
+      .footer-note {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand__role {
+        max-width: 130px;
+      }
+
+      .receipt__pipeline {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        gap: 0.6rem;
+      }
+
+      .receipt__pipeline b {
+        transform: rotate(90deg);
+        transform-origin: center;
+      }
+
+      .receipt__footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to work</a>
+
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Itay Gueta, home">
+        <span class="brand__name">Itay Gueta</span>
+        <span class="brand__role">Software / Operations / AI</span>
+      </a>
+
+      <nav class="topbar__links" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="https://github.com/ItayGueta/resume-site">Source</a>
+        <a href="#contact">Résumé</a>
+      </nav>
+
+      <button class="mode-toggle" id="buzz-toggle" type="button" aria-pressed="false">
+        <span class="mode-toggle__lamp" aria-hidden="true"></span>
+        <span id="buzz-toggle-label">Consultant mode: off</span>
+      </button>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow" data-real="Field log / 2026" data-buzz="Executive transformation brief">Field log / 2026</p>
+          <h1 class="hero__title" id="hero-title">
+            <span data-real="I build systems" data-buzz="I unlock value">I build systems</span>
+            <span class="hero__title-mark" data-real="that explain" data-buzz="that synergize">that explain</span>
+            <span data-real="themselves." data-buzz="at scale.">themselves.</span>
+          </h1>
+          <p class="hero__lede" data-real="Software first. Infrastructure in code. AI with a receipt attached." data-buzz="AI-native transformation across a cloud-first value delivery ecosystem.">
+            Software first. Infrastructure in code. AI with a receipt attached.
+          </p>
+          <p class="hero__note" data-real="The proof is below: decisions, operating cost, and the failure that made the deployment safer." data-buzz="Scroll for a curated matrix of high-leverage wins, strategic learnings, and north-star outcomes.">
+            The proof is below: decisions, operating cost, and the failure that made the deployment safer.
+          </p>
+        </div>
+
+        <div class="receipt-wrap" aria-label="Deployment receipt">
+          <article class="receipt">
+            <div class="receipt__stamp" aria-hidden="true">Synergy certified</div>
+            <header class="receipt__head">
+              <p class="receipt__kicker" data-real="Deployment receipt" data-buzz="Value realization artifact">Deployment receipt</p>
+              <p class="receipt__id">RS-2026-001<br>status / running</p>
+            </header>
+
+            <h2 class="receipt__title" data-real="Resume site infrastructure" data-buzz="Omnichannel talent platform">Resume site infrastructure</h2>
+
+            <dl class="receipt__facts">
+              <div>
+                <dt data-real="Monthly run cost" data-buzz="Strategic investment">Monthly run cost</dt>
+                <dd>$6.00</dd>
+              </div>
+              <div>
+                <dt data-real="Environments" data-buzz="Experience surfaces">Environments</dt>
+                <dd>02</dd>
+              </div>
+              <div>
+                <dt data-real="Dashboard clicks" data-buzz="Human-in-loop touchpoints">Dashboard clicks</dt>
+                <dd>00</dd>
+              </div>
+              <div>
+                <dt data-real="Documented incidents" data-buzz="Growth opportunities">Documented incidents</dt>
+                <dd>01</dd>
+              </div>
+            </dl>
+
+            <div class="receipt__pipeline" aria-label="Deployment flow">
+              <span>Terraform</span><b aria-hidden="true">→</b>
+              <span>Ansible</span><b aria-hidden="true">→</b>
+              <span>Hugo</span>
+              <span>rsync</span><b aria-hidden="true">→</b>
+              <span>nginx</span>
+            </div>
+
+            <footer class="receipt__footer">
+              <span>branch: master → production</span>
+              <span>branch: * → beta</span>
+            </footer>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="work" aria-labelledby="work-title">
+        <header class="section__header">
+          <p class="section__index">Case file / RS-001</p>
+          <div>
+            <h2 class="section__title" id="work-title" data-real="I built the site to deploy the site." data-buzz="A self-healing digital presence flywheel.">
+              I built the site to deploy the site.
+            </h2>
+            <p class="section__intro" data-real="A personal site needed to be cheap, fast, secure, and reproducible. More importantly, it needed to show the work instead of merely claiming the skills." data-buzz="A cloud-native platform aligned brand experience, operational excellence, and continuous stakeholder delight.">
+              A personal site needed to be cheap, fast, secure, and reproducible. More importantly, it needed to show the work instead of merely claiming the skills.
+            </p>
+          </div>
+        </header>
+
+        <div class="evidence-board">
+          <div class="flow" aria-label="Infrastructure flow">
+            <p class="flow__label">Provision → configure → publish</p>
+            <div class="flow__track">
+              <div class="flow__stage">
+                <span class="flow__node">01</span>
+                <div><strong>Terraform</strong><span>Droplet, DNS, firewall</span></div>
+              </div>
+              <div class="flow__stage">
+                <span class="flow__node">02</span>
+                <div><strong>Ansible</strong><span>nginx, TLS, SSH hardening</span></div>
+              </div>
+              <div class="flow__stage">
+                <span class="flow__node">03</span>
+                <div><strong>GitHub Actions</strong><span>Branch-aware build and deploy</span></div>
+              </div>
+              <div class="flow__stage">
+                <span class="flow__node">04</span>
+                <div><strong>DigitalOcean</strong><span>Two web roots, one small server</span></div>
+              </div>
+              <div class="flow__stage">
+                <span class="flow__node">OK</span>
+                <div><strong>nginx</strong><span>If you can read this, it worked</span></div>
+              </div>
+            </div>
+            <p class="flow__foot">Core path uses static SVG/CSS in production. No decorative runtime loop required.</p>
+          </div>
+
+          <div class="decision-log">
+            <p class="decision-log__head">Decision record / why this stack</p>
+            <div class="decision">
+              <p class="decision__choice">Terraform over ClickOps</p>
+              <p class="decision__reason">Reproducible, reviewable, and one command away from a clean rebuild.</p>
+            </div>
+            <div class="decision">
+              <p class="decision__choice">Ansible over shell scripts</p>
+              <p class="decision__reason">Idempotent configuration with readable intent and safer reruns.</p>
+            </div>
+            <div class="decision">
+              <p class="decision__choice">One droplet over managed hosting</p>
+              <p class="decision__reason">A deliberate $6/month constraint that keeps the infrastructure legible.</p>
+            </div>
+            <div class="decision">
+              <p class="decision__choice">Two web roots, one certificate</p>
+              <p class="decision__reason">Production and beta share the server while deployments remain branch-aware.</p>
+            </div>
+            <div class="decision">
+              <p class="decision__choice">Failure stays in the story</p>
+              <p class="decision__reason">The 403 incident is evidence of recovery work, not an embarrassing footnote.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="incident" aria-label="Incident summary">
+        <p class="incident__label">Incident 403</p>
+        <p class="incident__meta"><strong>What broke</strong><br>The beta web root was empty after rsync, producing a silent deployment failure.</p>
+        <p class="incident__result"><strong>What changed</strong><br>Pre-flight checks and manual deploy overrides made the stuck environment recoverable without waiting for another push.</p>
+      </aside>
+
+      <section class="section capabilities" aria-labelledby="capabilities-title">
+        <header class="section__header">
+          <p class="section__index">Capability ledger</p>
+          <div>
+            <h2 class="section__title" id="capabilities-title" data-real="Claims are cheap. Attach evidence." data-buzz="Competencies aligned to strategic pillars.">
+              Claims are cheap. Attach evidence.
+            </h2>
+          </div>
+        </header>
+
+        <div class="ledger">
+          <article class="ledger__row">
+            <span class="ledger__code">CAP-01</span>
+            <h3 class="ledger__title">Software</h3>
+            <p class="ledger__description">Python automation, product code, data flows, and the maintenance work after launch.</p>
+            <a class="ledger__proof" href="#work">Proof / case files</a>
+          </article>
+          <article class="ledger__row">
+            <span class="ledger__code">CAP-02</span>
+            <h3 class="ledger__title">Operations</h3>
+            <p class="ledger__description">Infrastructure as code, secure defaults, deterministic deploys, and honest incident handling.</p>
+            <a class="ledger__proof" href="https://github.com/ItayGueta/resume-site">Proof / repository</a>
+          </article>
+          <article class="ledger__row">
+            <span class="ledger__code">CAP-03</span>
+            <h3 class="ledger__title">AI systems</h3>
+            <p class="ledger__description">Agents, tools, structured outputs, and token budgets treated as architecture—not magic.</p>
+            <a class="ledger__proof" href="#contact">Proof / discuss</a>
+          </article>
+          <article class="ledger__row">
+            <span class="ledger__code">CAP-04</span>
+            <h3 class="ledger__title">Design</h3>
+            <p class="ledger__description">Information hierarchy, responsive behavior, accessibility, and visual systems with a reason.</p>
+            <a class="ledger__proof" href="#main">Proof / this page</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta" id="contact" aria-labelledby="cta-title">
+        <h2 class="cta__title" id="cta-title">The formal bit.<br><span>Two clicks.</span></h2>
+        <div class="cta__actions">
+          <a class="cta__link cta__link--primary" href="site/static/Itay_Gueta_CV_2026.pdf">
+            <span>Open résumé</span><span aria-hidden="true">PDF</span>
+          </a>
+          <a class="cta__link" href="https://github.com/ItayGueta">
+            <span>Review GitHub</span><span aria-hidden="true">↗</span>
+          </a>
+          <a class="cta__link" href="mailto:itay.gueta@gmail.com">
+            <span>Start a conversation</span><span aria-hidden="true">@</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-note">
+      <span>Operator’s Ledger / visual mockup</span>
+      <span>No production templates were harmed</span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var button = document.getElementById("buzz-toggle");
+      var label = document.getElementById("buzz-toggle-label");
+      var buzzElements = document.querySelectorAll("[data-buzz]");
+
+      if (!button || !label) {
+        return;
+      }
+
+      button.addEventListener("click", function () {
+        var active = document.body.classList.toggle("buzz-mode");
+
+        buzzElements.forEach(function (element) {
+          element.textContent = active
+            ? element.getAttribute("data-buzz")
+            : element.getAttribute("data-real");
+        });
+
+        button.setAttribute("aria-pressed", String(active));
+        label.textContent = active ? "Consultant mode: on" : "Consultant mode: off";
+      });
+    })();
+  </script>
+</body>
+</html>

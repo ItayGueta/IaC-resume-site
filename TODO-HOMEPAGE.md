@@ -27,6 +27,14 @@
   - Could be SVG/CSS-only, toggled by `.buzzword-mode` on body
 - [ ] Maybe a "Download Whitepaper" button that only appears in buzzword mode (does nothing or rickrolls)
 
+## Shape Language System (→ Design Log #007)
+
+Replace particle network with a semantic geometric shape language: cyan (technical) + amber (results), domain-recognizable topologies (neural net, K8s mesh, pipeline DAG). Shapes as vocabulary, not decoration.
+
+- [ ] Phase 1: Hero SVG composition (replace canvas + particle IIFE)
+- [ ] Phase 2: Section accent motifs (K8s/neural/pipeline corner SVGs)
+- [ ] Phase 3: Polish — parallax, buzzword mode, reduced-motion
+
 ## Layout Restructure (→ Design Log #006)
 
 Replace the Hero → Cards → Pipeline → CV stack with project case studies that demonstrate real work across software dev, DevOps, and AI. Cards get absorbed into a compact methodology grid. Pipeline becomes a case study rather than a standalone diagram.
@@ -69,6 +77,17 @@ User to own all copy. Points to cover when we discuss:
 - [ ] German translations — after English copy is final
 - [ ] Buzzword mode expansions — silly graphs, whitepaper button
 - [ ] Review the "I Orchestrate." / "Ich Orchestriere." titles — works but worth discussing
+
+## Dark Mode (→ Design Log #011)
+
+- [ ] Build a manual dark mode toggle (not system-coupled)
+- [ ] Dark tokens: ink-blue surfaces instead of near-black (`#10171f` / `#17212d`)
+- [ ] Cobalt and orange semantic roles preserved in both modes
+- [ ] No glow in dark mode — surface contrast instead
+- [ ] Reduce hero from `100vh` to `~82vh` so domain cards peek into viewport
+- [ ] Fix SVG opacity compounding (group × child = invisible)
+- [ ] Fix body font specificity (DM Sans losing to theme's Avenir utility class)
+- [ ] Mobile nav spacing at 390px
 
 ## Tech
 

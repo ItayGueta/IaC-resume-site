@@ -308,164 +308,105 @@
 })();
 
 /* ========================================================================
-   Domain cards — expand / collapse with Star Wars wipe
+   Domain cards — expanding card row (flex transition)
    ======================================================================== */
 
 (function () {
   'use strict';
 
   var section = document.querySelector('.domains-section');
-  var cards = document.querySelectorAll('.domain-card');
-  var tabs = document.querySelectorAll('.domains-tab');
-  var panels = document.querySelectorAll('.domains-panel');
-  var closeBtn = document.querySelector('.domains-close');
+  var row = section ? section.querySelector('.domains-row') : null;
+  var cards = row ? Array.from(row.querySelectorAll('.domain-card')) : [];
+  var resetBtn = section ? section.querySelector('.domains-reset') : null;
 
-  if (!section || !cards.length) return;
+  if (!row || !cards.length) return;
 
   var activeDomain = null;
-  var WIPE_DURATION = 550; // ms — matches CSS transition
 
-  function getPanel(domain) {
-    return section.querySelector('.domains-panel[data-domain="' + domain + '"]');
-  }
-
-  function getTab(domain) {
-    return section.querySelector('.domains-tab[data-domain="' + domain + '"]');
-  }
-
-  function setActiveTab(domain) {
-    tabs.forEach(function (t) {
-      var isActive = t.getAttribute('data-domain') === domain;
-      t.classList.toggle('domains-tab--active', isActive);
-      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  function collapseAll() {
+    cards.forEach(function (c) {
+      c.classList.remove('expanded', 'collapsed');
     });
-  }
+    row.classList.remove('expanded');
+    activeDomain = null;
 
-  function wipeTo(newPanel, callback) {
-    // Find the currently visible panel (active or mid-wipe)
-    var currentPanel = section.querySelector('.domains-panel--active, .domains-panel--wiping');
-
-    if (currentPanel && currentPanel === newPanel) return; // already showing
-
-    if (currentPanel) {
-      // Wipe current panel out (left to right: hidden → visible means we reverse)
-      currentPanel.classList.remove('domains-panel--active');
-      currentPanel.classList.add('domains-panel--wiping');
-    }
-
-    // After the wipe-out, show the new panel
-    setTimeout(function () {
-      if (currentPanel) {
-        currentPanel.classList.remove('domains-panel--wiping');
-      }
-
-      // Force layout then wipe in
-      newPanel.classList.add('domains-panel--wiping');
-      newPanel.getBoundingClientRect(); // force reflow
-
-      newPanel.classList.remove('domains-panel--wiping');
-      newPanel.classList.add('domains-panel--active');
-
-      if (callback) callback();
-    }, currentPanel ? WIPE_DURATION : 50);
+    // Clear hash without triggering hashchange
+    var url = window.location.pathname + window.location.search;
+    history.replaceState(null, '', url);
   }
 
   function expandDomain(domain, scrollTo) {
-    var panel = getPanel(domain);
-    if (!panel) return;
+    if (activeDomain === domain) {
+      collapseAll();
+      return;
+    }
 
-    // Hide all panels except target
-    panels.forEach(function (p) {
-      if (p !== panel) {
-        p.classList.remove('domains-panel--active', 'domains-panel--wiping');
+    cards.forEach(function (c) {
+      var d = c.getAttribute('data-domain');
+      c.classList.remove('expanded', 'collapsed');
+      if (d === domain) {
+        c.classList.add('expanded');
+      } else {
+        c.classList.add('collapsed');
       }
     });
 
-    var wasCollapsed = !section.classList.contains('domains-section--expanded');
+    row.classList.add('expanded');
+    activeDomain = domain;
 
-    if (wasCollapsed) {
-      // First expand: show section, wipe in the panel
-      section.classList.add('domains-section--expanded');
-      activeDomain = domain;
-
-      // Force layout
-      panel.classList.add('domains-panel--wiping');
-      panel.getBoundingClientRect();
-
-      panel.classList.remove('domains-panel--wiping');
-      panel.classList.add('domains-panel--active');
-      setActiveTab(domain);
-    } else if (activeDomain !== domain) {
-      // Switching tabs within expanded view
-      var oldDomain = activeDomain;
-      activeDomain = domain;
-      setActiveTab(domain);
-
-      var newPanel = panel;
-      var oldPanel = getPanel(oldDomain);
-
-      // Wipe old out
-      if (oldPanel) {
-        oldPanel.classList.remove('domains-panel--active');
-        oldPanel.classList.add('domains-panel--wiping');
-      }
-
-      setTimeout(function () {
-        if (oldPanel) oldPanel.classList.remove('domains-panel--wiping');
-
-        newPanel.classList.add('domains-panel--wiping');
-        newPanel.getBoundingClientRect();
-        newPanel.classList.remove('domains-panel--wiping');
-        newPanel.classList.add('domains-panel--active');
-      }, WIPE_DURATION);
+    // Update URL hash without triggering hashchange
+    if (window.location.hash !== '#' + domain) {
+      history.replaceState(null, '', '#' + domain);
     }
 
-    // Scroll to section if needed
-    if (scrollTo && wasCollapsed) {
+    if (scrollTo) {
       setTimeout(function () {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+        row.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     }
   }
 
-  function collapseAll() {
-    section.classList.remove('domains-section--expanded');
-    panels.forEach(function (p) {
-      p.classList.remove('domains-panel--active', 'domains-panel--wiping');
-    });
-    tabs.forEach(function (t) {
-      t.classList.remove('domains-tab--active');
-      t.setAttribute('aria-selected', 'false');
-    });
-    activeDomain = null;
-    window.location.hash = '';
-  }
+  // ---- Event bindings ----
 
-  // Card click (grid view) → expand
+  // Card click → expand, or collapse if already expanded
   cards.forEach(function (card) {
-    card.addEventListener('click', function () {
-      var domain = card.getAttribute('data-domain');
-      if (domain) expandDomain(domain, true);
-    });
-  });
+    card.addEventListener('click', function (e) {
+      // Don't fire if close button was clicked
+      if (e.target.closest('.domain-card__close')) return;
 
-  // Tab click → switch
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var domain = tab.getAttribute('data-domain');
+      if (card.classList.contains('expanded')) {
+        collapseAll();
+        return;
+      }
+
+      var domain = card.getAttribute('data-domain');
       if (domain) expandDomain(domain, false);
     });
   });
 
-  // Close → collapse
-  if (closeBtn) {
-    closeBtn.addEventListener('click', collapseAll);
+  // Close button inside expanded card → collapse all
+  row.addEventListener('click', function (e) {
+    if (e.target.closest('.domain-card__close')) {
+      collapseAll();
+    }
+  });
+
+  // Reset button → collapse all
+  if (resetBtn) {
+    resetBtn.addEventListener('click', collapseAll);
   }
 
-  // URL hash support: #development, #infrastructure, #ai, #design
+  // Keyboard: Escape → collapse
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && activeDomain) {
+      collapseAll();
+    }
+  });
+
+  // URL hash routing (on load + browser back/forward)
   function handleHash() {
     var hash = window.location.hash.replace('#', '');
-    if (hash && section.querySelector('.domains-panel[data-domain="' + hash + '"]')) {
+    if (hash && row.querySelector('.domain-card[data-domain="' + hash + '"]')) {
       expandDomain(hash, true);
     }
   }
