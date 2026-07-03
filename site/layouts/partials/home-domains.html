@@ -1,24 +1,124 @@
 <section class="domains-section" id="expertise">
+  <!-- Tab bar — hidden in grid view, visible after expand -->
+  <div class="domains-tabs" role="tablist" aria-label="Domain selector">
+    {{ $tabs := collections.Slice
+      (dict "domain" "development"    "label" "Development")
+      (dict "domain" "infrastructure" "label" "Infrastructure")
+      (dict "domain" "ai"             "label" "AI Engineering")
+      (dict "domain" "design"         "label" "Design")
+    }}
+    {{ range $i, $tab := $tabs }}
+    <button class="domains-tab{{ if eq $i 0 }} domains-tab--active{{ end }}"
+            role="tab"
+            aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}"
+            data-domain="{{ $tab.domain }}"
+            aria-controls="domain-panel-{{ $tab.domain }}">
+      {{ $tab.label }}
+    </button>
+    {{ end }}
+  </div>
+
+  <!-- Expanded panels — one per domain, revealed by tab selection -->
+  <div class="domains-panels">
+    <article class="domains-panel domains-panel--active" data-domain="development" id="domain-panel-development">
+      <div class="domains-panel__body">
+        <h2 class="domains-panel__title">Development</h2>
+        <p class="domains-panel__summary">I ship software that survives deployment. Python automation, Flask platforms, CI/CD pipelines, and the maintenance work after launch.</p>
+        <p class="domains-panel__detail">At Wiliot I built Python automation that eliminated manual workflows, refactored build environments to cut debugging time by 90%, and maintained an internal Flask platform used across teams. I treat software as something that runs in production, not something that compiles on my machine.</p>
+        <div class="domains-panel__stack">
+          <span class="domain-card__chip">Python</span>
+          <span class="domain-card__chip">JavaScript</span>
+          <span class="domain-card__chip">TypeScript</span>
+          <span class="domain-card__chip">React</span>
+          <span class="domain-card__chip">Hugo</span>
+          <span class="domain-card__chip">Git</span>
+          <span class="domain-card__chip">Flask</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="domains-panel" data-domain="infrastructure" id="domain-panel-infrastructure">
+      <div class="domains-panel__body">
+        <h2 class="domains-panel__title">Infrastructure</h2>
+        <p class="domains-panel__summary">This site runs on infrastructure I provisioned, hardened, and automated. No dashboard clicks.</p>
+        <p class="domains-panel__detail">Terraform provisions the droplet, DNS, and firewall. Ansible hardens the server. GitHub Actions builds and ships. Every piece is code, every decision is documented, and I once locked myself out while tightening SSH. The full pipeline is below.</p>
+        <div class="domains-panel__stack">
+          <span class="domain-card__chip">Terraform</span>
+          <span class="domain-card__chip">Ansible</span>
+          <span class="domain-card__chip">GitHub Actions</span>
+          <span class="domain-card__chip">nginx</span>
+          <span class="domain-card__chip">Cloudflare</span>
+          <span class="domain-card__chip">DigitalOcean</span>
+          <span class="domain-card__chip">Docker</span>
+          <span class="domain-card__chip">Kubernetes</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="domains-panel" data-domain="ai" id="domain-panel-ai">
+      <div class="domains-panel__body">
+        <h2 class="domains-panel__title">AI Engineering</h2>
+        <p class="domains-panel__summary">I know how these things compose, and what they cost. Skills, tools, subagents, MCP — not buzzwords, bills.</p>
+        <p class="domains-panel__detail">I build agentic workflows with structured output schemas and adversarial verification. I track token costs per invocation. I use the right model for the task — cache hits over fresh calls, narrow tools over kitchen-sink prompts. The buzzword toggle on this page is the joke; the system underneath is real.</p>
+        <div class="domains-panel__stack">
+          <span class="domain-card__chip">Claude API</span>
+          <span class="domain-card__chip">MCP</span>
+          <span class="domain-card__chip">Subagents</span>
+          <span class="domain-card__chip">Workflows</span>
+          <span class="domain-card__chip">Structured Output</span>
+          <span class="domain-card__chip">Token Budgets</span>
+          <span class="domain-card__chip">Evals</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="domains-panel" data-domain="design" id="domain-panel-design">
+      <div class="domains-panel__body">
+        <h2 class="domains-panel__title">Design</h2>
+        <p class="domains-panel__summary">Enough to ship. This site is the proof — information hierarchy, responsive behavior, accessibility, and knowing when the interface should get out of the way.</p>
+        <p class="domains-panel__detail">No templates, no Tailwind, no component library defaults. Every color, spacing value, and animation on this page has a reason. The shape language uses domain-recognizable topologies (pipeline DAG, neural net, K8s mesh) as semantic diagrams, not decoration.</p>
+        <div class="domains-panel__stack">
+          <span class="domain-card__chip">Custom CSS</span>
+          <span class="domain-card__chip">Responsive</span>
+          <span class="domain-card__chip">Accessibility</span>
+          <span class="domain-card__chip">Typography</span>
+          <span class="domain-card__chip">Figma</span>
+          <span class="domain-card__chip">No Templates</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Close button — visible only when expanded -->
+  <button class="domains-close" aria-label="Collapse domain detail">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    Show all
+  </button>
+
+  <!-- Grid view: 4 summary cards — visible by default, hidden when expanded -->
   <div class="domains-grid">
     {{ $cards := collections.Slice
       (dict
         "scheme"   "default"
+        "domain"   "development"
         "title"    "Development"
         "buzz_title" "Full-Stack Digital Craftsmanship"
         "tagline"  "I ship software."
         "buzz_tagline" "Delivering enterprise-grade software solutions at velocity."
-        "stack"    (collections.Slice "Go" "Python" "TypeScript" "React" "Hugo" "Git")
+        "stack"    (collections.Slice "Python" "JavaScript" "TypeScript" "React" "Hugo" "Flask")
       )
       (dict
         "scheme"   "muted"
+        "domain"   "infrastructure"
         "title"    "Infrastructure"
         "buzz_title" "Cloud-Native Platform Engineering"
         "tagline"  "This site runs itself."
         "buzz_tagline" "Zero-touch, self-healing infrastructure powered by IaC best practices."
-        "stack"    (collections.Slice "Terraform" "Ansible" "GitHub Actions" "nginx" "Cloudflare" "DigitalOcean")
+        "stack"    (collections.Slice "Terraform" "Ansible" "GitHub Actions" "nginx" "Cloudflare" "Docker")
       )
       (dict
         "scheme"   "dark"
+        "domain"   "ai"
         "title"    "AI Engineering"
         "buzz_title" "Next-Gen Cognitive Orchestration"
         "tagline"  "I know what things cost."
@@ -27,6 +127,7 @@
       )
       (dict
         "scheme"   "accent"
+        "domain"   "design"
         "title"    "Design"
         "buzz_title" "Human-Centered Experience Architecture"
         "tagline"  "You're looking at it."
@@ -35,7 +136,7 @@
       )
     }}
     {{ range $i, $card := $cards }}
-    <div class="domain-card reveal domain-card--{{ $card.scheme }}">
+    <button class="domain-card reveal domain-card--{{ $card.scheme }}" data-domain="{{ $card.domain }}" aria-label="View {{ $card.title }} details">
       <h3 class="domain-card__title" data-buzz="{{ $card.buzz_title }}">{{ $card.title }}</h3>
       <div class="domain-card__reveal">
         <p class="domain-card__tagline" data-buzz="{{ $card.buzz_tagline }}">{{ $card.tagline }}</p>
@@ -45,7 +146,7 @@
           {{ end }}
         </div>
       </div>
-    </div>
+    </button>
     {{ end }}
   </div>
 </section>
