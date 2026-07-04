@@ -1,28 +1,58 @@
-# Terraform artefacts
+# Terraform artifacts
 *.tfstate
 *.tfstate.*
 .terraform/
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
 
 # Variables / secrets
 *.tfvars
+!*.tfvars.example
 .secrets/
+.env
+.env.*
+!.env.example
 
 # General cruft
 .DS_Store
+Thumbs.db
+[Dd]esktop.ini
+*.swp
+*.swo
+*~
 
 # Python local environments
 .venv/
+venv/
 __pycache__/
+*.py[cod]
+.pytest_cache/
 
 # Local tool state
 .opencode/
 .opencode/node_modules/
+/.cc10x/
 
 # Agent docs
 AGENTS.md
 design-log/
+CLAUDE.md
+
+# Private design scratch files
+/concepts_and_mockups/
 
 # Hugo build output and generated files (except CV PDF)
 site/public/
 site/resources/_gen/
 site/.hugo_build.lock
+site/hugo_stats.json
+site/assets/jsconfig.json
+
+# Ansible runtime output
+*.retry
