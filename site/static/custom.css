@@ -721,30 +721,48 @@ body.avenir.bg-near-white {
   .domains-section {
     padding: 3rem 1.25rem 4rem;
   }
+  /* Row becomes a tall column when expanded, normal column otherwise */
   .domains-row {
     height: auto;
     flex-direction: column;
     gap: 0.5rem;
   }
+  .domains-row.expanded {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    min-height: 75vh;
+  }
+  /* Normal state: compact cards in a column */
   .domain-card {
     min-height: 80px;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
   }
+  /* Expanded: fill available height, detail scrolls internally */
   .domain-card.expanded {
     flex: 1 1 auto;
-    min-height: 380px;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
   }
+  /* Collapsed: thin horizontal strip — same role as desktop 52px vertical strips */
   .domain-card.collapsed {
-    flex: 1 1 calc(33% - 0.5rem);
-    min-width: 60px;
-    min-height: 52px;
+    flex: 0 0 44px;
+    width: 100%;
+    min-width: 0;
   }
   .domain-card.collapsed .domain-card__title {
     writing-mode: horizontal-tb;
+    font-size: 0.75rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .domains-row.expanded {
-    flex-wrap: wrap;
-    flex-direction: row;
+  .domain-card.collapsed .domain-card__tagline {
+    display: none;
+  }
+  .domain-card.collapsed .domain-card__compact {
+    padding: 0 1rem;
   }
 }
 
@@ -1183,6 +1201,138 @@ a:hover {
   }
 
   /* domain cards stack naturally in flex column on mobile */
+}
+
+/* ---- Sub-480px: tight nav, small hero ---- */
+@media (max-width: 480px) {
+  /* Nav: halve padding, shrink gap, tighten up */
+  .home-nav {
+    padding: 0.65rem 0.75rem;
+  }
+  .home-nav__actions {
+    gap: 0.4rem;
+  }
+  .home-nav__logo {
+    font-size: 1rem;
+  }
+
+  /* Buzzword toggle: show short text, hide full label */
+  .home-nav__buzz-toggle {
+    padding: 0.3em 0.55em;
+    font-size: 0.72rem;
+  }
+  .buzz-toggle__label {
+    display: none;
+  }
+  .home-nav__buzz-toggle::after {
+    content: attr(data-short);
+    font-weight: 600;
+  }
+
+  /* Language toggle: smaller */
+  .home-nav__lang {
+    padding: 0.3em 0.55em;
+    font-size: 0.78rem;
+  }
+  .home-nav__lang span {
+    display: none;
+  }
+  .home-nav__lang img {
+    height: 1.3em;
+    width: 1.7em;
+  }
+
+  /* Theme toggle: smaller */
+  .home-nav__theme-toggle {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.95rem;
+  }
+
+  /* Hide social links on very small screens */
+  .home-nav__actions .ananke-socials {
+    display: none;
+  }
+
+  /* Hero: reduce min-height, smaller type */
+  .hero {
+    height: 65vh;
+    min-height: 360px;
+  }
+  .hero__content {
+    padding: 0 0.5rem;
+  }
+  .hero__title {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
+  .hero__subtitle {
+    font-size: 0.92rem;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .hero__stack {
+    font-size: 0.75rem;
+  }
+  .hero__scroll-hint {
+    font-size: 0.78rem;
+  }
+
+  /* General section padding tighten */
+  .domains-section {
+    padding: 2.5rem 1rem 3rem;
+  }
+  .case-study {
+    padding: 3rem 1rem;
+  }
+  .home-cv {
+    padding: 3rem 1rem;
+  }
+
+  /* Domain cards: bigger tap targets on touch */
+  .domain-card__close {
+    width: 36px;
+    height: 36px;
+    top: 0.65rem;
+    right: 0.65rem;
+  }
+  .domain-card__close svg {
+    width: 18px;
+    height: 18px;
+  }
+  .domains-reset {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  /* Case study: smaller title */
+  .case-study__title {
+    font-size: 1.5rem;
+  }
+
+  /* Pipeline labels: tighter */
+  .pipeline__stage-label {
+    font-size: 0.72rem;
+  }
+}
+
+/* ---- Sub-380px: extra-small screens ---- */
+@media (max-width: 380px) {
+  .hero {
+    height: 60vh;
+    min-height: 300px;
+  }
+  .hero__title {
+    font-size: clamp(1.7rem, 8.5vw, 3rem);
+  }
+  .hero__subtitle {
+    font-size: 0.85rem;
+  }
+  .hero__stack {
+    font-size: 0.7rem;
+  }
+  .hero__overlay {
+    padding: 1rem;
+  }
 }
 
 /* ========================================================================
