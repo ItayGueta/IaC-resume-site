@@ -1,25 +1,24 @@
 # IaC-resume-site
 
-A personal resume website project and technical showcase. This repository demonstrates my ability to independently design, secure, and automate cloud infrastructure and deployment pipelines using modern DevOps best practices. The site is visually powered by [Hugo](https://gohugo.io/), hosted on a DigitalOcean droplet, provisioned via [Terraform](https://www.terraform.io/) and configured with [Ansible](https://www.ansible.com/).  
+This is my personal resume site, plus the infrastructure behind it.
 
-DNS, security, and performance are managed with [Cloudflare](https://www.cloudflare.com/), and all web traffic is secured with Let's Encrypt.
+I built it as a real project instead of a slide deck: [Hugo](https://gohugo.io/) for the site, [Terraform](https://www.terraform.io/) for infrastructure, [Ansible](https://www.ansible.com/) for server setup, and GitHub Actions for deployment.
+
+It runs on a DigitalOcean droplet, fronted by [Cloudflare](https://www.cloudflare.com/), with TLS from Let's Encrypt.
 
 ## Features
 
-- **End-to-End Infrastructure as Code:** Deploys a secure, production-ready site using Terraform and Ansible with minimal manual intervention.
-- **Automated Security:**  
-  - SSH access locked down to home IP and GitHub Actions workers (with chunked firewall rules to accommodate >5000 worker IPs).
-  - Root SSH and password authentication are disabled; only the `deploy` user with SSH key and passwordless sudo can access the server.
-  - Firewall open only on ports 22, 80, and 443.
-- **Modern Static Site:** Hugo is used for fast, visually appealing content and theming.
-- **Continuous Deployment:** GitHub Actions builds and deploys on every résumé update, with credentials handled securely via GitHub Secrets.
-- **Let's Encrypt TLS:** Automated SSL for HTTPS out-of-the-box.
-- **Cloudflare Fronting:** DNS, DDoS protection, and additional SSL/TLS support.
+- **Infrastructure as code:** Full infra + configuration flow in Terraform and Ansible.
+- **Locked-down SSH:** Root/password SSH disabled, deploy user only, firewall limited to required ports.
+- **Automated deploys:** GitHub Actions builds and ships site updates to the server.
+- **Branch testing on beta:** non-`master` branch deploys go to `beta.itaygueta.com`.
+- **TLS by default:** HTTPS via Let's Encrypt (managed through Ansible/Certbot).
+- **Cloudflare in front:** DNS and edge protection.
 
 ## Stack
 
 - **Infrastructure as Code:** Terraform, Ansible
-- **Hosting:** DigitalOcean Droplet (ubuntu-24-10-x64)
+- **Hosting:** DigitalOcean Droplet
 - **DNS / CDN / SSL:** Cloudflare, Let's Encrypt
 - **Static Site Generator:** Hugo
 - **Languages:** HCL (Terraform), YAML (Ansible), HTML, Markdown
@@ -31,28 +30,34 @@ DNS, security, and performance are managed with [Cloudflare](https://www.cloudfl
 - `site/` — Hugo project (themes, content, and static assets).
 - `.github/workflows/` — GitHub Actions deployment pipeline.
 
-## Usage
+## Why this exists
 
-> **Note:** This project is a technical showcase of mine and is not intended nor designed as a template.
+I wanted one project that reflects how I actually work: ship small, automate boring stuff, and keep infra readable.
+
+This repo is not meant to be a plug-and-play template, but you can still reuse ideas from it.
 
 ## Continuous Deployment
 
-Automated deployment is handled via a project-specific GitHub Actions workflow. On resume updates, the CI builds the Hugo site and deploys it to the server using SSH and rsync.  
+Automated deployment is handled by GitHub Actions. On site changes, CI builds the Hugo site and deploys it to the server using SSH + rsync.  
 _Note: The workflow is included for reference and is not intended for general use without custom configuration and secrets._
+
+Deployment targets:
+- `master` -> `itaygueta.com` (`/var/www/resume-site/`)
+- non-`master` branches -> `beta.itaygueta.com` (`/var/www/resume-site-beta/`)
 
 ## Security Summary
 
-- **SSH:** Access is limited to my home IP and GitHub Actions worker IPs. (Worker IPs split into 1000-IP firewall rules due to DigitalOcean limits.)
-- **Server:** Root login and password SSH disabled. Only the `deploy` user (key only, passwordless sudo) can interact.
-- **Web:** HTTPS everywhere via Let's Encrypt and Cloudflare.
+- **SSH:** Access is allowlisted (home IP + CI ranges if enabled).
+- **Server:** Root login and password SSH are disabled.
+- **Web:** HTTPS via Let's Encrypt and Cloudflare.
 
 ## Contributing
 
-This is a personal showcase project; external contributions are not accepted at this time. For suggestions or questions, open an issue or just contact me directly.
+This is a personal project, so I am not accepting external contributions right now. If you have feedback, feel free to open an issue.
 
 ## License
 
-see .LICENSE.md
+See `LICENSE`.
 ## Author
 
 [Itay Gueta](https://itaygueta.com)  

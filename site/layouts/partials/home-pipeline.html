@@ -1,0 +1,47 @@
+<section class="pipeline-section" id="how-it-works">
+  <div class="pipeline-section__header reveal">
+    <h2 class="section-eyebrow" data-buzz="Full-Stack DevOps Synergy in Motion">This Site Is the Proof</h2>
+    <p class="section-sub" data-buzz="A cloud-native, CI/CD-driven, zero-trust deployment pipeline demonstrating end-to-end infrastructure automation excellence and scalable best practices.">It runs on infrastructure I provisioned, hardened, and automated. Assisted by the very AI tooling described above.</p>
+  </div>
+
+  <div class="pipeline" aria-label="Deployment pipeline">
+    {{ $buzzwords := collections.Slice
+      "Commit to Excellence"
+      "Continuous Synergy Triggers"
+      "AI-Native Build Pipeline"
+      "Zero-Trust Artifact Replication"
+      "Cloud-Native Edge Serving"
+    }}
+    {{ $stages := collections.Slice
+      (dict "label" "Git Push"        "desc" "Code lands on GitHub")
+      (dict "label" "CI Triggers"     "desc" "Actions picks it up")
+      (dict "label" "Hugo Builds"     "desc" "Static site compiles")
+      (dict "label" "rsync Ships"     "desc" "Deploy user SCPs it")
+      (dict "label" "Nginx Serves"    "desc" "TLS, HTTP/2, live")
+    }}
+    <div class="pipeline__track">
+      <svg class="pipeline__svg" viewBox="0 0 1000 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2556d8" stop-opacity="0.4"/>
+            <stop offset="50%" stop-color="#2556d8" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#2556d8" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <path id="pipeline-path" d="M 40 60 L 960 60" stroke="url(#line-grad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        {{ range $i, $stage := $stages }}
+        {{ $cx := math.Add 40 (mul $i 230) }}
+        <circle cx="{{ $cx }}" cy="60" r="8" class="pipeline__node" fill="#edf1ee" stroke="#2556d8" stroke-width="2.5"/>
+        {{ end }}
+      </svg>
+      <div class="pipeline__labels">
+        {{ range $i, $stage := $stages }}
+        <div class="pipeline__stage reveal">
+          <span class="pipeline__stage-label" data-buzz="{{ index $buzzwords $i }}">{{ $stage.label }}</span>
+          <span class="pipeline__stage-desc" data-buzz=" ">{{ $stage.desc }}</span>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+<section class="domains-section" id="expertise">
+  <p class="domains-section__label reveal">{{ i18n "domains.label" }}</p>
+
+  <div class="domains-row">
+    {{ $cards := collections.Slice
+      (dict "scheme" "default" "domain" "development" "stack" (collections.Slice "Python" "Flask" "Automation" "Internal Tools" "JavaScript" "Android" "Scripting" "Debugging"))
+      (dict "scheme" "muted"   "domain" "infrastructure" "stack" (collections.Slice "CI/CD" "Linux" "Docker" "Kubernetes" "Networking" "Terraform" "Ansible" "Grafana"))
+      (dict "scheme" "dark"    "domain" "ai"             "stack" (collections.Slice "Model Selection" "Harness Design" "Context" "Tool Scope" "Skills" "Subagents" "Cache Use" "Cost Control"))
+      (dict "scheme" "accent"  "domain" "design"         "stack" (collections.Slice "UI/UX" "Adobe Suite" "Figma" "Custom CSS" "Responsive Design" "Accessibility" "Typography"))
+    }}
+    {{ range $i, $card := $cards }}
+    <div class="domain-card domain-card--{{ $card.scheme }} reveal" data-domain="{{ $card.domain }}">
+      {{/* Compact view — always visible when not expanded */}}
+      <div class="domain-card__compact">
+        <h3 class="domain-card__title" data-buzz="{{ i18n (printf "domains.%s.buzzTitle" $card.domain) }}">{{ i18n (printf "domains.%s.title" $card.domain) }}</h3>
+        <p class="domain-card__tagline" data-buzz="{{ i18n (printf "domains.%s.buzzTagline" $card.domain) }}">{{ i18n (printf "domains.%s.tagline" $card.domain) }}</p>
+      </div>
+
+      {{/* Expanded detail — visible only when this card is expanded */}}
+      <div class="domain-card__detail">
+        <h2 class="domain-card__detail-title" data-buzz="{{ i18n (printf "domains.%s.buzzTitle" $card.domain) }}">{{ i18n (printf "domains.%s.title" $card.domain) }}</h2>
+        <p class="domain-card__detail-summary" data-buzz="{{ i18n (printf "domains.%s.buzzSummary" $card.domain) }}">{{ i18n (printf "domains.%s.summary" $card.domain) }}</p>
+        <p class="domain-card__detail-body" data-buzz="{{ i18n (printf "domains.%s.buzzDetail" $card.domain) }}">{{ i18n (printf "domains.%s.detail" $card.domain) }}</p>
+        <div class="domain-card__chips">
+          {{ range $card.stack }}
+          <span class="domain-card__chip">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+      <button class="domain-card__close" aria-label="{{ i18n "domains.collapse" }}" title="{{ i18n "domains.collapse" }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    {{ end }}
+  </div>
+
+  <button class="domains-reset" aria-label="{{ i18n "domains.showAllDomains" }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    {{ i18n "domains.showAll" }}
+  </button>
+</section>

@@ -1,0 +1,110 @@
+# Nav & chrome
+[nav]
+buzzToggle = "Buzzword-Modus umschalten!"
+buzzToggleShort = "Buzz"
+themeToggle = "Dark Mode umschalten"
+switchLanguage = "Sprache wechseln"
+altDeutsch = "Deutsch"
+altEnglish = "English"
+
+# Hero
+[hero]
+pretitle = "ICH MACHE"
+buzzPretitle = "ICH LIEFERE STAKEHOLDER-VALUE DURCH"
+subtitle = "Tools, Automatisierungen, Deploys, Interfaces, KI-Workflows und das Debugging, das darauf folgt."
+buzzSubtitle = "Synergetische Wertschöpfung durch multimodale agentische Orchestrierung, dezentrale MCP-Layer-Tool-Komposition und KI-native Workflow-Innovation auf Scale."
+stack = "Python / Flask / Automation / Linux / Docker / Kubernetes / Terraform / Ansible / GitHub Actions / KI-Workflows"
+buzzStack = "Stakeholder-Alignment / Synergie-Mapping / Digitale Transformation / Cloud-Native-Paradigmen / Enterprise-Governance / Innovations-Pipeline"
+scroll = "Scrollen"
+buzzScroll = "Erkunde die Synergie"
+typewriterPhrases = "Orchestrierung.|Kostenoptimierung.|Entwicklung.|Design.|Automatisierung.|Engineering."
+buzzTypewriterPhrases = "Synergie.|Right-Sizing.|Digitale Transformation.|Ideation.|Disruption.|Bar Mitzwas."
+
+# Domains section
+[domains]
+label = "Bereiche"
+showAll = "Alle anzeigen"
+showAllDomains = "Alle Bereiche anzeigen"
+collapse = "Alle Bereiche anzeigen"
+
+# Domain: Development
+[domains.development]
+title = "Entwicklung"
+buzzTitle = "Full-Stack Digital Craftsmanship"
+tagline = "Mostly Python, mostly useful."
+buzzTagline = "Enterprise-Softwarelösungen in Marktgeschwindigkeit liefern."
+summary = "Python: Automatisierung, interne Tools, kaputte Skripte, Flask-Apps, kreative Workarounds und die Aufräumarbeit, damit es nutzbar wird."
+buzzSummary = "Time-to-Market beschleunigen durch robuste, skalierbare und wartbare Code-Architektur."
+detail = "Der Großteil meiner Entwicklung ist Python: Tools bauen, alte reparieren, manuelle Arbeit automatisieren und pragmatische Wege um sperrige Systeme herum finden. Ich habe an internen Flask-Plattformen, Build-Skripten, Lab-Tooling und kleinen Interfaces gearbeitet, die von Leuten genutzt werden, die einfach wollen, dass es funktioniert. Neben der Arbeit habe ich persönliche Android-Apps gebaut und mit JavaScript experimentiert, wenn das Projekt danach verlangte."
+buzzDetail = "Modernste Frameworks und agile Methoden einsetzen, um transformative digitale Lösungen zu liefern, die messbare Geschäftsergebnisse über den gesamten Enterprise-Softwareentwicklungszyklus hinweg erzielen."
+
+# Domain: Infrastructure
+[domains.infrastructure]
+title = "Infrastruktur"
+buzzTitle = "Cloud-Native Platform Engineering"
+tagline = "\"It works\" is not enough."
+buzzTagline = "Zero-Touch, selbstheilende Infrastruktur auf Basis von IaC-Best-Practices."
+summary = "CI/CD, Linux-Dienste, Docker, Kubernetes, IaC, Hardening, Monitoring und die Arbeit, die Software außerhalb einer glücklichen Maschine reproduzierbar macht."
+buzzSummary = "Resiliente, auto-skalierende Cloud-Infrastruktur durch deklarative Konfiguration und Continuous-Delivery-Pipelines orchestrieren."
+detail = "Ich arbeite an Build-Umgebungen, Deployment-Pfaden, Service-Konfiguration und dem operativen Durcheinander drumherum. In meinen eigenen Projekten nutze ich Terraform, Ansible, Docker, GitHub Actions, Linux-Server, Monitoring und ein kubeadm-Homelab. Build-Systeme, Dienste, Berechtigungen, Netzwerke, Deploy-Skripte — du nennst es, ich habe es wahrscheinlich irgendwann kaputt gemacht und dann einfacher zu debuggen oder wieder aufzubauen gemacht."
+buzzDetail = "Implementierung einer umfassenden GitOps-Strategie mit immutablen Infrastruktur-Patterns, Zero-Downtime-Deployments und automatisierten Rollback-Fähigkeiten über Multi-Cloud-Umgebungen hinweg."
+
+# Domain: AI Engineering
+[domains.ai]
+title = "KI-Engineering"
+buzzTitle = "Next-Gen Cognitive Orchestration"
+tagline = "Throwing code at Claude is not a strategy."
+buzzTagline = "ROI-Maximierung entlang der KI-Wertschöpfungskette durch token-bewusste Architektur."
+summary = "Ich wähle das Modell, forme den Harness, setze den Kontext, bestimme die Tools, prüfe die Ausgabe und halte die Rechnung niedrig."
+buzzSummary = "Exponentielle Effizienzgewinne durch multimodale agentische Orchestrierung und dezentrale Tool-Komposition auf dem MCP-Layer."
+detail = "Ich nutze KI so wie andere Entwicklungswerkzeuge: auswählen, was zur Aufgabe passt, in den Workflow einbinden und prüfen, was herauskommt. Ich achte auf den Harness um das Modell herum: Kontext, Tools, Skills, Subagents, Cache-Nutzung, Berechtigungen und Logs. Dort wird meistens der Unterschied gemacht. So hole ich nützliche Arbeit aus günstigeren Modellen, hebe stärkere Modelle für die schwierigen Teile auf, kann der Team das Setup erklären und fange Probleme wie unsichere Tool-Zugriffe, geleakte Secrets oder außer Kontrolle geratene Nutzung ab."
+buzzDetail = "Pionierarbeit für KI-native Architekturen der nächsten Generation, die föderierte Subagent-Meshes, dynamische Token-Budgetierung und kontinuierliche eval-getriebene Optimierung nutzen, um Stakeholder-Value entlang der kognitiven Lieferkette zu maximieren."
+
+# Domain: Design
+[domains.design]
+title = "Design"
+buzzTitle = "Human-Centered Visual Delivery"
+tagline = "Useful can still look good (I hope)."
+buzzTagline = "Intentionale, zugängliche und markenkonforme digitale Erfahrungen."
+summary = "Ich bin kein reiner Designer, aber mir ist das Interface wichtig: Zugänglichkeit, Layout, Hierarchie, responsives Verhalten und Werkzeuge klar genug zu machen, dass sie ohne Handbuch nutzbar sind."
+buzzSummary = "Ansprechende, conversion-optimierte User-Journeys durch forschungsgetriebenes Design-Thinking und pixelgenaue Ausführung gestalten."
+detail = "Ich versuche, Interfaces zu bauen, die funktional, zugänglich und visuell durchdacht sind. Das bedeutet klare Hierarchie, lesbare Abstände, sinnvolle Zustände, responsive Layouts und insgesamt der Versuch, den „Verbrechen gegen die UI\"-Ingenieursstil hinter sich zu lassen. Ich habe einen Hintergrund mit Adobe-Tools, etwas Figma-Erfahrung und genug UI/UX-Gespür, um die Software, die ich anfasse, zu verbessern. Diese Seite ist Teil dieser Behauptung: Custom CSS, kein Template und viele kleine Entscheidungen darüber, wie die Seite sich lesen und verhalten soll."
+buzzDetail = "Design-Thinking-Frameworks und Accessibility-First-Prinzipien anwenden, um inklusive, markenorientierte digitale Erlebnisse zu schaffen, die über verschiedene Nutzer-Personas und Geräte-Ökosysteme hinweg resonieren."
+
+# Case study
+[caseStudy]
+eyebrow = "Infrastructure as Code"
+buzzEyebrow = "Full-Stack DevOps Synergy in Motion"
+title = "I built the site to deploy the site."
+buzzTitle = "I leveraged the site to synergize the site."
+problem = "Ein persönliche Seite ist mein Lebenstraum seit 2024, also reicht eine einfache Seite natürlich nicht. Das Setup musste auch die langweiligen Teile abdecken: DNS, Firewall-Regeln, Server-Hardening, TLS, nginx, Branch-basierte Deploys und einen Weg, Dinge zu reparieren, wenn etwas kaputt geht."
+buzzProblem = "In einer Ära der digitalen Transformation benötigen Organisationen Cloud-native, Zero-Trust-Deployment-Pipelines, die Best-of-Breed-Infrastructure-as-Code-Methoden nutzen, um skalierbare, selbstheilende Web-Präsenz zu erreichen."
+repoLabel = "Zum Repository →"
+viewSource = "Zum Quellcode →"
+
+[caseStudy.decision1]
+label = "Terraform für die Server-Einzelteile"
+body = "Droplet, DNS und Firewall-Regeln leben in Code."
+
+[caseStudy.decision2]
+label = "Ansible für das Server-Setup"
+body = "Benutzer, Pakete, nginx, Hardening und Deploy-Pfade sind aufgeschrieben und wiederholbar."
+
+[caseStudy.decision3]
+label = "Eine kleine VPS"
+body = "Ein 6-USD/Monat-Droplet reicht für den Job und hält das ganze Setup sichtbar."
+
+[caseStudy.decision4]
+label = "Produktion und Beta auf einer Maschine"
+body = "Zwei Web-Roots, ein nginx-Setup, ein Zertifikatspfad — simple as."
+
+[caseStudy.decision5]
+label = "GitHub Actions für Deploys"
+body = "Main geht auf Produktion. Andere Branches gehen auf Beta. Manueller Deploy ist da, wenn die Pipeline einen Schubs braucht."
+
+# CV section
+[cv]
+eyebrow = "Der Papierkram"
+buzzEyebrow = "Das Whitepaper"
+sub = "Derselbe Satz an Fähigkeiten, einfacher herunterzuladen."
+buzzSub = "Executive-Dokumentation zur Stakeholder-Begutachtung."

@@ -1,5 +1,5 @@
 <div class="pdf-card">
-  <object data="{{ .Get "src" }}" type="application/pdf" width="100%" height="800" aria-label="Embedded PDF">
+  <object data="{{ .Get "src" }}#view=FitH" type="application/pdf" width="100%" height="800" aria-label="Embedded PDF" style="max-height:85vh">
     <p>Your browser does not support embedded PDFs. You can <a href="{{ .Get "src" }}" target="_blank" rel="noopener">download the PDF</a> instead.</p>
   </object>
 </div>

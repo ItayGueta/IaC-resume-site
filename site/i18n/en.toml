@@ -1,0 +1,110 @@
+# Nav & chrome
+[nav]
+buzzToggle = "Toggle Buzzword mode!"
+buzzToggleShort = "Buzz"
+themeToggle = "Toggle dark mode"
+switchLanguage = "Switch language"
+altDeutsch = "Deutsch"
+altEnglish = "English"
+
+# Hero
+[hero]
+pretitle = "I DO"
+buzzPretitle = "I DELIVER STAKEHOLDER VALUE THROUGH"
+subtitle = "Tools, automations, deploys, interfaces, AI workflows, and the debugging that follows."
+buzzSubtitle = "Empowering synergistic value creation through multimodal agentic orchestration, decentralized MCP-layer tool composition, and AI-native workflow innovation at scale."
+stack = "Python / Flask / Automation / Linux / Docker / Kubernetes / Terraform / Ansible / GitHub Actions / AI Workflows"
+buzzStack = "Stakeholder Alignment / Synergy Mapping / Digital Transformation / Cloud-Native Paradigms / Enterprise Governance / Innovation Pipeline"
+scroll = "Scroll"
+buzzScroll = "Explore the synergy"
+typewriterPhrases = "Orchestration.|Cost Optimization.|Development.|Design.|Automation.|Engineering."
+buzzTypewriterPhrases = "Synergy.|Right-Sizing.|Digital Transformation.|Ideation.|Disruption.|Bar Mitzvahs."
+
+# Domains section
+[domains]
+label = "Domains"
+showAll = "Show all"
+showAllDomains = "Show all domains"
+collapse = "Show all domains"
+
+# Domain: Development
+[domains.development]
+title = "Development"
+buzzTitle = "Full-Stack Digital Craftsmanship"
+tagline = "Mostly Python, mostly useful."
+buzzTagline = "Delivering enterprise-grade software solutions at velocity."
+summary = "Mostly Python: automation, internal tools, broken scripts, Flask apps, creative workarounds, and the cleanup needed to make things usable."
+buzzSummary = "Accelerating time-to-market through robust, scalable, and maintainable code architecture."
+detail = "Most of my development work is Python: building tools, fixing old ones, automating manual work, and finding practical ways around awkward systems. I have worked on internal Flask platforms, build scripts, lab tooling, and small interfaces used by people who just need the thing to work. Outside work, I have also built personal Android apps and dabbled with JavaScript when the project called for it."
+buzzDetail = "Leveraging cutting-edge frameworks and agile methodologies to deliver transformative digital solutions that drive measurable business outcomes across the enterprise software development lifecycle."
+
+# Domain: Infrastructure
+[domains.infrastructure]
+title = "Infrastructure"
+buzzTitle = "Cloud-Native Platform Engineering"
+tagline = "\"It works\" is not enough."
+buzzTagline = "Zero-touch, self-healing infrastructure powered by IaC best practices."
+summary = "CI/CD, Linux services, Docker, Kubernetes, IaC, hardening, monitoring, and the work that makes software reproducible outside one lucky machine."
+buzzSummary = "Orchestrating resilient, auto-scaling cloud infrastructure through declarative configuration and continuous delivery pipelines."
+detail = "I work on build environments, deployment paths, service configuration, and the operational mess around them. In my own projects I use Terraform, Ansible, Docker, GitHub Actions, Linux servers, monitoring, and a kubeadm homelab. Build systems, services, permissions, networking, deploy scripts - you name it, I have probably broken it at one point, then made it easier to rebuild or debug."
+buzzDetail = "Implementing a comprehensive GitOps strategy with immutable infrastructure patterns, zero-downtime deployments, and automated rollback capabilities across multi-cloud environments."
+
+# Domain: AI Engineering
+[domains.ai]
+title = "AI Engineering"
+buzzTitle = "Next-Gen Cognitive Orchestration"
+tagline = "Throwing code at Claude is not a strategy."
+buzzTagline = "Maximizing ROI across the AI value chain through token-aware architecture."
+summary = "I pick the model, shape the harness, set the context, scope the tools, check the output, and keep the bill low."
+buzzSummary = "Driving exponential efficiency gains through multimodal agentic orchestration and decentralized tool composition at the MCP layer."
+detail = "I use AI the way I use other development tools: pick what fits the job, wire it into the workflow, and check what comes out. I pay attention to the harness around the model: context, tools, skills, subagents, cache use, permissions, and logs. That is usually where the difference is made. It lets me get useful work out of cheaper models, save stronger models for harder parts, explain the setup to the team, and catch problems like unsafe tool access, leaked secrets, or runaway usage."
+buzzDetail = "Pioneering next-generation AI-native architectures that leverage federated subagent meshes, dynamic token budgeting, and continuous eval-driven optimization to maximize stakeholder value across the cognitive supply chain."
+
+# Domain: Design
+[domains.design]
+title = "Design"
+buzzTitle = "Human-Centered Visual Delivery"
+tagline = "Useful can still look good (I hope)."
+buzzTagline = "Intentional, accessible, and on-brand digital experiences."
+summary = "I am not a pure designer, but I care about the interface: accessibility, layout, hierarchy, responsive behavior, and making tools clear enough to use without a manual."
+buzzSummary = "Crafting delightful, conversion-optimized user journeys through research-driven design thinking and pixel-perfect execution."
+detail = "I try to build interfaces that are functional, accessible, and visually considered. That usually means clear hierarchy, readable spacing, sensible states, responsive layouts and all in all designed to get away from the \"crimes againt UI\" engineer design. I have a background with Adobe tools, some Figma experience, and enough UI/UX sense to improve the software I touch. This site is part of that claim: custom CSS, no template, and a lot of small decisions about how the page should read and behave."
+buzzDetail = "Applying design-thinking frameworks and accessibility-first principles to create inclusive, brand-aligned digital experiences that resonate across diverse user personas and device ecosystems."
+
+# Case study
+[caseStudy]
+eyebrow = "Infrastructure as Code"
+buzzEyebrow = "Full-Stack DevOps Synergy in Motion"
+title = "I built the site to deploy the site."
+buzzTitle = "I leveraged the site to synergize the site."
+problem = "A personal site has been my lifelong dream since 2024, so naturally a simple site won't do. The setup had to cover the boring parts too: DNS, firewall rules, server hardening, TLS, nginx, branch-based deploys, and a way to recover when something breaks."
+buzzProblem = "In an era of digital transformation, organizations require cloud-native, zero-trust deployment pipelines that leverage best-of-breed infrastructure-as-code methodologies to achieve scalable, self-healing web presence."
+repoLabel = "View the repo →"
+viewSource = "View source →"
+
+[caseStudy.decision1]
+label = "Terraform for the server pieces"
+body = "Droplet, DNS, and firewall rules live in code."
+
+[caseStudy.decision2]
+label = "Ansible for server setup"
+body = "Users, packages, nginx, hardening, and deploy paths are written down and repeatable."
+
+[caseStudy.decision3]
+label = "One small VPS"
+body = "A 6 USD/month droplet is enough for the job, and it keeps the whole setup visible."
+
+[caseStudy.decision4]
+label = "Production and beta on one box"
+body = "Two web roots, one nginx setup, one certificate path, simple as."
+
+[caseStudy.decision5]
+label = "GitHub Actions for deploys"
+body = "Main goes to production. Other branches go to beta. Manual deploy is there for when the pipeline needs a nudge."
+
+# CV section
+[cv]
+eyebrow = "The Paperwork"
+buzzEyebrow = "The Whitepaper"
+sub = "Same set of skills, easier to download."
+buzzSub = "Executive documentation for stakeholder review."

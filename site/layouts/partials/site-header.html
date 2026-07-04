@@ -1,0 +1,57 @@
+{{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
+{{ if $featured_image }}
+  {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
+  {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
+  <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}');">
+    {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
+    <div class="{{ $cover_dimming_class }}">
+      {{ partials.Include "site-navigation.html" . }}
+      <div style="position:fixed;top:1.5rem;right:2rem;z-index:1000;">
+        <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}" class="theme-toggle btn" title="Switch language" aria-label="Switch language" style="padding:0.25em 0.5em;display:flex;align-items:center;gap:0.5em;background:rgba(255,255,255,0.85);border-radius:2em;box-shadow:0 2px 8px rgba(30,58,138,0.12);">
+          {{ if eq .Site.Language.Lang "en" }}
+            <img src="/images/flag-de.svg" alt="Deutsch" style="height:2em;width:2.5em;vertical-align:middle;display:inline-block;" />
+            <span style="font-size:1em;color:#2563eb;font-weight:600;">DE</span>
+          {{ else }}
+            <img src="/images/flag-en.svg" alt="English" style="height:2em;width:2.5em;vertical-align:middle;display:inline-block;" />
+            <span style="font-size:1em;color:#2563eb;font-weight:600;">EN</span>
+          {{ end }}
+        </a>
+      </div>
+      <div class="tc-l pv4 pv6-l ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
+          {{ .Title | compare.Default .Site.Title }}
+        </h1>
+        {{ with .Params.description }}
+          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+            {{ . }}
+          </h2>
+        {{ end }}
+      </div>
+    </div>
+  </header>
+{{ else }}
+  <header>
+    <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
+      {{ partials.Include "site-navigation.html" . }}
+      <div style="position:fixed;top:1.5rem;right:2rem;z-index:1000;">
+        <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}" class="theme-toggle btn" title="Switch language" aria-label="Switch language">
+          {{ if eq .Site.Language.Lang "en" }}
+            <img src="/images/flag-de.svg" alt="Deutsch" style="height:1.5em;vertical-align:middle;" />
+          {{ else }}
+            <img src="/images/flag-en.svg" alt="English" style="height:1.5em;vertical-align:middle;" />
+          {{ end }}
+        </a>
+      </div>
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          {{ .Title | compare.Default .Site.Title }}
+        </h1>
+        {{ with .Params.description }}
+          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+            {{ . }}
+          </h2>
+        {{ end }}
+      </div>
+    </div>
+  </header>
+{{ end }}

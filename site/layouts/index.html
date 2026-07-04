@@ -1,0 +1,71 @@
+{{ define "header" }}
+<header class="home-nav" role="banner">
+  <nav class="home-nav__bar" role="navigation">
+    <a href="{{ .Site.Home.RelPermalink }}" class="home-nav__logo">
+      {{ .Site.Title }}
+    </a>
+    <div class="home-nav__actions">
+      <button class="home-nav__buzz-toggle" id="buzz-toggle"
+              aria-label="{{ i18n "nav.buzzToggle" }}"
+              aria-pressed="false"
+              title="{{ i18n "nav.buzzToggle" }}"
+              data-short="{{ i18n "nav.buzzToggleShort" }}">
+        <span class="buzz-toggle__label">{{ i18n "nav.buzzToggle" }}</span>
+      </button>
+      <button class="home-nav__theme-toggle" id="theme-toggle"
+              aria-label="{{ i18n "nav.themeToggle" }}" title="{{ i18n "nav.themeToggle" }}">
+        <span class="theme-toggle__icon">☽</span>
+      </button>
+      {{ partials.IncludeCached "social/follow.html" . }}
+      <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}"
+         class="home-nav__lang"
+         title="{{ i18n "nav.switchLanguage" }}"
+         aria-label="{{ i18n "nav.switchLanguage" }}">
+        {{ if eq .Site.Language.Lang "en" }}
+          <img src="/images/flag-de.svg" alt="{{ i18n "nav.altDeutsch" }}" />
+          <span>DE</span>
+        {{ else }}
+          <img src="/images/flag-en.svg" alt="{{ i18n "nav.altEnglish" }}" />
+          <span>EN</span>
+        {{ end }}
+      </a>
+    </div>
+  </nav>
+</header>
+{{ end }}
+
+{{ define "main" }}
+  {{ partial "home-hero.html" . }}
+
+  {{ partial "home-domains.html" . }}
+
+  {{/* Case Study 1: This site's infrastructure (replaces standalone pipeline section) */}}
+  {{ $cs1_visual := partial "home-case-study-visual-infra.html" . }}
+  {{ partial "home-case-study.html" (dict
+  "layout" "left"
+  "id" "infrastructure"
+  "eyebrow" (i18n "caseStudy.eyebrow")
+  "buzz_eyebrow" (i18n "caseStudy.buzzEyebrow")
+  "title" (i18n "caseStudy.title")
+  "buzz_title" (i18n "caseStudy.buzzTitle")
+  "problem" (i18n "caseStudy.problem")
+  "buzz_problem" (i18n "caseStudy.buzzProblem")
+  "decisions" (collections.Slice
+  (dict "label" (i18n "caseStudy.decision1.label") "body" (i18n "caseStudy.decision1.body"))
+  (dict "label" (i18n "caseStudy.decision2.label") "body" (i18n "caseStudy.decision2.body"))
+  (dict "label" (i18n "caseStudy.decision3.label") "body" (i18n "caseStudy.decision3.body"))
+  (dict "label" (i18n "caseStudy.decision4.label") "body" (i18n "caseStudy.decision4.body"))
+  (dict "label" (i18n "caseStudy.decision5.label") "body" (i18n "caseStudy.decision5.body"))
+  )
+  "repo_url" "https://github.com/ItayGueta/IaC-resume-site"
+  "repo_label" (i18n "caseStudy.repoLabel")
+  "visual" $cs1_visual
+  "accent" (partial "home-shapes-accent-k8s.html" .)
+  ) }}
+  <section class="home-cv" id="resume">
+    <div class="home-cv__container">
+    <h2 class="section-eyebrow reveal" data-buzz="{{ i18n "cv.buzzEyebrow" }}">{{ i18n "cv.eyebrow" }}</h2>
+    <p class="section-sub reveal" data-buzz="{{ i18n "cv.buzzSub" }}">{{ i18n "cv.sub" }}</p>      {{ .Content }}
+    </div>
+  </section>
+{{ end }}

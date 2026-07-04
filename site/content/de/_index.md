@@ -1,16 +1,9 @@
 ---
 title: "Willkommen!"
+description: "Ich mache Sachen, und meistens klappt es auch."
 ---
 
-# Ich bin Itay
+<a href="/Itay_Gueta_CV_2026.pdf" class="home-cv__cta">▶ Lebenslauf im Vollbild ansehen (PDF)</a>
 
-Diese Website wurde mit Terraform, Ansible-Playbooks und viel Entschlossenheit erstellt.
-
----
-
-## Lebenslauf
-
-[▶ Lebenslauf im Vollbild ansehen (PDF)](/Itay_Gueta_CV_2026.pdf)
-
-Oder hier anschauen:
+Oder direkt hier ansehen:
 {{< pdf src="/Itay_Gueta_CV_2026.pdf" >}}

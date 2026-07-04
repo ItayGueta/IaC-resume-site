@@ -1,0 +1,31 @@
+<section class="hero" id="hero">
+  <div class="hero__shapes" aria-hidden="true">
+    {{ partial "home-hero-shapes.html" . }}
+  </div>
+
+  <div class="hero__overlay">
+    <div class="hero__content">
+      <p class="hero__pretitle reveal" data-buzz="{{ i18n "hero.buzzPretitle" }}">{{ i18n "hero.pretitle" }}</p>
+
+      <h1 class="hero__title" id="hero-typewriter" aria-live="polite"
+          data-phrases="{{ i18n "hero.typewriterPhrases" }}"
+          data-buzz-phrases="{{ i18n "hero.buzzTypewriterPhrases" }}"></h1>
+
+      <p class="hero__subtitle reveal" data-buzz="{{ i18n "hero.buzzSubtitle" }}">
+      {{ i18n "hero.subtitle" }}
+      </p>
+
+      <p class="hero__stack reveal" data-buzz="{{ i18n "hero.buzzStack" }}">
+        {{ i18n "hero.stack" }}
+      </p>
+
+      <div class="hero__scroll-hint reveal" aria-hidden="true">
+        <span data-buzz="{{ i18n "hero.buzzScroll" }}">{{ i18n "hero.scroll" }}</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

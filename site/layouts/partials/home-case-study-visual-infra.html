@@ -1,0 +1,36 @@
+<div class="pipeline" aria-label="Deployment pipeline">
+  {{ $stages := collections.Slice
+    (dict "label" "Terraform"      "desc" "Droplet, DNS, firewall. One apply.")
+    (dict "label" "Ansible"        "desc" "nginx, certbot, SSH. Locked myself out previously.")
+    (dict "label" "Hugo"           "desc" "Markdown in, HTML out. simple as.")
+    (dict "label" "rsync"          "desc" "Files land on a $6 droplet.")
+    (dict "label" "nginx"          "desc" "If you can read this, it works.")
+  }}
+  <div class="pipeline__track">
+    <svg class="pipeline__svg" viewBox="0 0 1000 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2556d8" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#2556d8" stop-opacity="1"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path id="pipeline-path" d="M 40 60 L 960 60" stroke="url(#line-grad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      {{ range $i, $stage := $stages }}
+      {{ $cx := math.Add 40 (mul $i 230) }}
+      <circle cx="{{ $cx }}" cy="60" r="8" class="pipeline__node" fill="#edf1ee" stroke="#2556d8" stroke-width="2.5"/>
+      {{ end }}
+    </svg>
+    <div class="pipeline__labels">
+      {{ range $i, $stage := $stages }}
+      <div class="pipeline__stage">
+        <span class="pipeline__stage-label">{{ $stage.label }}</span>
+        <span class="pipeline__stage-desc">{{ $stage.desc }}</span>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

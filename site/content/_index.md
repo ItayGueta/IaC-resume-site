@@ -1,18 +1,10 @@
 ---
 title: "Welcome!"
+description: "I do stuff and it usually works"
 ---
 
-# I am Itay
+<a href="/Itay_Gueta_CV_2026.pdf" class="home-cv__cta">▶ See my resume in fullscreen (PDF)</a>
 
-And this very site was built using terraform, ansible playbooks and sheer determination
-
----
-
-## Resume
-
-[▶ See my resume in fullscreen (PDF)](/Itay_Gueta_CV_2026.pdf)
-
-Or take a peek here:
+Or preview it below:
 
 {{< pdf src="/Itay_Gueta_CV_2026.pdf" >}}
-
