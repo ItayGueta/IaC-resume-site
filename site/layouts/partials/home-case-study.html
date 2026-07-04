@@ -25,7 +25,7 @@
       {{ end }}
       {{ with .repo_url }}
       <a href="{{ . }}" class="case-study__link reveal reveal--left" target="_blank" rel="noopener">
-        {{ $.repo_label | compare.Default "View source →" }}
+        {{ $.repo_label | compare.Default (i18n "caseStudy.viewSource") }}
       </a>
       {{ end }}
     </div>

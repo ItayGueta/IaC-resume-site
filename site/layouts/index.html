@@ -6,21 +6,21 @@
     </a>
     <div class="home-nav__actions">
       <button class="home-nav__buzz-toggle" id="buzz-toggle"
-              aria-label="Toggle Buzzword mode!"
+              aria-label="{{ i18n "nav.buzzToggle" }}"
               aria-pressed="false"
-              title="Toggle Buzzword mode!">
-        <span class="buzz-toggle__label">Toggle Buzzword mode!</span>
+              title="{{ i18n "nav.buzzToggle" }}">
+        <span class="buzz-toggle__label">{{ i18n "nav.buzzToggle" }}</span>
       </button>
       {{ partials.IncludeCached "social/follow.html" . }}
       <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}"
          class="home-nav__lang"
-         title="Switch language"
-         aria-label="Switch language">
+         title="{{ i18n "nav.switchLanguage" }}"
+         aria-label="{{ i18n "nav.switchLanguage" }}">
         {{ if eq .Site.Language.Lang "en" }}
-          <img src="/images/flag-de.svg" alt="Deutsch" />
+          <img src="/images/flag-de.svg" alt="{{ i18n "nav.altDeutsch" }}" />
           <span>DE</span>
         {{ else }}
-          <img src="/images/flag-en.svg" alt="English" />
+          <img src="/images/flag-en.svg" alt="{{ i18n "nav.altEnglish" }}" />
           <span>EN</span>
         {{ end }}
       </a>
@@ -39,28 +39,28 @@
   {{ partial "home-case-study.html" (dict
   "layout" "left"
   "id" "infrastructure"
-  "eyebrow" "Infrastructure as Code"
-  "buzz_eyebrow" "Full-Stack DevOps Synergy in Motion"
-  "title" "I built the site to deploy the site."
-  "buzz_title" "I leveraged the site to synergize the site."
-  "problem" "A personal site has been my lifelong dream since 2024, so naturally a simple site won't do. The setup had to cover the boring parts too: DNS, firewall rules, server hardening, TLS, nginx, branch-based deploys, and a way to recover when something breaks."
-  "buzz_problem" "In an era of digital transformation, organizations require cloud-native, zero-trust deployment pipelines that leverage best-of-breed infrastructure-as-code methodologies to achieve scalable, self-healing web presence."
+  "eyebrow" (i18n "caseStudy.eyebrow")
+  "buzz_eyebrow" (i18n "caseStudy.buzzEyebrow")
+  "title" (i18n "caseStudy.title")
+  "buzz_title" (i18n "caseStudy.buzzTitle")
+  "problem" (i18n "caseStudy.problem")
+  "buzz_problem" (i18n "caseStudy.buzzProblem")
   "decisions" (collections.Slice
-  (dict "label" "Terraform for the server pieces" "body" "Droplet, DNS, and firewall rules live in code.")
-  (dict "label" "Ansible for server setup" "body" "Users, packages, nginx, hardening, and deploy paths are written down and repeatable.")
-  (dict "label" "One small VPS" "body" "A USD 6/month droplet is enough for the job, and it keeps the whole setup visible.")
-  (dict "label" "Production and beta on one box" "body" "Two web roots, one nginx setup, one certificate path, simple as.")
-  (dict "label" "GitHub Actions for deploys" "body" "Main goes to production. Other branches go to beta. Manual deploy is there for when the pipeline needs a nudge.")
+  (dict "label" (i18n "caseStudy.decision1.label") "body" (i18n "caseStudy.decision1.body"))
+  (dict "label" (i18n "caseStudy.decision2.label") "body" (i18n "caseStudy.decision2.body"))
+  (dict "label" (i18n "caseStudy.decision3.label") "body" (i18n "caseStudy.decision3.body"))
+  (dict "label" (i18n "caseStudy.decision4.label") "body" (i18n "caseStudy.decision4.body"))
+  (dict "label" (i18n "caseStudy.decision5.label") "body" (i18n "caseStudy.decision5.body"))
   )
   "repo_url" "https://github.com/ItayGueta/IaC-resume-site"
-  "repo_label" "View the repo →"
+  "repo_label" (i18n "caseStudy.repoLabel")
   "visual" $cs1_visual
   "accent" (partial "home-shapes-accent-k8s.html" .)
   ) }}
   <section class="home-cv" id="resume">
     <div class="home-cv__container">
-    <h2 class="section-eyebrow reveal" data-buzz="The Whitepaper">The Paperwork</h2>
-    <p class="section-sub reveal" data-buzz="Executive documentation for stakeholder review.">Same set of skills, easier to download.</p>      {{ .Content }}
+    <h2 class="section-eyebrow reveal" data-buzz="{{ i18n "cv.buzzEyebrow" }}">{{ i18n "cv.eyebrow" }}</h2>
+    <p class="section-sub reveal" data-buzz="{{ i18n "cv.buzzSub" }}">{{ i18n "cv.sub" }}</p>      {{ .Content }}
     </div>
   </section>
 {{ end }}

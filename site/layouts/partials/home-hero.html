@@ -5,20 +5,22 @@
 
   <div class="hero__overlay">
     <div class="hero__content">
-      <p class="hero__pretitle reveal" data-buzz="I DELIVER STAKEHOLDER VALUE THROUGH">I DO</p>
+      <p class="hero__pretitle reveal" data-buzz="{{ i18n "hero.buzzPretitle" }}">{{ i18n "hero.pretitle" }}</p>
 
-      <h1 class="hero__title" id="hero-typewriter" aria-live="polite"></h1>
+      <h1 class="hero__title" id="hero-typewriter" aria-live="polite"
+          data-phrases="{{ i18n "hero.typewriterPhrases" }}"
+          data-buzz-phrases="{{ i18n "hero.buzzTypewriterPhrases" }}"></h1>
 
-      <p class="hero__subtitle reveal" data-buzz="Empowering synergistic value creation through multimodal agentic orchestration, decentralized MCP-layer tool composition, and AI-native workflow innovation at scale.">
-      Tools, automations, deploys, interfaces, AI workflows, and the debugging that follows.
+      <p class="hero__subtitle reveal" data-buzz="{{ i18n "hero.buzzSubtitle" }}">
+      {{ i18n "hero.subtitle" }}
       </p>
 
-      <p class="hero__stack reveal" data-buzz="Stakeholder Alignment / Synergy Mapping / Digital Transformation / Cloud-Native Paradigms / Enterprise Governance / Innovation Pipeline">
-        Python / Flask / Automation / Linux / Docker / Kubernetes / Terraform / Ansible / GitHub Actions / AI Workflows
+      <p class="hero__stack reveal" data-buzz="{{ i18n "hero.buzzStack" }}">
+        {{ i18n "hero.stack" }}
       </p>
 
       <div class="hero__scroll-hint reveal" aria-hidden="true">
-        <span data-buzz="Explore the synergy">Scroll</span>
+        <span data-buzz="{{ i18n "hero.buzzScroll" }}">{{ i18n "hero.scroll" }}</span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <polyline points="19 12 12 19 5 12"></polyline>

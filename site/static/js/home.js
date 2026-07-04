@@ -10,14 +10,7 @@
 
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var defaultPhrases = [
-    'Orchestration.',
-    'Cost Optimization.',
-    'Development.',
-    'Design.',
-    'Automation.',
-    'Bar Mitzvahs.',
-  ];
+  var defaultPhrases = (el.getAttribute('data-phrases') || 'Orchestration.|Cost Optimization.|Development.|Design.|Automation.|Engineering.').split('|');
 
   if (prefersReduced) {
     el.textContent = defaultPhrases[0];
@@ -236,9 +229,10 @@
   var BUZZ_KEY = 'buzzword-mode';
   var buzzActive = localStorage.getItem(BUZZ_KEY) === 'true';
 
-  // Buzzword typewriter phrases
-  var realPhrases = ['Orchestration.', 'Cost Optimization.', 'Development.', 'Design.', 'Automation.', 'Engineering.'];
-  var buzzPhrases = ['Synergy.', 'Right-Sizing.', 'Digital Transformation.', 'Ideation.', 'Disruption.', 'Bar Mitzvahs.'];
+  // Buzzword typewriter phrases — read from hero element data attributes
+  var typewriterEl = document.getElementById('hero-typewriter');
+  var realPhrases = (typewriterEl && typewriterEl.getAttribute('data-phrases') || 'Orchestration.|Cost Optimization.|Development.|Design.|Automation.|Engineering.').split('|');
+  var buzzPhrases = (typewriterEl && typewriterEl.getAttribute('data-buzz-phrases') || 'Synergy.|Right-Sizing.|Digital Transformation.|Ideation.|Disruption.|Bar Mitzvahs.').split('|');
 
   // All elements with data-buzz — store originals before any swap
   var buzzEls = document.querySelectorAll('[data-buzz]');

@@ -1,88 +1,41 @@
 <section class="domains-section" id="expertise">
-  <p class="domains-section__label reveal">Domains</p>
+  <p class="domains-section__label reveal">{{ i18n "domains.label" }}</p>
 
   <div class="domains-row">
     {{ $cards := collections.Slice
-      (dict
-      "scheme"   "default"
-      "domain"   "development"
-      "title"    "Development"
-      "buzz_title" "Full-Stack Digital Craftsmanship"
-      "tagline"  "Mostly Python, mostly useful."
-      "buzz_tagline" "Delivering enterprise-grade software solutions at velocity."
-      "summary"  "Mostly Python: automation, internal tools, broken scripts, Flask apps, creative workarounds, and the cleanup needed to make things usable."
-      "buzz_summary" "Accelerating time-to-market through robust, scalable, and maintainable code architecture."
-      "detail"   "Most of my development work is Python: building tools, fixing old ones, automating manual work, and finding practical ways around awkward systems. I have worked on internal Flask platforms, build scripts, lab tooling, and small interfaces used by people who just need the thing to work. Outside work, I have also built personal Android apps and dabbled with JavaScript when the project called for it."
-      "buzz_detail" "Leveraging cutting-edge frameworks and agile methodologies to deliver transformative digital solutions that drive measurable business outcomes across the enterprise software development lifecycle."
-      "stack"    (collections.Slice "Python" "Flask" "Automation" "Internal Tools" "JavaScript" "Android" "Scripting" "Debugging")
-      )
-      (dict
-        "scheme"   "muted"
-        "domain"   "infrastructure"
-        "title"    "Infrastructure"
-        "buzz_title" "Cloud-Native Platform Engineering"
-        "tagline"  "\"It works\" is not enough."
-        "buzz_tagline" "Zero-touch, self-healing infrastructure powered by IaC best practices."
-        "summary"  "CI/CD, Linux services, Docker, Kubernetes, IaC, hardening, monitoring, and the work that makes software reproducible outside one lucky machine."
-        "buzz_summary" "Orchestrating resilient, auto-scaling cloud infrastructure through declarative configuration and continuous delivery pipelines."
-        "detail"   "I work on build environments, deployment paths, service configuration, and the operational mess around them. In my own projects I use Terraform, Ansible, Docker, GitHub Actions, Linux servers, monitoring, and a kubeadm homelab. Build systems, services, permissions, networking, deploy scripts - you name it, I have probably broken it at one point, then made it easier to rebuild or debug."
-      "buzz_detail" "Implementing a comprehensive GitOps strategy with immutable infrastructure patterns, zero-downtime deployments, and automated rollback capabilities across multi-cloud environments."
-        "stack"    (collections.Slice "CI/CD" "Linux" "Docker" "Kubernetes" "Networking" "Terraform" "Ansible" "Grafana")
-)
-    (dict
-        "scheme"   "dark"
-        "domain"   "ai"
-        "title"    "AI Engineering"
-        "buzz_title" "Next-Gen Cognitive Orchestration"
-        "tagline"  "Throwing code at Claude is not a strategy."
-        "buzz_tagline" "Maximizing ROI across the AI value chain through token-aware architecture."
-        "summary"  "I pick the model, shape the harness, set the context, scope the tools, check the output, and keep the bill low."
-        "buzz_summary" "Driving exponential efficiency gains through multimodal agentic orchestration and decentralized tool composition at the MCP layer."
-        "detail"   "I use AI the way I use other development tools: pick what fits the job, wire it into the workflow, and check what comes out. I pay attention to the harness around the model: context, tools, skills, subagents, cache use, permissions, and logs. That is usually where the difference is made. It lets me get useful work out of cheaper models, save stronger models for harder parts, explain the setup to the team, and catch problems like unsafe tool access, leaked secrets, or runaway usage."
-        "buzz_detail" "Pioneering next-generation AI-native architectures that leverage federated subagent meshes, dynamic token budgeting, and continuous eval-driven optimization to maximize stakeholder value across the cognitive supply chain."
-        "stack" (collections.Slice "Model Selection" "Harness Design" "Context" "Tool Scope" "Skills" "Subagents" "Cache Use" "Cost Control")
-      )
-    (dict
-    "scheme"   "accent"
-    "domain"   "design"
-    "title"    "Design"
-    "buzz_title" "Human-Centered Visual Delivery"
-    "tagline"  "Useful can still look good (I hope)."
-    "buzz_tagline" "Intentional, accessible, and on-brand digital experiences."
-    "summary"  "I am not a pure designer, but I care about the interface: accessibility, layout, hierarchy, responsive behavior, and making tools clear enough to use without a manual."
-    "buzz_summary" "Crafting delightful, conversion-optimized user journeys through research-driven design thinking and pixel-perfect execution."
-    "detail"   "I try to build interfaces that are functional, accessible, and visually considered. That usually means clear hierarchy, readable spacing, sensible states, responsive layouts and all in all designed to get away from the \"crimes againt UI\" engineer design. I have a background with Adobe tools, some Figma experience, and enough UI/UX sense to improve the software I touch. This site is part of that claim: custom CSS, no template, and a lot of small decisions about how the page should read and behave."
-    "buzz_detail" "Applying design-thinking frameworks and accessibility-first principles to create inclusive, brand-aligned digital experiences that resonate across diverse user personas and device ecosystems."
-    "stack" (collections.Slice "UI/UX" "Adobe Suite" "Figma" "Custom CSS" "Responsive Design" "Accessibility" "Typography")
-    )
-    }}    {{ range $i, $card := $cards }}
+      (dict "scheme" "default" "domain" "development" "stack" (collections.Slice "Python" "Flask" "Automation" "Internal Tools" "JavaScript" "Android" "Scripting" "Debugging"))
+      (dict "scheme" "muted"   "domain" "infrastructure" "stack" (collections.Slice "CI/CD" "Linux" "Docker" "Kubernetes" "Networking" "Terraform" "Ansible" "Grafana"))
+      (dict "scheme" "dark"    "domain" "ai"             "stack" (collections.Slice "Model Selection" "Harness Design" "Context" "Tool Scope" "Skills" "Subagents" "Cache Use" "Cost Control"))
+      (dict "scheme" "accent"  "domain" "design"         "stack" (collections.Slice "UI/UX" "Adobe Suite" "Figma" "Custom CSS" "Responsive Design" "Accessibility" "Typography"))
+    }}
+    {{ range $i, $card := $cards }}
     <div class="domain-card domain-card--{{ $card.scheme }} reveal" data-domain="{{ $card.domain }}">
       {{/* Compact view — always visible when not expanded */}}
       <div class="domain-card__compact">
-        <h3 class="domain-card__title" data-buzz="{{ $card.buzz_title }}">{{ $card.title }}</h3>
-        <p class="domain-card__tagline" data-buzz="{{ $card.buzz_tagline }}">{{ $card.tagline }}</p>
+        <h3 class="domain-card__title" data-buzz="{{ i18n (printf "domains.%s.buzzTitle" $card.domain) }}">{{ i18n (printf "domains.%s.title" $card.domain) }}</h3>
+        <p class="domain-card__tagline" data-buzz="{{ i18n (printf "domains.%s.buzzTagline" $card.domain) }}">{{ i18n (printf "domains.%s.tagline" $card.domain) }}</p>
       </div>
 
       {{/* Expanded detail — visible only when this card is expanded */}}
       <div class="domain-card__detail">
-        <h2 class="domain-card__detail-title" data-buzz="{{ $card.buzz_title }}">{{ $card.title }}</h2>
-        <p class="domain-card__detail-summary" data-buzz="{{ $card.buzz_summary }}">{{ $card.summary }}</p>
-        <p class="domain-card__detail-body" data-buzz="{{ $card.buzz_detail }}">{{ $card.detail }}</p>
+        <h2 class="domain-card__detail-title" data-buzz="{{ i18n (printf "domains.%s.buzzTitle" $card.domain) }}">{{ i18n (printf "domains.%s.title" $card.domain) }}</h2>
+        <p class="domain-card__detail-summary" data-buzz="{{ i18n (printf "domains.%s.buzzSummary" $card.domain) }}">{{ i18n (printf "domains.%s.summary" $card.domain) }}</p>
+        <p class="domain-card__detail-body" data-buzz="{{ i18n (printf "domains.%s.buzzDetail" $card.domain) }}">{{ i18n (printf "domains.%s.detail" $card.domain) }}</p>
         <div class="domain-card__chips">
           {{ range $card.stack }}
           <span class="domain-card__chip">{{ . }}</span>
           {{ end }}
         </div>
       </div>
-      <button class="domain-card__close" aria-label="Collapse {{ $card.title }}" title="Show all domains">
+      <button class="domain-card__close" aria-label="{{ i18n "domains.collapse" }}" title="{{ i18n "domains.collapse" }}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
     {{ end }}
   </div>
 
-  <button class="domains-reset" aria-label="Show all domains">
+  <button class="domains-reset" aria-label="{{ i18n "domains.showAllDomains" }}">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    Show all
+    {{ i18n "domains.showAll" }}
   </button>
 </section>
