@@ -8,6 +8,13 @@
   var el = document.getElementById('hero-typewriter');
   if (!el) return;
 
+  function toggleInsertMode(event) {
+    if (event.key !== 'Insert' || event.repeat) return;
+    el.classList.toggle('hero__title--insert-mode');
+  }
+
+  document.addEventListener('keydown', toggleInsertMode);
+
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var defaultPhrases = (el.getAttribute('data-phrases') || 'Orchestration.|Cost Optimization.|Development.|Design.|Automation.|Engineering.').split('|');
@@ -42,6 +49,8 @@
     }
 
     var current = phrases[phraseIndex];
+    var allowsWrap = /digital(?:e)? transformation/i.test(current);
+    el.classList.toggle('hero__title--allow-wrap', allowsWrap);
 
     if (isDeleting) {
       el.textContent = current.substring(0, charIndex - 1);
@@ -74,6 +83,7 @@
   // Cleanup not strictly needed but good practice
   el._typewriterCleanup = function () {
     clearTimeout(timeout);
+    document.removeEventListener('keydown', toggleInsertMode);
   };
 })();
 
@@ -444,4 +454,3 @@
     localStorage.setItem(THEME_KEY, next ? 'dark' : 'light');
   });
 })();
-

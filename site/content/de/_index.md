@@ -1,5 +1,5 @@
 ---
-title: "Willkommen!."
+title: "Willkommen!"
 description: "Ich mache Sachen, und meistens klappt es auch."
 ---
 

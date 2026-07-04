@@ -252,6 +252,11 @@ body.avenir.bg-near-white {
   letter-spacing: -0.02em;
   color: var(--hero-title);
   min-height: 1.2em;
+  white-space: nowrap;
+}
+
+.hero__title--allow-wrap {
+  white-space: normal;
 }
 
 .hero__title::after {
@@ -260,6 +265,12 @@ body.avenir.bg-near-white {
   animation: cursor-blink 1s step-end infinite;
   color: var(--accent);
   margin-left: 0.05em;
+}
+
+.hero__title--insert-mode::after {
+  content: '|';
+  font-weight: 300;
+  transform: scaleX(0.45);
 }
 
 @keyframes cursor-blink {
