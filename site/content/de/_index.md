@@ -1,6 +1,6 @@
 ---
-title: "Ich Orchestriere."
-description: "Skills. Tools. Subagents. Pipelines. MCP. Ich weiß, wie sie zusammenspielen — und was sie kosten."
+title: "Willkommen!."
+description: "Ich mache Sachen, und meistens klappt es auch."
 ---
 
 <a href="/Itay_Gueta_CV_2026.pdf" class="home-cv__cta">▶ Lebenslauf im Vollbild ansehen (PDF)</a>
