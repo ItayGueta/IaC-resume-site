@@ -11,6 +11,10 @@
               title="{{ i18n "nav.buzzToggle" }}">
         <span class="buzz-toggle__label">{{ i18n "nav.buzzToggle" }}</span>
       </button>
+      <button class="home-nav__theme-toggle" id="theme-toggle"
+              aria-label="{{ i18n "nav.themeToggle" }}" title="{{ i18n "nav.themeToggle" }}">
+        <span class="theme-toggle__icon">☽</span>
+      </button>
       {{ partials.IncludeCached "social/follow.html" . }}
       <a href="{{ if eq .Site.Language.Lang "en" }}/de/{{ else }}/en/{{ end }}"
          class="home-nav__lang"

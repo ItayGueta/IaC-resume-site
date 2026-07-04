@@ -1,6 +1,7 @@
 # Nav & chrome
 [nav]
 buzzToggle = "Buzzword-Modus umschalten!"
+themeToggle = "Dark Mode umschalten"
 switchLanguage = "Sprache wechseln"
 altDeutsch = "Deutsch"
 altEnglish = "English"

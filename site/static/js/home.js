@@ -408,3 +408,40 @@
   window.addEventListener('hashchange', handleHash);
 })();
 
+/* ========================================================================
+   Dark mode toggle — manual, localStorage persistence
+   ======================================================================== */
+
+(function () {
+  'use strict';
+
+  var THEME_KEY = 'theme';
+  var toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  var icon = toggle.querySelector('.theme-toggle__icon');
+
+  function setTheme(dark) {
+    if (dark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      if (icon) icon.textContent = '☀';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if (icon) icon.textContent = '☽';
+    }
+  }
+
+  // Restore saved preference
+  var saved = localStorage.getItem(THEME_KEY);
+  if (saved === 'dark') {
+    setTheme(true);
+  }
+
+  toggle.addEventListener('click', function () {
+    var isDark = document.documentElement.hasAttribute('data-theme');
+    var next = !isDark;
+    setTheme(next);
+    localStorage.setItem(THEME_KEY, next ? 'dark' : 'light');
+  });
+})();
+
