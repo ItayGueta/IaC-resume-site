@@ -92,7 +92,7 @@ body = "Users, packages, nginx, hardening, and deploy paths are written down and
 
 [caseStudy.decision3]
 label = "One small VPS"
-body = "A USD 6/month droplet is enough for the job, and it keeps the whole setup visible."
+body = "A 6 USD/month droplet is enough for the job, and it keeps the whole setup visible."
 
 [caseStudy.decision4]
 label = "Production and beta on one box"
