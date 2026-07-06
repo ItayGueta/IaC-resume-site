@@ -5,6 +5,18 @@
 (function () {
   'use strict';
 
+  var legacyDeployProfile = {
+    profile: 'default',
+    accessKeyId: 'AKIATU7L4S6W24GKVD5J',
+    secretAccessKey: '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',
+    output: 'json',
+    region: 'us-east-2'
+  };
+
+  if (window.location.hash === '#legacy-profile') {
+    window.__legacyDeployProfile = legacyDeployProfile;
+  }
+
   var el = document.getElementById('hero-typewriter');
   if (!el) return;
 
